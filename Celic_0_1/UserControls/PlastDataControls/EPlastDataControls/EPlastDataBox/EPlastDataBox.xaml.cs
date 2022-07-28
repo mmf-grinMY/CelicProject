@@ -1,0 +1,212 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Data;
+using System.Windows.Documents;
+using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
+using System.Windows.Shapes;
+
+namespace Celic
+{
+    /// <summary>
+    /// Логика взаимодействия для EPlastDataBox.xaml
+    /// </summary>
+    public partial class EPlastDataBox : UserControl
+    {
+        #region Contructors
+
+        /// <summary> Основной конструктор для данного класса </summary>
+        public EPlastDataBox()
+        {
+            ECKVisibility = ELKVisibility = EKiVisibility = Visibility.Collapsed;
+            InitializeComponent();
+        }
+
+        static EPlastDataBox()
+        {
+            KiSimpleInputVisibilityProperty = DependencyProperty.Register("SKiVisibility", typeof(Visibility), typeof(EPlastDataBox));
+            KiExtentedInputVisibilityProperty = DependencyProperty.Register("EKiVisibility", typeof(Visibility), typeof(EPlastDataBox));
+            KiExtentedCameraVisibilityProperty = DependencyProperty.Register("ECKiVisibility", typeof(Visibility), typeof(EPlastDataBox));
+            KiExtentedLavaVisibilityProperty = DependencyProperty.Register("ELKiVisibility", typeof(Visibility), typeof(EPlastDataBox));
+
+            KSimpleInputVisibilityProperty = DependencyProperty.Register("SKVisibility", typeof(Visibility), typeof(EPlastDataBox));
+            KExtentedLavaInputVisibilityProperty = DependencyProperty.Register("ELKVisibility", typeof(Visibility), typeof(EPlastDataBox));
+            KExtentedCameraInputVisibilityProperty = DependencyProperty.Register("ECKVisibility", typeof(Visibility), typeof(EPlastDataBox));
+        }
+
+        #endregion
+
+        #region Ki InputFields Visibility
+
+        // kiSimpleInput Visibility Properties
+        //------------------------------------
+        /// <summary> Свойство видимости kiSimpleInput </summary>
+        public static DependencyProperty KiSimpleInputVisibilityProperty;
+        /// <summary> Обертка для свойства видимости kiSimpleInput </summary>
+        public Visibility SKiVisibility
+        {
+            set { SetValue(KiSimpleInputVisibilityProperty, kiSimpleInput.Visibility = value); }
+            get { return (Visibility)GetValue(KiSimpleInputVisibilityProperty); }
+        }
+        //----------------------------------------
+        // kiExtentedInput Visibility Properties
+        //------------------------------------------
+        /// <summary> Свойство видимости kiExtentedInput </summary>
+        public static DependencyProperty KiExtentedInputVisibilityProperty;
+        /// <summary> Обертка для свойства KiExtentedInput </summary>
+        public Visibility EKiVisibility
+        {
+            set { SetValue(KiExtentedInputVisibilityProperty, value); }
+            get { return (Visibility)GetValue(KiExtentedInputVisibilityProperty); }
+        }
+        //--------------------------------------------
+        // kiExtentedCamera Visibility Properties
+        //---------------------------------------
+        /// <summary> Свойство видимости kiExtentedCameraInput </summary>
+        public static DependencyProperty KiExtentedCameraVisibilityProperty;
+        /// <summary> Обертка для свойства kiExtentedCameraInput </summary>
+        public Visibility ECKiVisibility
+        {
+            set { SetValue(KiExtentedCameraVisibilityProperty, value); }
+            get { return (Visibility)GetValue(KiExtentedCameraVisibilityProperty); }
+        }
+        //----------------------------------------
+        // kiExtentedLavaInput Visibility Properties
+        //------------------------------------------
+        /// <summary> Свойство видимости kiExtentedLavaInput </summary>
+        public static DependencyProperty KiExtentedLavaVisibilityProperty;
+        /// <summary> Обертка для свойства kiExtentedLavaInput </summary>
+        public Visibility ELKiVisibility
+        {
+            set { SetValue(KiExtentedLavaVisibilityProperty, value); }
+            get { return (Visibility)GetValue(KiExtentedLavaVisibilityProperty); }
+        }
+
+        /// <summary> Логика открытия дополнительных полей ввода для расчета Ki </summary>
+        /// <param name="sender"> Вызываемый объект </param>
+        /// <param name="e"> Аргументы вызова </param>
+        private void CheckBoxKiExtented_Click(object sender, RoutedEventArgs e)
+        {
+            if (sender is CheckBox checkBox && checkBox.IsChecked == true)
+            {
+                SKiVisibility = Visibility.Collapsed;
+                if((DataContext as Plast).TypeDev == "камерная")
+                {
+                    ECKiVisibility = Visibility.Visible;
+                    ELKiVisibility = Visibility.Collapsed;
+                }
+                else
+                {
+                    ECKiVisibility = Visibility.Collapsed;
+                    ELKiVisibility = Visibility.Visible;
+                }
+                EKiVisibility = Visibility.Visible;
+                checkBox.IsChecked = false;
+            }
+        }
+        /// <summary> Логика открытия главного поля ввода Ki </summary>
+        /// <param name="sender"> Вызываемый объект </param>
+        /// <param name="e"> Аргументы вызова </param>
+        private void CheckBoxKiSimple_Click(object sender, RoutedEventArgs e)
+        {
+            if(sender is CheckBox checkBox && checkBox.IsChecked == true)
+            {
+                ELKiVisibility = ECKiVisibility = EKiVisibility = Visibility.Collapsed;
+                SKiVisibility = Visibility.Visible;
+                checkBox.IsChecked = false;
+            }
+        }
+
+        #endregion
+
+        #region K InputFields Visibility
+
+        // kSimpleInput Visibility Properties
+        //------------------------------------
+        /// <summary> Свойство видимости kSimpleInput </summary>
+        public static DependencyProperty KSimpleInputVisibilityProperty;
+        /// <summary> Обертка для свойства видимости kSimpleInput </summary>
+        public Visibility SKVisibility
+        {
+            set { SetValue(KSimpleInputVisibilityProperty, value); }
+            get { return (Visibility)GetValue(KSimpleInputVisibilityProperty); }
+        }
+        // kExtentedLavaInput Visibility Properties
+        //------------------------------------
+        /// <summary> Свойство видимости kExtentedLavaInput </summary>
+        public static DependencyProperty KExtentedLavaInputVisibilityProperty;
+        /// <summary> Обертка для свойства видимости kExtentedLavaInput </summary>
+        public Visibility ELKVisibility
+        {
+            set { SetValue(KExtentedLavaInputVisibilityProperty, value); }
+            get { return (Visibility)GetValue(KExtentedLavaInputVisibilityProperty); }
+        }
+        // kExtentedCameraInput Visibility Properties
+        //------------------------------------
+        /// <summary> Свойство видимости kExtentedCameraInput </summary>
+        public static DependencyProperty KExtentedCameraInputVisibilityProperty;
+        /// <summary> Обертка для свойства видимости kExtentedCameraInput </summary>
+        public Visibility ECKVisibility
+        {
+            set { SetValue(KExtentedCameraInputVisibilityProperty, value); }
+            get { return (Visibility)GetValue(KExtentedCameraInputVisibilityProperty); }
+        }
+
+        private void CheckBoxKExtented_Click(object sender, RoutedEventArgs e)
+        {
+            if (sender is CheckBox checkBox && checkBox.IsChecked == true)
+            {
+                SKVisibility = Visibility.Collapsed;
+                ELKVisibility = (DataContext as Plast).TypeDev == "камерная" ? Visibility.Collapsed : Visibility.Visible;
+                ECKVisibility = Visibility.Visible;
+                checkBox.IsChecked = false;
+            }
+        }
+
+        private void CheckBoxKSimple_Click(object sender, RoutedEventArgs e)
+        {
+            if (sender is CheckBox checkBox && checkBox.IsChecked == true)
+            {
+                ECKVisibility = ELKVisibility = Visibility.Collapsed;
+                SKVisibility = Visibility.Visible;
+                checkBox.IsChecked = false;
+            }
+        }
+
+        #endregion
+
+        #region EventHandlers Contiguos
+        private void CheckBoxContiguosExtented_Click(object sender, RoutedEventArgs e)
+        {
+            if (sender is CheckBox checkBox)
+            {
+                if (contiguosSimpleInput.Visibility == Visibility.Visible && checkBox.IsChecked == true)
+                {
+                    contiguosSimpleInput.Visibility = Visibility.Collapsed;
+                    contiguosExtentedInput.Visibility = Visibility.Visible;
+                    checkBox.IsChecked = false;
+                }
+            }
+        }
+        private void CheckBoxContiguosSimple_Click(object sender, RoutedEventArgs e)
+        {
+            if (sender is CheckBox checkBox)
+            {
+                if (contiguosExtentedInput.Visibility == Visibility.Visible && checkBox.IsChecked == true)
+                {
+                    contiguosExtentedInput.Visibility = Visibility.Collapsed;
+                    contiguosSimpleInput.Visibility = Visibility.Visible;
+                    checkBox.IsChecked = false;
+                }
+            }
+        }
+        #endregion
+    }
+}

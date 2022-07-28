@@ -3,14 +3,14 @@
 namespace Celic
 {
     /// <summary>
-    /// Логика взаимодействия для PlastDataBox.xaml
+    /// Логика взаимодействия для SPlastDataBox.xaml
     /// </summary>
-    public partial class PlastDataBox : UserControl
+    public partial class SPlastDataBox : UserControl
     {
         /// <summary>
         /// 
         /// </summary>
-        public PlastDataBox()
+        public SPlastDataBox()
         {
             InitializeComponent();
         }

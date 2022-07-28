@@ -5,9 +5,7 @@ using System.Windows;
 
 namespace Celic
 {
-    /// <summary>
-    /// Общая логика окна со спиком ( списками ) пластов
-    /// </summary>
+    /// <summary> Общая логика окна со спиком ( списками ) пластов </summary>
     public abstract class ListPlastViewModel : BaseViewModel, ICalcViewModel
     {
         #region Protected Fields
@@ -47,8 +45,8 @@ namespace Celic
             get => _selectedPlast;
             set
             {
-                if (_calcWindow.GetType() == typeof(SCalcBWindow)) ;
-                // (_calcWindow as SCalcBWindow).selected.IsEnabled = (_selectedPlast = value) != null;
+                if (_calcWindow.GetType() == typeof(SCalcBWindow))
+                    (_calcWindow as SCalcBWindow).selected.IsEnabled = (_selectedPlast = value) != null;
                 else if (_calcWindow.GetType() == typeof(SCalcCWindow))
                     (_calcWindow as SCalcCWindow).selected.IsEnabled = (_selectedPlast = value) != null;
                 else if (_calcWindow.GetType() == typeof(SCalcDWindow))

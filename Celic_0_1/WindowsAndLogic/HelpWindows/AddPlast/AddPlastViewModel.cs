@@ -174,7 +174,7 @@ namespace Celic
                     {
                         _plastWindow.Plast1.IsEnabled = isAddContCom1Clicked = true;
                         _plasts.Add(ContiguosPlast1 = new Plast());
-                        ContiguosPlast1.Contiguos = MainPlast.GetHashCode();
+                        // ContiguosPlast1.Contiguos = MainPlast.GetHashCode();
                     }
                     else
                     {
@@ -206,7 +206,7 @@ namespace Celic
                         {
                             isAddContCom2Clicked = _plastWindow.Plast2.IsEnabled = true;
                             _plasts.Add(ContiguosPlast2 = new Plast());
-                            ContiguosPlast2.Contiguos = MainPlast.GetHashCode();
+                            // ContiguosPlast2.Contiguos = MainPlast.GetHashCode();
                         }
                         else
                         {

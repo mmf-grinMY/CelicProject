@@ -4,9 +4,10 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Celic"
-             mc:Ignorable="d" 
-             d:DesignHeight="400"
-             d:DesignWidth="324.6">
+             d:DataContext="{d:DesignInstance local:Plast}"
+             mc:Ignorable="d"
+             d:DesignWidth="324.6"
+             x:Name="main">
     <UserControl.Resources>
         <Style TargetType="TextBox">
             <Setter Property="Width" Value="100"/>
@@ -41,12 +42,17 @@
             <Setter Property="Padding" Value="4,-3,0,0"/>
             <Setter Property="Margin" Value="4,4,0,0"/>
         </Style>
-        
     </UserControl.Resources>
     <Border Padding="0"
-            Margin="-4,-4,-4,0"
-            x:Name="main">
+            Margin="-4,-4,-4,0">
         <StackPanel Orientation="Vertical">
+            <Border>
+                <!--Ввод имени пласта-->
+                <StackPanel>
+                    <TextBlock Text="Наименование пласта"/>
+                    <TextBox Text="{Binding Path=Name, UpdateSourceTrigger=PropertyChanged}"/>
+                </StackPanel>
+            </Border>
             <Border>
                 <StackPanel Orientation="Vertical">
                     <!--Ввод системы разработки-->
@@ -77,8 +83,6 @@
                         <TextBlock Text="Глубина ведения горных работ"/>
                         <TextBox Text="{Binding Path=H, UpdateSourceTrigger=PropertyChanged}"/>
                     </StackPanel>
-                    <local:TestUserControl BlockText="Глубина ведения горных работ"
-                                           BoxText="{Binding Path=H, UpdateSourceTrigger=PropertyChanged}"/>
                     <!--Ввод вынимаемой мощности-->
                     <StackPanel>
                         <TextBlock Text="Вынимаемая мощность"/>
@@ -86,13 +90,14 @@
                     </StackPanel>
                 </StackPanel>
             </Border>
+            <!--Ввод коэффициента извлечения-->
             <Border>
-                <!--Ввод коэффициента извлечения-->
                 <StackPanel Orientation="Vertical">
                     <!--Ввод явного значения Ki-->
                     <StackPanel Margin="0,0,0,2"
-                                    Orientation="Vertical"
-                                    x:Name="kiSimpleInput">
+                                Orientation="Vertical"
+                                x:Name="kiSimpleInput"
+                                Visibility="{Binding ElementName=main, Path=SKiVisibility}">
                         <!--Ввод явного значения Ki-->
                         <StackPanel>
                             <TextBlock Text="Коэффициент извлечения ">
@@ -119,12 +124,13 @@
                     </StackPanel>
                     <!--Ввод дополнительных параметров для расчета Ki-->
                     <StackPanel Orientation="Vertical"
-                                    x:Name="kiExtentedInput"
-                                    Visibility="Collapsed">
+                                x:Name="kiExtentedInput"
+                                Visibility="{Binding ElementName=main, Path=EKiVisibility}">
                         <!--Ввод дополнительных данных для расчета Ki
                                     при камерной системе разработки-->
                         <StackPanel Orientation="Vertical"
-                                        x:Name="CameraKiExtentedInput">
+                                    x:Name="kiExtentedCameraInput"
+                                    Visibility="{Binding ElementName=main, Path=ECKiVisibility}">
                             <!--Ввод суммы поперечных сечений-->
                             <StackPanel>
                                 <TextBlock Text="Cумма поперечных сечений">
@@ -132,7 +138,7 @@
                                         <ToolTip Content="Cумма поперечных сечений выработок, составляющих очистную камеру"/>
                                     </TextBlock.ToolTip>
                                 </TextBlock>
-                                <TextBox/>
+                                <TextBox Text="{Binding Path=Si, UpdateSourceTrigger=PropertyChanged}"/>
                             </StackPanel>
                             <!--Ввод растояний между осями-->
                             <StackPanel>
@@ -141,13 +147,14 @@
                                         <ToolTip Content="Расстояние между осями соседних междукамерных целиков"/>
                                     </TextBlock.ToolTip>
                                 </TextBlock>
-                                <TextBox/>
+                                <TextBox Text="{Binding Path=L, UpdateSourceTrigger=PropertyChanged}"/>
                             </StackPanel>
                         </StackPanel>
                         <!--Ввод дополнительных данных для расчета Ki
                                     при столбовой системе разработки-->
                         <StackPanel Orientation="Vertical"
-                                        x:Name="LavaKiExtentedInput">
+                                    x:Name="kiExtentedLavaInput"
+                                    Visibility="{Binding ElementName=main, Path=ELKiVisibility}">
                             <!--Ввод площади поперечного сечения-->
                             <StackPanel>
                                 <TextBlock Text="Площадь попер. сечения лавы">
@@ -155,7 +162,7 @@
                                         <ToolTip Content="Площадь поперечного сечения лавы"/>
                                     </TextBlock.ToolTip>
                                 </TextBlock>
-                                <TextBox/>
+                                <TextBox Text="{Binding Path=Sl, UpdateSourceTrigger=PropertyChanged}"/>
                             </StackPanel>
                             <!--Ввод длины лавы-->
                             <StackPanel>
@@ -164,7 +171,7 @@
                                         <ToolTip Content="Длина лавы"/>
                                     </TextBlock.ToolTip>
                                 </TextBlock>
-                                <TextBox/>
+                                <TextBox Text="{Binding Path=Ll, UpdateSourceTrigger=PropertyChanged}"/>
                             </StackPanel>
                         </StackPanel>
                         <!--Переключатель на ввод Ki в явном виде-->
@@ -175,13 +182,14 @@
                     </StackPanel>
                 </StackPanel>
             </Border>
+            <!--Ввод коэффициента выработанного пространства-->
             <Border>
-                <!--Ввод коэффициента выработанного пространства-->
                 <StackPanel Orientation="Vertical">
                     <!--Ввод явного значения K-->
                     <StackPanel Margin="0,0,0,2"
                                 Orientation="Vertical"
-                                x:Name="kSimpleInput">
+                                x:Name="kSimpleInput"
+                                Visibility="{Binding ElementName=main, Path=SKVisibility}">
                         <!--Ввод явного значения K-->
                         <StackPanel>
                             <TextBlock Text="Коэффициент выработ. пр-ва ">
@@ -207,33 +215,11 @@
                                   Content="Рассчитать по дополнительным параметрам"/>
                     </StackPanel>
                     <!--Ввод дополнительных значения для расчета K-->
-                    <StackPanel Orientation="Vertical"
-                                Visibility="Collapsed"
-                                x:Name="kExtentedInput">
-                        <!--Ввод ширины выработанного пространства-->
-                        <StackPanel x:Name="DInput">
-                            <TextBlock Text="Ширина выработанного пр-ва">
-                                <TextBlock.ToolTip>
-                                    <ToolTip>
-                                        <TextBlock>
-                                            Ширина выработанного пространства (блока, панели), м.
-                                            <LineBreak/>
-                                            При этом в выработанное пространство включаются очистные
-                                            <LineBreak/>
-                                            камеры с междукамерными (междуходовыми) целиками совместно
-                                            <LineBreak/>
-                                            с оконтуривающими рассматриваемый участок горноподготовительными
-                                            <LineBreak/>
-                                            выработками и целиками между ними.
-                                        </TextBlock>
-                                    </ToolTip>
-                                </TextBlock.ToolTip>
-                                </TextBlock>
-                            <TextBox/>
-                        </StackPanel>
+                    <StackPanel Orientation="Vertical">
                         <!--Ввод расстояния между бортовыми штреками
                             при столбовой системе разработки-->
-                        <StackPanel x:Name="BInput">
+                        <StackPanel x:Name="kExtentedLavaInput"
+                                    Visibility="{Binding ElementName=main, Path=ELKVisibility}">
                             <TextBlock Text="Расстояние между штреками">
                                 <TextBlock.ToolTip>
                                     <ToolTip>
@@ -249,17 +235,42 @@
                                     </ToolTip>
                                 </TextBlock.ToolTip>
                                 </TextBlock>
-                            <TextBox/>
+                            <TextBox Text="{Binding Path=B, UpdateSourceTrigger=PropertyChanged}"/>
                         </StackPanel>
-                        <!--Переключатель выбора-->
-                        <CheckBox Padding="4,-3,0,0"
-                                  Margin="0,2"
-                                  Click="CheckBoxKSimple_Click">
-                            <TextBlock Width="Auto">
-                                Задать коэффициент выработанного
-                                <LineBreak/>пространства в явном виде
-                            </TextBlock>
-                        </CheckBox>
+                        <StackPanel Orientation="Vertical"
+                                    x:Name="kExtentedCameraInput"
+                                    Visibility="{Binding ElementName=main, Path=ECKVisibility}">
+                            <!--Ввод ширины выработанного пространства-->
+                            <StackPanel>
+                                <TextBlock Text="Ширина выработанного пр-ва">
+                                    <TextBlock.ToolTip>
+                                        <ToolTip>
+                                            <TextBlock>
+                                                Ширина выработанного пространства (блока, панели), м.
+                                                <LineBreak/>
+                                                При этом в выработанное пространство включаются очистные
+                                                <LineBreak/>
+                                                камеры с междукамерными (междуходовыми) целиками совместно
+                                                <LineBreak/>
+                                                с оконтуривающими рассматриваемый участок горноподготовительными
+                                                <LineBreak/>
+                                                выработками и целиками между ними.
+                                            </TextBlock>
+                                        </ToolTip>
+                                    </TextBlock.ToolTip>
+                                    </TextBlock>
+                                <TextBox Text="{Binding Path=PD, UpdateSourceTrigger=PropertyChanged}"/>
+                            </StackPanel>
+                            <!--Переключатель выбора-->
+                            <CheckBox Padding="4,-3,0,0"
+                                      Margin="0,2"
+                                      Click="CheckBoxKSimple_Click">
+                                <TextBlock Width="Auto">
+                                    Задать коэффициент выработанного
+                                    <LineBreak/>пространства в явном виде
+                                </TextBlock>
+                            </CheckBox>
+                        </StackPanel>
                     </StackPanel>
                 </StackPanel>
             </Border>
@@ -290,15 +301,15 @@
                             <!--Выбор сближенного пласта, находящегося снизу данного-->
                             <StackPanel>
                                 <TextBlock Text=" снизу" Width="43" Margin="0"/>
-                                <ComboBox>
-                                    <ComboBoxItem Content="Нижний пласт"/>
+                                <ComboBox Text="{Binding Path=Buttom}">
+                                    <ComboBoxItem Content="{Binding}"/>
                                     <ComboBoxItem Content="отсутствует"/>
                                 </ComboBox>
                             </StackPanel>
                             <!--Выбор сближенного пласта, находящегося сверху данного-->
                             <StackPanel Grid.Column="1">
                                 <TextBlock Text="сверху" Width="43" Margin="0"/>
-                                <ComboBox>
+                                <ComboBox Text="{Binding Path=Top}">
                                     <ComboBoxItem Content="Верхний пласт"/>
                                     <ComboBoxItem Content="отсутствует"/>
                                 </ComboBox>

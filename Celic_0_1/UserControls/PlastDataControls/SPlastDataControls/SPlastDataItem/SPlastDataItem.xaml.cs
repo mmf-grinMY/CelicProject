@@ -5,12 +5,12 @@ namespace Celic
     /// <summary>
     /// Логика взаимодействия для PlastListBox.xaml
     /// </summary>
-    public partial class PlastDataItem : UserControl
+    public partial class SPlastDataItem : UserControl
     {
         /// <summary>
         /// 
         /// </summary>
-        public PlastDataItem()
+        public SPlastDataItem()
         {
             InitializeComponent();
         }

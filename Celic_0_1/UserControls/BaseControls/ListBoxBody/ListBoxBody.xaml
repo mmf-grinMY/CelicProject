@@ -11,7 +11,7 @@
     <ListBox Padding="-2,0">
         <ListBox.ItemTemplate>
             <DataTemplate>
-                <local:PlastDataItem/>
+                <local:SPlastDataItem/>
             </DataTemplate>
         </ListBox.ItemTemplate>
     </ListBox>

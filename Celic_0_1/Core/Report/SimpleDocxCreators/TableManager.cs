@@ -115,7 +115,7 @@ namespace Celic
             for(int i = 0; i < _table.Columns.Count; i++)
             {
                 _cell.Range.Text = i == 0 ? "Наименование параметра" :
-                    i + "-й пласт " + (_plasts[i - 1].Contiguos != 0 ? "(Сближенный слой " + contiguosNumber++ + ")" : "(Пласт)");
+                    i + "-й пласт "; //+ (_plasts[i - 1].Contiguos != 0 ? "(Сближенный слой " + contiguosNumber++ + ")" : "(Пласт)");
                 _rangeLength += _cell.Range.Text.Length;
                 _cell = _cell.Next;
             }

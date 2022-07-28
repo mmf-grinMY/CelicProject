@@ -1,33 +1,28 @@
-﻿using System.ComponentModel;
-using System.Runtime.CompilerServices;
-using static System.Char;
+﻿using static System.Char;
 using static System.Single;
 using static Celic.HelpManager;
 
 namespace Celic
 {
     /// <summary> Хранение данных о пласте </summary>
-    public class Plast
+    public class Plast : BaseViewModel
     {
         #region Constructors
 
+        /// <summary> Статический констуктор для данного класса </summary>
+        static Plast() => id = 0;
+        /// <summary> Основной констуктор для данного класса </summary>
         public Plast()
         {
             TypeDev = "столбовая";
             Mv = "2,5";
             Ki = "1";
             H = "500";
+            myID = id;
+            Name = $"Пласт_{myID}";
+            id++;
+            K = Ki = PD = "";
         }
-
-        #endregion
-
-        #region PropertyChanged
-
-        /// <summary> Событие при изменении свойства компонента </summary>
-        public event PropertyChangedEventHandler PropertyChanged;
-        /// <summary> Обработчик для события Propertychanged </summary>
-        /// <param name="prop"> Назввание свойства </param>
-        public void OnPropertyChanged([CallerMemberName] string prop = "") => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(prop));
 
         #endregion
 
@@ -45,32 +40,54 @@ namespace Celic
         private string _typeDev;
         /// <summary> Коэффициент, учитывающий размер выработанного пространства ( степень подработанности породного массива ) ( поле ) </summary>
         private string _k;
+        /// <summary> Шахтное поле с камерной системой разработки </summary>
+        private Camera _camera;
+        /// <summary> Шахтное поле со столбовой системой разработки </summary>
+        private Lava _lava;
+        /// <summary> Ширина выработанного пространства ( поле ) </summary>
+        private string _d;
+        /// <summary> Имя пласта ( поле)  </summary>
+        private string _name;
+        /// <summary> Уникальный идентификатор пласта ( поле ) </summary>
+        private int myID;
+        /// <summary> Количество созданных пластов </summary>
+        private static int id;
+        /// <summary> Сближенный к данному пласт, находящийся сверху ( поле ) </summary>
+        private string _top;
+        /// <summary> Сближенный к данному пласт, находящийся снизу ( поле ) </summary>
+        private string _buttom;
 
         #endregion
 
         #region Public Properties
 
-        /// <summary> Вынимаемая мощность пласта(высота камер), м </summary>
-        public string Mv
+        // Общие параметры пласта
+        //-------------------------------------
+        /// <summary> Имя пласта </summary>
+        public string Name
         {
+            get => _name;
             set
             {
-                if (value != "" && value != "0" && value != "0,")
-                {
-                    value = RmNull(value);
-                    value = (value != "" && TryParse(value, out float tmp) && tmp > 0 && tmp <= 3) ? value : "0";
-                }
-                _mv = value;
-                OnPropertyChanged(nameof(Mv));
+                _name = value;
+                OnPropertyChanged(nameof(Name));
             }
-            get => _mv;
         }
         /// <summary> Система разработки шахтного поля </summary>
-        public string TypeDev 
+        public string TypeDev
         {
             set
             {
-                _typeDev = value;
+                if ((_typeDev = value) == "столбовая")
+                {
+                    _camera = null;
+                    _lava = new Lava();
+                }
+                else
+                {
+                    _camera = new Camera();
+                    _lava = null;
+                }
                 OnPropertyChanged(nameof(TypeDev));
             }
             get => _typeDev;
@@ -99,15 +116,20 @@ namespace Celic
             }
             get => _h;
         }
-        /// <summary> Коэффициент извлечения рудной массы в пределах вынимаемой мощности </summary>
-        public string Ki
+        /// <summary> Вынимаемая мощность пласта(высота камер), м </summary>
+        public string Mv
         {
             set
             {
-                _ki = ValidateOneNumber(value);
-                OnPropertyChanged(nameof(Ki));
+                if (value != "" && value != "0" && value != "0,")
+                {
+                    value = RmNull(value);
+                    value = (value != "" && TryParse(value, out float tmp) && tmp > 0 && tmp <= 3) ? value : "0";
+                }
+                _mv = value;
+                OnPropertyChanged(nameof(Mv));
             }
-            get => _ki;
+            get => _mv;
         }
         /// <summary> Калийный горизонт </summary>
         public string Gorizont
@@ -119,6 +141,65 @@ namespace Celic
                 OnPropertyChanged(nameof(Gorizont));
             }
         }
+        
+        // Параметры нахождения коэффициента извлечения
+        //----------------------------------------------
+        /// <summary> Коэффициент извлечения рудной массы в пределах вынимаемой мощности </summary>
+        public string Ki
+        {
+            set
+            {
+                _ki = ValidateOneNumber(value);
+                Si = L = Ll = Sl = string.Empty;
+                OnPropertyChanged(nameof(Ki));
+            }
+            get => _ki;
+        }       
+        /// <summary> Площадь поперечного сечения лавы ( только для шахтного поля со столбовой системой разработки ) </summary>
+        public string Sl
+        {
+            get => _lava != null ? _lava.Sl : string.Empty;
+            set
+            {
+                if(_lava != null)
+                    _lava.Sl = value;
+                OnPropertyChanged(nameof(Sl));
+            }
+        }
+        /// <summary> Длина лавы ( только для шахтного поля со столбовой системой разработки ) </summary>
+        public string Ll
+        {
+            get => _lava != null ? _lava.L : string.Empty;
+            set
+            {
+                if(_lava != null)
+                    _lava.L = value;
+                OnPropertyChanged(nameof(Ll));
+            }
+        }
+        /// <summary> Расстояние между соседними осями междукамерных целиков ( только для шахтного поля с камерной системой разработки ) </summary>
+        public string L
+        {
+            get => _camera != null ? _camera.L : string.Empty;
+            set
+            {
+                if(_camera != null)
+                    _camera.L = value;
+                OnPropertyChanged(nameof(L));
+            }
+        }
+        /// <summary> Сумма поперечных сечений выработок, составляющих очистную камеру ( только для шахтного поля с камерной системой разработки ) </summary>
+        public string Si
+        {
+            get => _camera != null ? _camera.Si : string.Empty;
+            set
+            {
+                if(_camera != null)
+                    _camera.Si = value;
+                OnPropertyChanged(nameof(Si));
+            }
+        }
+        
         /// <summary> Коэффициент, учитывающий размер выработанного пространства ( степень подработанности породного массива ) </summary>
         public string K
         {
@@ -129,12 +210,53 @@ namespace Celic
                 OnPropertyChanged(nameof(K));
             } 
         }
+        /// <summary> Ширина выработанного пространства </summary>
+        public string PD
+        {
+            get => _d;
+            set
+            {
+                _d = value;
+                OnPropertyChanged(nameof(D));
+            }
+        }
+        /// <summary> Расстояние между штреками ( только для шахтного поля со столбовой системой разработки ) </summary>
+        public string B
+        {
+            get => _lava != null ? _lava.B : string.Empty;
+            set
+            {
+                if (_lava != null)
+                    _lava.B = value;
+                OnPropertyChanged(nameof(B));
+            }
+        }
         /// <summary> Глубина ведения горных работ в пределах от 350 до 1000 м ( число ) </summary>
         public float Height{ get => TryParse(_h, out float h) ? h : 0; }
         /// <summary> Ширина предохранительного приразломного целика на уровне данного пласта со стороны лежачего крыла разломной зоны, м </summary>
         public float Bl { get; set; }
         /// <summary> Ширина предохранительного приразломного целика на уровне данного пласта со стороны висячего крыла разломной зоны, м </summary>
         public float Bv { get; set; }
+        /// <summary> Сближенный к данному пласт, находящийся сверху </summary>
+        public string Top
+        {
+            get => _top;
+            set
+            {
+                _top = value;
+                OnPropertyChanged(nameof(Top));
+            }
+        }
+        /// <summary> Сближенный к данному пласт, находящийся снизу </summary>
+        public string Buttom 
+        {
+            get => _buttom;
+            set
+            {
+                _buttom = value;
+                OnPropertyChanged(nameof(Buttom));
+            }
+        }
 
         //=====================================
 
@@ -147,10 +269,7 @@ namespace Celic
         public double Sz { get; set; }
         /// <summary> Коэффициент, учитывающий порядок разработки пластов и интервал времени между их отработкой </summary>
         public double Kt { get; set; }
-        /// <summary>
-        /// 
-        /// </summary>
-        public int Contiguos { get; set; }
+       
 
         #endregion
 
@@ -170,6 +289,7 @@ namespace Celic
         }
 
         #endregion
+
         #region Public Methods
 
         /// <summary> Расчет высоты ЗВТ одиночного пласта </summary>
