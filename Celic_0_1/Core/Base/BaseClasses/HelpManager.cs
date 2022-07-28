@@ -50,8 +50,13 @@ namespace Celic
         /// <param name="plast1"> Первый пласт </param>
         /// <param name="plast2"> Второй пласт </param>
         /// <returns> true, если пласты являются сближенными; false в протичном случае </returns>
-        public static bool IsContiguous(Plast plast1, Plast plast2) =>
-            plast1.GetHashCode() == plast2.Contiguos || plast1.Contiguos == plast2.GetHashCode();
+        public static bool IsContiguous(Plast plast1, Plast plast2)
+        {
+            if(plast1.Height > plast2.Height)
+                return plast1.Buttom.Equals(plast2.Name) && plast2.Top.Equals(plast1.Name);
+            else
+                return plast2.Buttom.Equals(plast1.Name) && plast1.Top.Equals(plast2.Name);
+        }
         /// <summary> Проверка коллекции пластов на наличие сближенных по условиям водопроводимости </summary>
         /// <param name="plasts"> Коллекция рассматриваемых пластов </param>
         /// <returns> true, если есть сближенные; false, если нет ни одной пары сближенных пластов </returns>

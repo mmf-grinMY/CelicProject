@@ -7,7 +7,7 @@ namespace Celic
     /// <summary> Логика работы TestUserControl </summary>
     public partial class TestUserControl : UserControl
     {
-        #region Public DependencyProperties
+        /*#region Public DependencyProperties
 
         /// <summary> Текст в TextBox </summary>
         public static readonly DependencyProperty TextBoxTextProperty;
@@ -96,6 +96,66 @@ namespace Celic
             set => SetValue(TextBlockTextProperty, value);
         }
 
+        #endregion*/
+
+        #region Constructors
+
+        public TestUserControl() : base() { }
+        static TestUserControl()
+        {
+            KiSimpleInputVisibilityProperty = DependencyProperty.Register("SKiVisibility", typeof(Visibility), typeof(EPlastDataBox));
+            KiExtentedInputVisibilityProperty = DependencyProperty.Register("EKiVisibility", typeof(Visibility), typeof(EPlastDataBox));
+            KiExtentedCameraVisibilityProperty = DependencyProperty.Register("ECKiVisibility", typeof(Visibility), typeof(EPlastDataBox));
+            KiExtentedLavaVisibilityProperty = DependencyProperty.Register("ELKiVisibility", typeof(Visibility), typeof(EPlastDataBox));
+        }
+
+        #endregion
+
+        #region Ki InputFields Visibility
+
+        // kiSimpleInput Visibility Properties
+        //------------------------------------
+        /// <summary> Свойство видимости kiSimpleInput </summary>
+        public static DependencyProperty KiSimpleInputVisibilityProperty;
+        /// <summary> Обертка для свойства видимости kiSimpleInput </summary>
+        public Visibility SKiVisibility
+        {
+            set { SetValue(KiSimpleInputVisibilityProperty, value); }
+            get { return (Visibility)GetValue(KiSimpleInputVisibilityProperty); }
+        }
+        //----------------------------------------
+        // kiExtentedInput Visibility Properties
+        //------------------------------------------
+        /// <summary> Свойство видимости kiExtentedInput </summary>
+        public static DependencyProperty KiExtentedInputVisibilityProperty;
+        /// <summary> Обертка для свойства KiExtentedInput </summary>
+        public Visibility EKiVisibility
+        {
+            set { SetValue(KiExtentedInputVisibilityProperty, value); }
+            get { return (Visibility)GetValue(KiExtentedInputVisibilityProperty); }
+        }
+        //--------------------------------------------
+        // kiExtentedCamera Visibility Properties
+        //---------------------------------------
+        /// <summary> Свойство видимости kiExtentedCameraInput </summary>
+        public static DependencyProperty KiExtentedCameraVisibilityProperty;
+        /// <summary> Обертка для свойства kiExtentedCameraInput </summary>
+        public Visibility ECKiVisibility
+        {
+            set { SetValue(KiExtentedCameraVisibilityProperty, value); }
+            get { return (Visibility)GetValue(KiExtentedCameraVisibilityProperty); }
+        }
+        //----------------------------------------
+        // kiExtentedLavaInput Visibility Properties
+        //------------------------------------------
+        /// <summary> Свойство видимости kiExtentedLavaInput </summary>
+        public static DependencyProperty KiExtentedLavaVisibilityProperty;
+        /// <summary> Обертка для свойства kiExtentedLavaInput </summary>
+        public Visibility ELKiVisibility
+        {
+            set { SetValue(KiExtentedLavaVisibilityProperty, value); }
+            get { return (Visibility)GetValue(KiExtentedLavaVisibilityProperty); }
+        }
         #endregion
     }
 }

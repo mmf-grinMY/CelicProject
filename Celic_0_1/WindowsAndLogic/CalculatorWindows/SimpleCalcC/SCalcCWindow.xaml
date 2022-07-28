@@ -4,7 +4,9 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Celic"
+        d:DataContext="{d:DesignInstance Type=local:SCalcCViewModel}"
         mc:Ignorable="d"
+        
         Title="Расчет приразломных целиков"
         Width="580"
         Height="380">
@@ -34,7 +36,7 @@
                      MaxWidth="244">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
-                        <local:PlastDataItem/>
+                        <local:SPlastDataItem/>
                     </DataTemplate>
                 </ListBox.ItemTemplate>
             </ListBox>
@@ -46,7 +48,7 @@
             <StackPanel>
                 <TextBlock HorizontalAlignment="Center"
                            Text="Выбранный пласт"/>
-                <local:PlastDataBox x:Name="selected"
+                <local:SPlastDataBox x:Name="selected"
                                     DataContext="{Binding SelectedPlast}"/>
             </StackPanel>
             <Border BorderThickness="0.3"

@@ -1,48 +1,42 @@
-﻿<UserControl x:Class="Celic.EPlastDataItem"
+﻿<UserControl x:Class="Celic.SPlastDataItem"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Celic"
+             d:DataContext="{d:DesignInstance local:Plast}"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="216">
+             d:DesignHeight="74"
+             d:DesignWidth="216"
+             MaxWidth="216">
     <UserControl.Resources>
         <Style TargetType="TextBlock">
             <Setter Property="FontSize" Value="12"/>
-        </Style>
-        <Style TargetType="StackPanel">
-            <Setter Property="Orientation" Value="Horizontal"/>
         </Style>
     </UserControl.Resources>
     <Border BorderBrush="Black"
             BorderThickness="0.3"
             Margin="0,1,0,0">
         <StackPanel Margin="4,0,0,4"
-                    Width="208"
-                    Orientation="Vertical">
+                        Width="208">
             <StackPanel.ToolTip>
                 <ToolTip Content="Данные отдельного пласта"/>
             </StackPanel.ToolTip>
-            <StackPanel>
+            <StackPanel Orientation="Horizontal">
                 <TextBlock Text="Система разработки "/>
-                <TextBlock Text="{Binding Path=TypeDev}"/>
+                <TextBlock Text="{Binding Path=TypeDev, UpdateSourceTrigger=PropertyChanged}"/>
             </StackPanel>
-            <StackPanel>
+            <StackPanel Orientation="Horizontal">
                 <TextBlock Text="Вынимаемая мощность "/>
-                <TextBlock Text="{Binding Path=Mv}"/>
+                <TextBlock Text="{Binding Path=Mv, UpdateSourceTrigger=PropertyChanged}"/>
             </StackPanel>
-            <StackPanel>
+            <StackPanel Orientation="Horizontal">
                 <TextBlock Text="Глубина ведения горных работ "/>
-                <TextBlock Text="{Binding Path=H}"/>
+                <TextBlock Text="{Binding Path=H, UpdateSourceTrigger=PropertyChanged}"/>
             </StackPanel>
-            <StackPanel>
+            <StackPanel Orientation="Horizontal">
                 <TextBlock Text="Коэффициент извлечения "/>
-                <TextBlock Text="{Binding Path=Ki}"/>
-            </StackPanel>
-            <!--Новые поля-->
-            <StackPanel>
-                <TextBlock Text="Калийный горизонт "/>
-                <TextBlock Text="{Binding Path=Gorizont}"/>
+                <TextBlock Text="{Binding Path=Ki, UpdateSourceTrigger=PropertyChanged}"/>
             </StackPanel>
         </StackPanel>
     </Border>

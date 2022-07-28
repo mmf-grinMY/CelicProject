@@ -76,15 +76,16 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="WindowsAndLogic\ViewModels\TwoListPlastViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Core\Base\BaseClasses\BaseCalculator.cs" />
     <Compile Include="Core\Data\DataPlast\ExtData\Camera.cs" />
     <Compile Include="Core\Data\DataPlast\ExtData\Lava.cs" />
-    <Compile Include="UserControls\SandBox\EPlastDataBox.xaml.cs">
+    <Compile Include="UserControls\PlastDataControls\EPlastDataControls\EPlastDataBox\EPlastDataBox.xaml.cs">
       <DependentUpon>EPlastDataBox.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserControls\SandBox\EPlastDataItem.xaml.cs">
+    <Compile Include="UserControls\PlastDataControls\EPlastDataControls\EPlastDataItem\EPlastDataItem.xaml.cs">
       <DependentUpon>EPlastDataItem.xaml</DependentUpon>
     </Compile>
     <Compile Include="WindowsAndLogic\ViewModels\BaseViewModel.cs" />
@@ -113,11 +114,11 @@
     <Compile Include="UserControls\BaseControls\ListBoxTitle\ListBoxTitle.xaml.cs">
       <DependentUpon>ListBoxTitle.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserControls\PlastDataControls\PlastDataBox\PlastDataBox.xaml.cs">
-      <DependentUpon>PlastDataBox.xaml</DependentUpon>
+    <Compile Include="UserControls\PlastDataControls\SPlastDataControls\SPlastDataBox\SPlastDataBox.xaml.cs">
+      <DependentUpon>SPlastDataBox.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserControls\PlastDataControls\PlastDataItem\PlastDataItem.xaml.cs">
-      <DependentUpon>PlastDataItem.xaml</DependentUpon>
+    <Compile Include="UserControls\PlastDataControls\SPlastDataControls\SPlastDataItem\SPlastDataItem.xaml.cs">
+      <DependentUpon>SPlastDataItem.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserControls\BaseControls\PlastMenu\PlastMenu.xaml.cs">
       <DependentUpon>PlastMenu.xaml</DependentUpon>
@@ -216,15 +217,15 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="UserControls\SandBox\EPlastDataBox.xaml">
+    <Page Include="UserControls\PlastDataControls\EPlastDataControls\EPlastDataBox\EPlastDataBox.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UserControls\PlastDataControls\PlastDataBox\PlastDataBox.xaml">
+    <Page Include="UserControls\PlastDataControls\SPlastDataControls\SPlastDataBox\SPlastDataBox.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UserControls\PlastDataControls\PlastDataItem\PlastDataItem.xaml">
+    <Page Include="UserControls\PlastDataControls\SPlastDataControls\SPlastDataItem\SPlastDataItem.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -232,7 +233,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UserControls\SandBox\EPlastDataItem.xaml">
+    <Page Include="UserControls\PlastDataControls\EPlastDataControls\EPlastDataItem\EPlastDataItem.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
