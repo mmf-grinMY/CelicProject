@@ -8,45 +8,31 @@ namespace Celic
     {
         #region Private Fields
 
-        /// <summary>
-        /// Приложение Ворд
-        /// </summary>
+        /// <summary> Приложение Ворд </summary>
         private readonly Word.Application _app = null;
-        /// <summary>
-        /// Новая таблица
-        /// </summary>
+        /// <summary> Новая таблица </summary>
         private Word.Table _table = null;
-        /// <summary>
-        /// Ячейка таблицы
-        /// </summary>
+        /// <summary> Ячейка таблицы </summary>
         private Word.Cell _cell = null;
-        /// <summary>
-        /// Длина заполненной части документа
-        /// </summary>
+        /// <summary> Длина заполненной части документа </summary>
         private int _rangeLength = 0;
-        /// <summary>
-        /// Коллекция разрабатываемых пластов
-        /// </summary>
+        /// <summary> Коллекция разрабатываемых пластов </summary>
         private readonly ObservableCollection<Plast> _plasts = null;
 
         #endregion
 
         #region Public Properties
 
-        /// <summary>
-        /// Выбранная ячейка таблицы ( ячейка, с которой в данный момент работают методы )
-        /// </summary>
+        /// <summary> Выбранная ячейка таблицы ( ячейка, с которой в данный момент работают методы ) </summary>
         public Word.Cell Cell { get => _cell; }
 
         #endregion
 
         #region Constructors
 
-        /// <summary>
-        /// Основной конструктор для данного класса
-        /// </summary>
-        /// <param name="application">Запущенное приложение Microsoft Word</param>
-        /// <param name="plasts">Коллекция разрабатываемых пластов</param>
+        /// <summary> Основной конструктор для данного класса </summary>
+        /// <param name="application"> Запущенное приложение Microsoft Word </param>
+        /// <param name="plasts"> Коллекция разрабатываемых пластов </param>
         public TableManager(Word.Application application, ObservableCollection<Plast> plasts)
         {
             _app = application;
@@ -58,30 +44,37 @@ namespace Celic
 
         #region Public Methods
 
-        /// <summary>
-        /// Метод для записи таблицы
-        /// </summary>
-        public int WriteTable()
+        /// <summary> Метод для записи таблицы </summary>
+        public int WriteTable(RepProViewModel reporter)
         {
+            float status = 55f, offset = 3f;
             CreateTable();
+            reporter.StatusReport = (status += offset).ToString();
             _cell = _table.Rows[1].Cells[1];
             WriteRow1();
+            reporter.StatusReport = (status += offset).ToString();
             WriteRow2();
+            reporter.StatusReport = (status += offset).ToString();
             WriteRow3();
+            reporter.StatusReport = (status += offset).ToString();
             WriteRow4();
+            reporter.StatusReport = (status += offset).ToString();
             WriteRow5();
+            reporter.StatusReport = (status += offset).ToString();
 
             _cell = _cell.Next.Next.Next;
             _cell.Range.Text = "Высота зоны развития водопроводящих трещин от совместного влияния отработки разрабатываемых пластов, НT, м";
             Select("пластов, НT, м", 1, 8).Font.Subscript = 1;
             _rangeLength += _cell.Range.Text.Length;
+            reporter.StatusReport = (status += offset).ToString();
 
             _cell = _table.Cell(6, 2);
 
             _table.Rows[6].Cells[2].Merge(_table.Rows[6].Cells[3]);
             _table.Rows[6].Cells[2].Merge(_table.Rows[6].Cells[3]);
             _table.Rows[1].Cells[1].Merge(_table.Rows[2].Cells[1]);
-            
+            reporter.StatusReport = (status += offset).ToString();
+
             return _rangeLength;
         }
 
@@ -89,13 +82,11 @@ namespace Celic
 
         #region Private Methods
 
-        /// <summary>
-        /// Метод для выделения области таблицы
-        /// </summary>
-        /// <param name="start">Номер начального символа</param>
-        /// <param name="length">Длина выделения</param>
-        /// <param name="offset">Количество символов, на которые нужно сместиться</param>
-        /// <returns>Выделенную область таблицы</returns>
+        /// <summary> Метод для выделения области таблицы </summary>
+        /// <param name="start"> Начальная строка </param>
+        /// <param name="length"> Длина выделения </param>
+        /// <param name="offset"> Количество символов, на которые нужно сместиться </param>
+        /// <returns> Выделенная область таблицы </returns>
         private Word.Selection Select(string start, int length = 1, int offset = 0)
         {
             int index = _cell.Range.Text.IndexOf(start);
@@ -106,10 +97,8 @@ namespace Celic
             }
             return _app.Selection;
         }
-        /// <summary>
-        /// Метод для создания таблицы
-        /// </summary>
-        /// <param name="rows">Количество строк таблицы</param>
+        /// <summary> Метод для создания таблицы </summary>
+        /// <param name="rows"> Количество строк таблицы </param>
         private void CreateTable(int rows = 6)
         {
             Word.Document doc = _app.ActiveDocument;
@@ -119,9 +108,7 @@ namespace Celic
             _table.Range.Font.Name = "Times New Roman";
             _table.Range.Font.Size = 12;
         }
-        /// <summary>
-        /// Метод для заполенения первой строки таблицы
-        /// </summary>
+        /// <summary> Метод для заполенения первой строки таблицы </summary>
         private void WriteRow1()
         {
             int contiguosNumber = 1;
@@ -133,9 +120,7 @@ namespace Celic
                 _cell = _cell.Next;
             }
         }
-        /// <summary>
-        /// Метод для заполнения второй строки таблицы
-        /// </summary>
+        /// <summary> Метод для заполнения второй строки таблицы </summary>
         private void WriteRow2()
         {
             for (int i = 0; i < _plasts.Count; i++)
@@ -145,9 +130,7 @@ namespace Celic
                 _rangeLength += _cell.Range.Text.Length;
             }
         }
-        /// <summary>
-        /// Метод для заполнения третьей строки таблицы
-        /// </summary>
+        /// <summary> Метод для заполнения третьей строки таблицы </summary>
         private void WriteRow3()
         {
             for(int i = 0; i < _table.Columns.Count; i++)
@@ -168,9 +151,7 @@ namespace Celic
                 _rangeLength += _cell.Range.Text.Length;
             }
         }
-        /// <summary>
-        /// Метод для заполнения четвертой строки таблицы
-        /// </summary>
+        /// <summary> Метод для заполнения четвертой строки таблицы </summary>
         private void WriteRow4()
         {
             for (int i = 0; i < _table.Columns.Count; i++)
@@ -189,9 +170,7 @@ namespace Celic
                 _rangeLength += _cell.Range.Text.Length;
             }
         }
-        /// <summary>
-        /// Метод для заполнения пятой строки таблицы 
-        /// </summary>
+        /// <summary> Метод для заполнения пятой строки таблицы  </summary>
         private void WriteRow5()
         {
             _cell = _cell.Next;

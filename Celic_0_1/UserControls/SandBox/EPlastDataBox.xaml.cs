@@ -116,10 +116,5 @@ namespace Celic
                 }
             }
         }
-
-        private void TestUserControl_BoxTextChanged(object sender, RoutedPropertyChangedEventArgs<string> e)
-        {
-            Console.WriteLine("Обработчик успешно сработал");
-        }
     }
 }

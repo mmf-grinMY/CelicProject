@@ -2,6 +2,7 @@
 using Word = Microsoft.Office.Interop.Word;
 using Align = Microsoft.Office.Interop.Word.WdParagraphAlignment;
 using static Celic.HelpManager;
+using System;
 
 namespace Celic
 {
@@ -153,33 +154,55 @@ namespace Celic
         /// <param name="reporter"> Модель, отслеживающая запись процесса расчета в файл </param>
         protected override void WriteCalculation(RepProViewModel reporter)
         {
+            float status = 5f, offset = 2.5f;
+            reporter.ResultReport = "Запись информации о последнем столбце";
             AddParagraph("Описание горных работ", FormatTitle, Align.wdAlignParagraphCenter, NULL_SPACE_PARAGRAPH);
+            reporter.StatusReport = (status += offset).ToString();
             AddParagraph("3.1. Расчёт высоты распространения водопроводящих трещин над разрабатываемым пластом",
                 FormatHeader, Align.wdAlignParagraphCenter, SPACE_PARAGRAPH);
+            reporter.StatusReport = (status += offset).ToString();
             AddParagraph($"Очистные работы на {_p.Gorizont}-м калийном горизонте при " +
                 (_p.TypeDev == "столбовая" ? "столбовой" : "камерной") +
                 " системе отработки будут проводиться со следующими параметрами:", FormatLine1);
+            reporter.StatusReport = (status += offset).ToString();
             AddParagraph($"Выемочная мощность{ Tab(5)}-{ Tab(1)}mв = {_p.Mv} м;", FormatListLine1, spaceAfter: NULL_SPACE_PARAGRAPH);
+            reporter.StatusReport = (status += offset).ToString();
             AddParagraph($"Глубина ведения горных работ{Tab(3)}-{Tab(1)}{_p.H} м;", FormatListLine2);
+            reporter.StatusReport = (status += offset).ToString();
             AddParagraph("Коэффициент извлечения рудной массы");
+            reporter.StatusReport = (status += offset).ToString();
             AddParagraph($"в пределах вынимаемой мощности{Tab(3)} -{Tab(1)} kи = { _p.Ki}.",
                 FormatListLine32, spaceAfter: SPACE_PARAGRAPH * 2);
+            reporter.StatusReport = (status += offset).ToString();
             AddParagraph($"Высота зоны распространения трещин над {_p.Gorizont}-м калийным горизонтом составит:",
                 FormatLine2, spaceAfter: NULL_SPACE_PARAGRAPH);
+            reporter.StatusReport = (status += offset).ToString();
             AddParagraph("HT = d ∙ mпр,", FormatFormula1, Align.wdAlignParagraphCenter);
+            reporter.StatusReport = (status += offset).ToString();
             AddParagraph("mпр – приведенная вынимаемая мощность пласта.", FormatExplanation1);
+            reporter.StatusReport = (status += offset).ToString();
             AddParagraph("mпр = mв ∙ kи ∙ k,", FormatFormula2, Align.wdAlignParagraphCenter);
+            reporter.StatusReport = (status += offset).ToString();
             AddParagraph("mв – вынимаемая мощность пласта,", FormatExplanation2);
+            reporter.StatusReport = (status += offset).ToString();
             AddParagraph("kи – коэффициент извлечения рудной массы в пределах вынимаемой мощности,", FormatExplanation3);
+            reporter.StatusReport = (status += offset).ToString();
             AddParagraph("k – коэффициент, учитывающий размер выработанного пространства, принимаем k = 1.", FormatExplanation4);
+            reporter.StatusReport = (status += offset).ToString();
             AddParagraph($"Принимая выемочную мощность по {_p.Gorizont}-му калийному горизонту равную " +
                 $"{ _p.Mv} метра, а коэффициент извлечения kи = {_p.Ki} получаем:", FormatLine3);
+            reporter.StatusReport = (status += offset).ToString();
             AddParagraph($"mпр = mв ∙ kи ∙ k = {_p.Mv} ∙ {_p.Ki} ∙ {_p.K} = {_p.MPr()}", FormatFormula3, Align.wdAlignParagraphCenter);
+            reporter.StatusReport = (status += offset).ToString();
             AddParagraph("Определяем параметр d согласно приложению Б [1] в зависимости от глубины и системы разработки:");
+            reporter.StatusReport = (status += offset).ToString();
             AddParagraph($"d = {GetD(_p)} – 0.01 ∙ Н = {GetD(_p)} – 0.01 ∙ {_p.H} = {_p.D()}",
                 FormatFormula4, Align.wdAlignParagraphCenter);
+            reporter.StatusReport = (status += offset).ToString();
             AddParagraph("Тогда:", align: Align.wdAlignParagraphJustify);
+            reporter.StatusReport = (status += offset).ToString();
             AddParagraph($"НТ = d ∙ mпр = {_p.D()} ∙ {_p.MPr()} = {_p.Ht()} м.", FormatFormula5, Align.wdAlignParagraphCenter);
+            reporter.StatusReport = (status += offset).ToString();
         }
 
         #endregion

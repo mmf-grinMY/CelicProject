@@ -61,16 +61,22 @@ namespace Celic
             TestUserControl control = (TestUserControl)sender;
             control.BlockText = e.NewValue.ToString();
         }
-            
         /// <summary> Обработка события изменение поля ввода TextBox </summary>
         /// <param name="sender"> Объект, вызывающий событие </param>
         /// <param name="e"> Параметры вызова события </param>
         private static void OnBoxTextChanged(DependencyObject sender, DependencyPropertyChangedEventArgs e)
-        {            (sender as TestUserControl).BoxText = e.NewValue.ToString();
+        {
+            int repeat = 0;
+            TestUserControl control = (TestUserControl)sender;
+            if (repeat == 0)
+            {
+                control.BoxText = e.NewValue.ToString();
+                repeat++;
+            }
             RoutedPropertyChangedEventArgs<string> args = 
                 new RoutedPropertyChangedEventArgs<string>((string)e.OldValue, (string)e.NewValue);
             args.RoutedEvent = TextBoxTextChangedEvent;
-            (sender as TestUserControl).RaiseEvent(args);
+            control.RaiseEvent(args);
         }
 
         #endregion

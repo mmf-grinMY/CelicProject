@@ -47,11 +47,11 @@ namespace Celic
             get => _selectedPlast;
             set
             {
-                if (_calcWindow.GetType() == typeof(SCalcBWindow))
-                    (_calcWindow as SCalcBWindow).selected.IsEnabled = (_selectedPlast = value) != null;
-                else if(_calcWindow.GetType() == typeof(SCalcCWindow))
+                if (_calcWindow.GetType() == typeof(SCalcBWindow)) ;
+                // (_calcWindow as SCalcBWindow).selected.IsEnabled = (_selectedPlast = value) != null;
+                else if (_calcWindow.GetType() == typeof(SCalcCWindow))
                     (_calcWindow as SCalcCWindow).selected.IsEnabled = (_selectedPlast = value) != null;
-                else if(_calcWindow.GetType() == typeof(SCalcDWindow))
+                else if (_calcWindow.GetType() == typeof(SCalcDWindow))
                     (_calcWindow as SCalcDWindow).selected.IsEnabled = (_selectedPlast = value) != null;
                 OnPropertyChanged(nameof(SelectedPlast));
             }

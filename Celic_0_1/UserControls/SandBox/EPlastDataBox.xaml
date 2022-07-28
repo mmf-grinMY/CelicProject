@@ -41,6 +41,7 @@
             <Setter Property="Padding" Value="4,-3,0,0"/>
             <Setter Property="Margin" Value="4,4,0,0"/>
         </Style>
+        
     </UserControl.Resources>
     <Border Padding="0"
             Margin="-4,-4,-4,0"
@@ -77,8 +78,7 @@
                         <TextBox Text="{Binding Path=H, UpdateSourceTrigger=PropertyChanged}"/>
                     </StackPanel>
                     <local:TestUserControl BlockText="Глубина ведения горных работ"
-                                           BoxText="{Binding Path=H, UpdateSourceTrigger=PropertyChanged}"
-                                           BoxTextChanged="TestUserControl_BoxTextChanged"/>
+                                           BoxText="{Binding Path=H, UpdateSourceTrigger=PropertyChanged}"/>
                     <!--Ввод вынимаемой мощности-->
                     <StackPanel>
                         <TextBlock Text="Вынимаемая мощность"/>

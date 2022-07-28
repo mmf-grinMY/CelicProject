@@ -1,4 +1,5 @@
 ﻿using System.Windows;
+using Celic.WPF.CustomControls;
 
 namespace Celic
 {
@@ -16,6 +17,11 @@ namespace Celic
             InitializeComponent();
             DataContext = new SCalcBViewModel(mainWindow, this);
             this.Closing += (DataContext as SCalcBViewModel).Close;
+        }
+
+        private void ClearableTextBox_TextCleared(object sender, TextClearedEventArgs e)
+        {
+            MessageBox.Show($"Old Text value is \"{e.OldText}\"");
         }
     }
 }

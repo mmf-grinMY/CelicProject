@@ -110,8 +110,9 @@ namespace Celic
             _range.ParagraphFormat.Alignment = Align.wdAlignParagraphCenter;
         }
         /// <summary> Запись математических формул и их корректное форматирование </summary>
-        protected void AddParagraphMath(List<string> mathText)
+        protected void AddParagraphMath(List<string> mathText, RepProViewModel reporter = null)
         {
+            float status = 79f, offset = 20f / mathText.Count;
             Word.OMaths math = _app.ActiveDocument.OMaths;
             for (int i = 0; i < mathText.Count; i++)
             {
@@ -120,9 +121,13 @@ namespace Celic
                 _range.Font.Size = 9;
                 math.Add(_range);
                 _range.InsertParagraphAfter();
+                if(reporter != null)
+                    reporter.StatusReport = (status += offset).ToString();
             }
             math.BuildUp();
             mathText.Clear();
+            if(reporter != null)
+                reporter.StatusReport = 100.ToString();
         }
         /// <summary> Запись параграфа со специальным текстом </summary>
         /// <param name="text"> Записываемый текст </param>

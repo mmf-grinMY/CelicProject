@@ -3,7 +3,9 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:Celic"
+        xmlns:local="clr-namespace:Celic" 
+        xmlns:controls="clr-namespace:Celic.WPF.CustomControls;assembly=Celic.WPF.CustomControls"
+        d:DataContext="{d:DesignInstance Type=local:SCalcBViewModel}"
         mc:Ignorable="d"
         FontSize="14"
         Title="Расчет высоты зоны водопроводящих трещин"
@@ -11,6 +13,7 @@
         Width="584">
     <Window.Resources>
     </Window.Resources>
+    <!--Release-->
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
@@ -32,7 +35,7 @@
                      MaxWidth="244">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
-                        <local:EPlastDataItem/>
+                        <local:PlastDataItem/>
                     </DataTemplate>
                 </ListBox.ItemTemplate>
             </ListBox>
@@ -40,13 +43,20 @@
         <StackPanel Grid.Row="1"
                     Grid.Column="1"
                     Margin="0,0,4,0"
-                    HorizontalAlignment="Left">
-            <TextBlock HorizontalAlignment="Center"
+                    HorizontalAlignment="Left"
+                    DataContext="{Binding SelectedPlast}">
+        <TextBlock HorizontalAlignment="Center"
                        Style="{x:Null}"
                        FontSize="14"
                        Text="Выбранный пласт"/>
-            <local:EPlastDataBox x:Name="selected"
-                                 DataContext="{Binding SelectedPlast}"/>
-        </StackPanel>
+        <local:PlastDataBox x:Name="selected"/>
+        </StackPanel>                
     </Grid>
+    <!--Tests-->
+    <!--<controls:ClearableTextBox Text="Очищаемое поле ввода" 
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                IsEnabled="True"
+                                Width="300"
+                                TextCleared="ClearableTextBox_TextCleared"/>-->
 </Window>
