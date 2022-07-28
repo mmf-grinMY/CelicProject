@@ -91,11 +91,10 @@ namespace Celic
             new TextManager(_app).Write(_plasts, CountLog(), reporter);
             TableManager tableManager = new TableManager(_app, _plasts);
             reporter.ResultReport = tableWriteReport;
-            int rangeLength = tableManager.WriteTable();
+            int rangeLength = tableManager.WriteTable(reporter);
             Word.Cell cell = tableManager.Cell;
-            reporter.StatusReport = "90";
             reporter.ResultReport = "Запись произведенных расчетов";
-            AddParagraphMath(_txt);
+            AddParagraphMath(_txt, reporter);
             _app.ActiveDocument.Range(rangeLength - 6).Select();
             _app.Selection.Cut();
             cell.TopPadding = 12F;

@@ -1,8 +1,6 @@
 ﻿namespace Celic
 {
-    /// <summary>
-    /// Главный класс обработки системы разработки
-    /// </summary>
+    /// <summary> Главный класс обработки системы разработки </summary>
     public class MainViewModel : BaseViewModel
     {
         #region Private Fields
@@ -10,6 +8,21 @@
         private readonly MainWindow _mainWindow;
 
         #endregion
+
+        /*#region Test
+        private string _value;
+        /// <summary>
+        /// 
+        /// </summary>
+        public string Value {
+            get => _value;
+            set
+            {
+                _value = value;
+                OnPropertyChanged(nameof(Value));
+            }
+        }
+        #endregion*/
 
         #region Constructors
 

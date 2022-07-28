@@ -86,9 +86,7 @@ namespace Celic
 
         #region Public Properties
 
-        /// <summary>
-        /// Свойство дял работы с _resultReport
-        /// </summary>
+        /// <summary> Название этапа проведения операции </summary>
         public string ResultReport
         {
             get => _resultReport;
@@ -98,9 +96,7 @@ namespace Celic
                 OnPropertyChanged(nameof(ResultReport));
             }
         }
-        /// <summary>
-        /// Свойство для работы с _statusReport
-        /// </summary>
+        /// <summary> Этап проведения операции </summary>
         public string StatusReport
         {
             get => _statusReport;

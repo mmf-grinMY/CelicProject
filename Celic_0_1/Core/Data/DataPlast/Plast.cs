@@ -9,6 +9,18 @@ namespace Celic
     /// <summary> Хранение данных о пласте </summary>
     public class Plast
     {
+        #region Constructors
+
+        public Plast()
+        {
+            TypeDev = "столбовая";
+            Mv = "2,5";
+            Ki = "1";
+            H = "500";
+        }
+
+        #endregion
+
         #region PropertyChanged
 
         /// <summary> Событие при изменении свойства компонента </summary>
@@ -188,11 +200,5 @@ namespace Celic
         }
 
         #endregion
-    }
-
-    /// <summary> Обработка данных пласта </summary>
-    public static class PlastManager
-    {
-        
     }
 }

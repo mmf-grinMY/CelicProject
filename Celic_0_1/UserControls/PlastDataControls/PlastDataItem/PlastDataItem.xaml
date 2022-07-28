@@ -23,19 +23,19 @@
             </StackPanel.ToolTip>
             <StackPanel Orientation="Horizontal">
                 <TextBlock Text="Система разработки "/>
-                <TextBlock Text="{Binding Path=TypeDev}"/>
+                <TextBlock Text="{Binding Path=TypeDev, UpdateSourceTrigger=PropertyChanged}"/>
             </StackPanel>
             <StackPanel Orientation="Horizontal">
                 <TextBlock Text="Вынимаемая мощность "/>
-                <TextBlock Text="{Binding Path=Mv}"/>
+                <TextBlock Text="{Binding Path=Mv, UpdateSourceTrigger=PropertyChanged}"/>
             </StackPanel>
             <StackPanel Orientation="Horizontal">
                 <TextBlock Text="Глубина ведения горных работ "/>
-                <TextBlock Text="{Binding Path=H}"/>
+                <TextBlock Text="{Binding Path=H, UpdateSourceTrigger=PropertyChanged}"/>
             </StackPanel>
             <StackPanel Orientation="Horizontal">
                 <TextBlock Text="Коэффициент извлечения "/>
-                <TextBlock Text="{Binding Path=Ki}"/>
+                <TextBlock Text="{Binding Path=Ki, UpdateSourceTrigger=PropertyChanged}"/>
             </StackPanel>
         </StackPanel>
     </Border>

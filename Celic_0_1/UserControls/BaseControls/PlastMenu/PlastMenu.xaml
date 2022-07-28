@@ -10,35 +10,12 @@
             <Setter Property="FontSize" Value="14"/>
             <Setter Property="BorderBrush" Value="LightGray"/>
         </Style>
-        <SolidColorBrush x:Key="Menu.Static.Background" Color="White"/>
-        <Style x:Key="PlastMenuStyle" TargetType="{x:Type Menu}">
-            <Setter Property="Background" Value="LightGray"/>
-            <Setter Property="FontFamily" Value="{DynamicResource {x:Static SystemFonts.MenuFontFamilyKey}}"/>
-            <Setter Property="FontSize" Value="{DynamicResource {x:Static SystemFonts.MenuFontSizeKey}}"/>
-            <Setter Property="FontStyle" Value="{DynamicResource {x:Static SystemFonts.MenuFontStyleKey}}"/>
-            <Setter Property="FontWeight" Value="{DynamicResource {x:Static SystemFonts.MenuFontWeightKey}}"/>
-            <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.MenuTextBrushKey}}"/>
-            <Setter Property="VerticalContentAlignment" Value="Center"/>
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="{x:Type Menu}">
-                        <Border BorderBrush="{TemplateBinding BorderBrush}"
-                                BorderThickness="{TemplateBinding BorderThickness}"
-                                Background="{TemplateBinding Background}"
-                                Padding="{TemplateBinding Padding}"
-                                SnapsToDevicePixels="true">
-                            <ItemsPresenter ContextMenu="{TemplateBinding ContextMenu}"
-                                            SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"/>
-                        </Border>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-        </Style>
+        
     </UserControl.Resources>
     <StackPanel VerticalAlignment="Top"
                 Background="LightGray">
         <Menu VerticalAlignment="Top"
-              HorizontalAlignment="Left" Style="{DynamicResource PlastMenuStyle}">
+              HorizontalAlignment="Left">
             <MenuItem Header="Файл"
                       Background="LightGray">
                 <MenuItem Header="Открыть" Command="{Binding OpenReadCommand}">

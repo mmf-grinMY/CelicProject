@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Celic"
+        xmlns:controls="clr-namespace:Celic.WPF.CustomControls;assembly=Celic.WPF.CustomControls"
         mc:Ignorable="d"
         Title="Выбор типа расчета"
         Height="300"
@@ -17,6 +18,7 @@
             <Setter Property="Background" Value="White"/>
         </Style>
     </Window.Resources>
+    <!--Release-->
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="0.8*"/>
@@ -39,4 +41,11 @@
             <TextBlock xml:space="preserve">          Расчет<LineBreak/> междубарьерного<LineBreak/>          целика</TextBlock>
         </Button>
     </Grid>
+    <!--Tests-->
+    <!--<controls:InputDataField HorizontalAlignment="Center"
+                             VerticalAlignment="Center"
+                             Width="316.8"
+                             BorderBrush="Black"
+                             BorderThickness="0.5"
+                             Text="{Binding Path=Value, UpdateSourceTrigger=PropertyChanged}"/>-->
 </Window>
