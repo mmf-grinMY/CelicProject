@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Celic", "Celic_0_1\Celic.cs
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Celic.WPF.CustomControls", "Celic.WPF.CustomControls\Celic.WPF.CustomControls.csproj", "{625AC235-36FB-4F97-857A-6380879BF91C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CelicOldVersion", "..\Celic\Celic\CelicOldVersion.csproj", "{DD46DB3E-6CB0-4634-B54C-50042BA3F3F2}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{625AC235-36FB-4F97-857A-6380879BF91C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{625AC235-36FB-4F97-857A-6380879BF91C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{625AC235-36FB-4F97-857A-6380879BF91C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DD46DB3E-6CB0-4634-B54C-50042BA3F3F2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DD46DB3E-6CB0-4634-B54C-50042BA3F3F2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DD46DB3E-6CB0-4634-B54C-50042BA3F3F2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DD46DB3E-6CB0-4634-B54C-50042BA3F3F2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

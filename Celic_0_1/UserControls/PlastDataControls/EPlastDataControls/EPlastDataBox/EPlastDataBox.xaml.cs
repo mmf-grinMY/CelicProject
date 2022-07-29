@@ -15,9 +15,7 @@ using System.Windows.Shapes;
 
 namespace Celic
 {
-    /// <summary>
-    /// Логика взаимодействия для EPlastDataBox.xaml
-    /// </summary>
+    /// <summary> Логика взаимодействия для EPlastDataBox.xaml </summary>
     public partial class EPlastDataBox : UserControl
     {
         #region Contructors
@@ -39,6 +37,9 @@ namespace Celic
             KSimpleInputVisibilityProperty = DependencyProperty.Register("SKVisibility", typeof(Visibility), typeof(EPlastDataBox));
             KExtentedLavaInputVisibilityProperty = DependencyProperty.Register("ELKVisibility", typeof(Visibility), typeof(EPlastDataBox));
             KExtentedCameraInputVisibilityProperty = DependencyProperty.Register("ECKVisibility", typeof(Visibility), typeof(EPlastDataBox));
+
+            ContiguosSimpleInputVisibility = DependencyProperty.Register("SContiguosVisibility", typeof(Visibility), typeof(EPlastDataBox));
+            ContiguosExtentedInputVisibility = DependencyProperty.Register("EContiguosVisibility", typeof(Visibility), typeof(EPlastDataBox));
         }
 
         #endregion
@@ -182,7 +183,29 @@ namespace Celic
 
         #endregion
 
-        #region EventHandlers Contiguos
+        #region Contiguos InputFields Visibility
+
+        // contiguosSimpleInput Visibility Properties
+        //------------------------------------
+        /// <summary> Свойство видимости contiguosSimpleInput </summary>
+        public static DependencyProperty ContiguosSimpleInputVisibility;
+        /// <summary> Обертка для свойства видимости contiguosSimpleInput </summary>
+        public Visibility SContiguosVisibility
+        {
+            set { SetValue(ContiguosSimpleInputVisibility, value); }
+            get { return (Visibility)GetValue(ContiguosSimpleInputVisibility); }
+        }
+        // contiguosExtentedInput Visibility Properties
+        //------------------------------------
+        /// <summary> Свойство видимости contiguosExtentedInput </summary>
+        public static DependencyProperty ContiguosExtentedInputVisibility;
+        /// <summary> Обертка для свойства видимости contiguosExtentedInput </summary>
+        public Visibility EContiguosVisibility
+        {
+            set { SetValue(ContiguosExtentedInputVisibility, value); }
+            get { return (Visibility)GetValue(ContiguosExtentedInputVisibility); }
+        }
+
         private void CheckBoxContiguosExtented_Click(object sender, RoutedEventArgs e)
         {
             if (sender is CheckBox checkBox)
@@ -195,6 +218,7 @@ namespace Celic
                 }
             }
         }
+
         private void CheckBoxContiguosSimple_Click(object sender, RoutedEventArgs e)
         {
             if (sender is CheckBox checkBox)
@@ -207,6 +231,7 @@ namespace Celic
                 }
             }
         }
+
         #endregion
     }
 }

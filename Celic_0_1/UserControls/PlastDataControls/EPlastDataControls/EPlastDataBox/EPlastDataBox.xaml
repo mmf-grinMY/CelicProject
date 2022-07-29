@@ -274,12 +274,13 @@
                     </StackPanel>
                 </StackPanel>
             </Border>
+            <!--Ввод сближенных пластов-->
             <Border Margin="4">
-                <!--Ввод сближенных пластов-->
                 <StackPanel Orientation="Vertical">
                     <!--Ввод сближенных пластов программно-->
                     <StackPanel Orientation="Vertical"
-                                x:Name="contiguosSimpleInput">
+                                x:Name="contiguosSimpleInput"
+                                Visibility="{Binding ElementName=main, Path=SContiguosVisibility}">
                         <TextBlock Text="Сближенные пласты выбираются программно"
                                Width="Auto"/>
                         <!--Переключатель для ручного ввода сближенных пластов-->
@@ -291,7 +292,7 @@
                     <!--Ввод сближенных вручную пластов-->
                     <StackPanel Orientation="Vertical"
                                 x:Name="contiguosExtentedInput"
-                                Visibility="Collapsed">
+                                Visibility="{Binding ElementName=main, Path=EContiguosVisibility}">
                         <!--Ввод сближенных вручную пластов-->
                         <Grid>
                             <Grid.ColumnDefinitions>
