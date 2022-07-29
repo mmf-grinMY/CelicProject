@@ -108,7 +108,7 @@ namespace Celic
                         if (value.Length >= 4 && IsDigit(value[0]) && IsDigit(value[1]) &&
                                 IsDigit(value[2]) && IsDigit(value[3]))
                             value = value.Remove(3, 1);
-                        value = RmNull(value);
+                        value = RmZero(value);
                         value = (value != "" && TryParse(value, out h) && h > 0) ? value : "0";
                     }
                 _h = value;
@@ -123,7 +123,7 @@ namespace Celic
             {
                 if (value != "" && value != "0" && value != "0,")
                 {
-                    value = RmNull(value);
+                    value = RmZero(value);
                     value = (value != "" && TryParse(value, out float tmp) && tmp > 0 && tmp <= 3) ? value : "0";
                 }
                 _mv = value;
@@ -289,10 +289,43 @@ namespace Celic
         {
             if (value != "" && value != "0" && value != "0,")
             {
-                value = RmNull(value);
+                value = RmZero(value);
                 value = (value != "" && TryParse(value, out float tmp) && tmp > 0 && tmp <= 1) ? value : "0";
             }
             return value;
+        }
+        private string ValidateNumber(string value, float startRange, float endRange)
+        {
+            value = RmZero(value);
+            int index;
+            if ((index = value.IndexOf(",")) != -1)
+            {
+                if (index > 4)
+                {
+                    value = value.Remove(0, index - 4);
+                }
+                else
+                {
+                    if(value.Length - index - 1 > 3)
+                    {
+                        value = value.Remove(index + 4);
+                    }
+                }
+            }
+            else
+            {
+                if(value.Length > 4)
+                {
+                    value = value.Remove(4);
+                }
+            }
+            return value;
+        }
+        private bool IsValidate(string value, float startRange, float endRange)
+        {
+            if (float.TryParse(value, out float valueF))
+                return valueF >= startRange && valueF <= endRange;
+            return false;
         }
 
         #endregion
@@ -303,11 +336,15 @@ namespace Celic
         /// <returns> Значение высоты ЗВТ </returns>
         public float Ht()
         {
-            _ = TryParse(H, out float h);
-            _ = TryParse(Mv, out float mv);
-            _ = TryParse(Ki, out float ki);
-            _ = TryParse(K, out float k);
-            return mv * ki * k * (-0.01F * h + (TypeDev == "камерная" ? 26 : 46));
+            if(IsValidate(H, 350, 1000) && IsValidate(Mv, 0, 3) && IsValidate(K, 0, 1) && IsValidate(Ki, 0, 1))
+            {
+                _ = TryParse(H, out float h);
+                _ = TryParse(Mv, out float mv);
+                _ = TryParse(Ki, out float ki);
+                _ = TryParse(K, out float k);
+                return mv * ki * k * (-0.01F * h + (TypeDev == "камерная" ? 26 : 46));
+            }
+            return -1;
         }
         /// <summary> Расчет коэффициента d, зависящего от системы разраьотки для пласта </summary>
         /// <returns> Значение коэффициента d</returns>
