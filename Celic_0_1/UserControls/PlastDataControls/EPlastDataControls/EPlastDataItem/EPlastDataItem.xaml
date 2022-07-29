@@ -6,7 +6,7 @@
              xmlns:local="clr-namespace:Celic"
              d:DataContext="{d:DesignInstance local:Plast}"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="216"
+             d:DesignHeight="450" d:DesignWidth="220"
              Name="main">
     <UserControl.Resources>
         <Style TargetType="TextBlock">
@@ -27,6 +27,11 @@
             <StackPanel.ToolTip>
                 <ToolTip Content="Данные отдельного пласта"/>
             </StackPanel.ToolTip>
+            <!--Вывод имени пласта-->
+            <StackPanel>
+                <TextBlock Text="Наименование пласта"/>
+                <TextBlock Text="{Binding Path=Name}"/>
+            </StackPanel>
             <!--Вывод системы разработки-->
             <StackPanel>
                     <TextBlock Text="Система разработки"/>
@@ -169,45 +174,47 @@
                             <TextBlock.ToolTip>
                                 <ToolTip>
                                     <TextBlock>
-                                                Ширина выработанного пространства (блока, панели), м.
-                                                <LineBreak/>
-                                                При этом в выработанное пространство включаются очистные
-                                                <LineBreak/>
-                                                камеры с междукамерными (междуходовыми) целиками совместно
-                                                <LineBreak/>
-                                                с оконтуривающими рассматриваемый участок горноподготовительными
-                                                <LineBreak/>
-                                                выработками и целиками между ними.
+                                        Ширина выработанного пространства (блока, панели), м.
+                                        <LineBreak/>
+                                        При этом в выработанное пространство включаются очистные
+                                        <LineBreak/>
+                                        камеры с междукамерными (междуходовыми) целиками совместно
+                                        <LineBreak/>
+                                        с оконтуривающими рассматриваемый участок горноподготовительными
+                                        <LineBreak/>
+                                        выработками и целиками между ними.
                                     </TextBlock>
                                 </ToolTip>
                             </TextBlock.ToolTip>
-                                    </TextBlock>
-                        <TextBlock Text="{Binding Path=PD}"/>
+                        </TextBlock>
+                        <TextBlock Text="{Binding Path=PD, UpdateSourceTrigger=PropertyChanged}"/>
                     </StackPanel>
                 </StackPanel>
             </Border>
             <!--Вывод сближенных вручную пластов-->
-            <Grid x:Name="contiguosPlasts">
-                <Grid.RowDefinitions>
-                    <RowDefinition/>
-                    <RowDefinition/>
-                </Grid.RowDefinitions>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition/>
-                    <ColumnDefinition/>
-                </Grid.ColumnDefinitions>
-                <TextBlock Grid.ColumnSpan="2" Text="Сближенные к данному пласты"/>
-                <!--Вывод сближенного пласта, находящегося снизу данного-->
-                <StackPanel Grid.Row="1">
-                    <TextBlock Text=" снизу" Width="43" Margin="0"/>
-                    <TextBlock Text="{Binding Path=Buttom}"/>
-                </StackPanel>
-                <!--Вывод сближенного пласта, находящегося сверху данного-->
-                <StackPanel Grid.Column="1" Grid.Row="1">
-                    <TextBlock Text="сверху" Width="43" Margin="0"/>
-                    <TextBlock Text="{Binding Path=Top}"/>
-                </StackPanel>
-            </Grid>
+            <Border Margin="0,4,4,4">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Grid.ColumnSpan="2" Text="Сближенные к данному пласты"/>
+                    <!--Вывод сближенного пласта, находящегося снизу данного-->
+                    <StackPanel Grid.Row="1">
+                        <TextBlock Text=" снизу" Width="43" Margin="0"/>
+                        <TextBlock Text="{Binding Path=Buttom}"/>
+                    </StackPanel>
+                    <!--Вывод сближенного пласта, находящегося сверху данного-->
+                    <StackPanel Grid.Column="1" Grid.Row="1">
+                        <TextBlock Text="сверху" Width="43" Margin="0"/>
+                        <TextBlock Text="{Binding Path=Top}"/>
+                    </StackPanel>
+                </Grid>
+            </Border>
         </StackPanel>
     </Border>
 </UserControl>

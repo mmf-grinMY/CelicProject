@@ -9,7 +9,7 @@
         mc:Ignorable="d"
         FontSize="14"
         Title="Расчет высоты зоны водопроводящих трещин"
-        Height="380"
+        Height="450"
         Width="584">
     <Window.Resources>
     </Window.Resources>
@@ -30,7 +30,7 @@
             <ListBox ItemsSource="{Binding Plasts}"
                      SelectedItem="{Binding SelectedPlast}"
                      Padding="-2,0"
-                     Width="Auto">
+                     Width="230">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                         <local:EPlastDataItem
@@ -58,7 +58,8 @@
                              SKiVisibility="Visible"
                              EKiVisibility="Collapsed"
                              ECKiVisibility="Collapsed"
-                             ELKiVisibility="Collapsed"/>
+                             ELKiVisibility="Collapsed"
+                             EContiguosVisibility="Collapsed"/>
         </StackPanel>                
     </Grid>
     <!--Tests-->

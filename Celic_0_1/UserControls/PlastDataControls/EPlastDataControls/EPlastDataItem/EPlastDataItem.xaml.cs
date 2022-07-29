@@ -15,19 +15,14 @@ using System.Windows.Shapes;
 
 namespace Celic
 {
-    /// <summary>
-    /// Логика взаимодействия для EPlastDataItem.xaml
-    /// </summary>
+    /// <summary> Логика взаимодействия для EPlastDataItem.xaml </summary>
     public partial class EPlastDataItem : UserControl 
     {
         #region Constructors
 
         /// <summary> Основной конструктор дял данного класса </summary>
-        public EPlastDataItem()
-        {
-            EKiVisibility = Visibility.Collapsed;
-            InitializeComponent();
-        }
+        public EPlastDataItem() => InitializeComponent();
+        /// <summary> Статический конструктор для данного класса </summary>
         static EPlastDataItem()
         {
             KiSimpleInputVisibilityProperty = DependencyProperty.Register("SKiVisibility", typeof(Visibility), typeof(EPlastDataItem));
