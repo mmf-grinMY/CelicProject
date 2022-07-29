@@ -115,7 +115,6 @@ namespace Celic
                 new FrameworkPropertyMetadata(new PropertyChangedCallback(OnColorRGBChanged)));
             ColorChangedEvent = EventManager.RegisterRoutedEvent("СоlorChanged", RoutingStrategy.Bubble,
                 typeof(RoutedPropertyChangedEventHandler<Color>), typeof(ColorPicker));
-
         }
     }
 }

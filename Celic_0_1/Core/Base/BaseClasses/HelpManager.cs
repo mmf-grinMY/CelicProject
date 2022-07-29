@@ -9,9 +9,9 @@ namespace Celic
         /// <summary> Удаление нулей в начале строки </summary>
         /// <param name="value"> Строка для преобразования </param>
         /// <returns> Преобразованная строка без лишних нулей в начале</returns>
-        public static string RmNull(string value)
+        public static string RmZero(string value)
         {
-            if (value != "")
+            /*if (value != "")
             {
                 bool isBegin = true;
                 int i;
@@ -24,7 +24,25 @@ namespace Celic
                     }
                 return value.Remove(0, i - 1);
             }
-            return value;
+            return value;*/
+            int length = 0;
+            bool run = true;
+            for (int i = 0; i < value.Length - 1 && run; i++)
+            {
+                if (value[i] == '0')
+                {
+                    if (value[i + 1] == ',')
+                        run = false;
+                    else if (value[i + 1] == '0')
+                        length++;
+                    else if (char.IsDigit(value[i + 1]))
+                    {
+                        length++;
+                        run = false;
+                    }
+                }
+            }
+            return value.Remove(0, length);
         }
         /// <summary> Вычисление высот ЗВТ над несколькими пластами </summary>
         /// <param name="begin"> Номер первого элемента, входящего в расчет </param>

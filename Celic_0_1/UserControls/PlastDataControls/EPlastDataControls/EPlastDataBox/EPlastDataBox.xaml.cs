@@ -23,10 +23,10 @@ namespace Celic
         /// <summary> Основной конструктор для данного класса </summary>
         public EPlastDataBox()
         {
-            ECKVisibility = ELKVisibility = EKiVisibility = Visibility.Collapsed;
+            ECKVisibility = ELKVisibility = EKiVisibility = ELKiVisibility = ECKiVisibility = Visibility.Collapsed;
             InitializeComponent();
         }
-
+        /// <summary> Статический конструктор для данного класса </summary>
         static EPlastDataBox()
         {
             KiSimpleInputVisibilityProperty = DependencyProperty.Register("SKiVisibility", typeof(Visibility), typeof(EPlastDataBox));
@@ -90,6 +90,10 @@ namespace Celic
             get { return (Visibility)GetValue(KiExtentedLavaVisibilityProperty); }
         }
 
+        #endregion
+
+        #region Ki EventHandlers
+
         /// <summary> Логика открытия дополнительных полей ввода для расчета Ki </summary>
         /// <param name="sender"> Вызываемый объект </param>
         /// <param name="e"> Аргументы вызова </param>
@@ -98,17 +102,20 @@ namespace Celic
             if (sender is CheckBox checkBox && checkBox.IsChecked == true)
             {
                 SKiVisibility = Visibility.Collapsed;
-                if((DataContext as Plast).TypeDev == "камерная")
-                {
-                    ECKiVisibility = Visibility.Visible;
-                    ELKiVisibility = Visibility.Collapsed;
-                }
-                else
-                {
-                    ECKiVisibility = Visibility.Collapsed;
-                    ELKiVisibility = Visibility.Visible;
-                }
                 EKiVisibility = Visibility.Visible;
+                if (DataContext != null)
+                {
+                    if ((DataContext as Plast).TypeDev == "камерная")
+                    {
+                        ECKiVisibility = Visibility.Visible;
+                        ELKiVisibility = Visibility.Collapsed;
+                    }
+                    else
+                    {
+                        ECKiVisibility = Visibility.Collapsed;
+                        ELKiVisibility = Visibility.Visible;
+                    }
+                }
                 checkBox.IsChecked = false;
             }
         }
@@ -160,27 +167,6 @@ namespace Celic
             get { return (Visibility)GetValue(KExtentedCameraInputVisibilityProperty); }
         }
 
-        private void CheckBoxKExtented_Click(object sender, RoutedEventArgs e)
-        {
-            if (sender is CheckBox checkBox && checkBox.IsChecked == true)
-            {
-                SKVisibility = Visibility.Collapsed;
-                ELKVisibility = (DataContext as Plast).TypeDev == "камерная" ? Visibility.Collapsed : Visibility.Visible;
-                ECKVisibility = Visibility.Visible;
-                checkBox.IsChecked = false;
-            }
-        }
-
-        private void CheckBoxKSimple_Click(object sender, RoutedEventArgs e)
-        {
-            if (sender is CheckBox checkBox && checkBox.IsChecked == true)
-            {
-                ECKVisibility = ELKVisibility = Visibility.Collapsed;
-                SKVisibility = Visibility.Visible;
-                checkBox.IsChecked = false;
-            }
-        }
-
         #endregion
 
         #region Contiguos InputFields Visibility
@@ -229,6 +215,60 @@ namespace Celic
                     contiguosSimpleInput.Visibility = Visibility.Visible;
                     checkBox.IsChecked = false;
                 }
+            }
+        }
+
+        #endregion
+
+        #region EventHandlers
+
+        /// <summary> Обработчик события "Задание дополнительных параметров для расчета K" </summary>
+        /// <param name="sender"> Вызываемый CheckBox </param>
+        /// <param name="e"> Аргументы вызова </param>
+        private void CheckBoxKExtented_Click(object sender, RoutedEventArgs e)
+        {
+            if (sender is CheckBox checkBox && checkBox.IsChecked == true)
+            {
+                SKVisibility = Visibility.Collapsed;
+                ELKVisibility = (DataContext as Plast).TypeDev == "камерная" ? Visibility.Collapsed : Visibility.Visible;
+                ECKVisibility = Visibility.Visible;
+                checkBox.IsChecked = false;
+            }
+        }
+        /// <summary> Обработчик события "Задание коэффициента выработанного пространства явным образом" </summary>
+        /// <param name="sender"> Вызываемый CheckBox </param>
+        /// <param name="e"> Аргументы вызова </param>
+        private void CheckBoxKSimple_Click(object sender, RoutedEventArgs e)
+        {
+            if (sender is CheckBox checkBox && checkBox.IsChecked == true)
+            {
+                ECKVisibility = ELKVisibility = Visibility.Collapsed;
+                SKVisibility = Visibility.Visible;
+                checkBox.IsChecked = false;
+            }
+        }
+        /// <summary> Обработчик события "Изменение системы разработки пласта" </summary>
+        /// <param name="sender"> Вызываемый ComboBox </param>
+        /// <param name="e"> Аргументы вызова </param>
+        private void ComboBoxTypeDev_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (sender is ComboBox box && DataContext != null)
+            {
+                if (EKiVisibility == Visibility.Visible)
+                {
+                    if ((DataContext as Plast).TypeDev != "камерная")
+                    {
+                        ECKiVisibility = Visibility.Visible;
+                        ELKiVisibility = Visibility.Collapsed;
+                    }
+                    else
+                    {
+                        ECKiVisibility = Visibility.Collapsed;
+                        ELKiVisibility = Visibility.Visible;
+                    }
+                }
+                if (SKVisibility == Visibility.Collapsed)
+                    ELKVisibility = (DataContext as Plast).TypeDev != "камерная" ? Visibility.Collapsed : Visibility.Visible;
             }
         }
 

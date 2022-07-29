@@ -80,8 +80,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Core\Base\BaseClasses\BaseCalculator.cs" />
-    <Compile Include="Core\Data\DataPlast\ExtData\Camera.cs" />
-    <Compile Include="Core\Data\DataPlast\ExtData\Lava.cs" />
+    <Compile Include="Core\Data\DataPlast\Camera.cs" />
+    <Compile Include="Core\Data\DataPlast\Lava.cs" />
     <Compile Include="UserControls\PlastDataControls\EPlastDataControls\EPlastDataBox\EPlastDataBox.xaml.cs">
       <DependentUpon>EPlastDataBox.xaml</DependentUpon>
     </Compile>
@@ -100,7 +100,6 @@
     </Compile>
     <Compile Include="Core\Data\DataPlastFileManage\PlastReader.cs" />
     <Compile Include="Core\Data\DataPlastFileManage\PlastWriter.cs" />
-    <Compile Include="Core\Data\DataPlast\MineField.cs" />
     <Compile Include="Core\Data\DataPlast\Plast.cs" />
     <Compile Include="Core\Report\SimpleCalculators\SCalculatorB.cs" />
     <Compile Include="Core\Report\SimpleCalculators\SCalculatorC.cs" />

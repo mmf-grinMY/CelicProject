@@ -58,7 +58,8 @@
                     <!--Ввод системы разработки-->
                     <StackPanel>
                         <TextBlock Text="Система разработки"/>
-                        <ComboBox Text="{Binding TypeDev}">
+                        <ComboBox Text="{Binding TypeDev}"
+                                  SelectionChanged="ComboBoxTypeDev_SelectionChanged">
                             <ComboBoxItem Content="столбовая"/>
                             <ComboBoxItem Content="камерная"/>
                         </ComboBox>
