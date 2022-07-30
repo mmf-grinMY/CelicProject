@@ -17,12 +17,7 @@
             get => _alfa;
             set
             {
-                if (value != "" && value != "0" && value != "0,")
-                {
-                    value = HelpManager.RmZero(value);
-                    value = (value != "" && double.TryParse(value, out double tmp) && tmp >= 0 && tmp <= 360) ? value : "0";
-                }
-                _alfa = value;
+                _alfa = HelpManager.ValidateStringRange(value, 0, 90); 
                 OnPropertyChanged(nameof(Alfa));
             }
         }

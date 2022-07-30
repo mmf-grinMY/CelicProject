@@ -64,20 +64,11 @@ namespace Celic
                         else if (minefield.Name == "typeDev")
                             plast.TypeDev = minefield.InnerText;
                 else if (childnode.Name == "S")
-                {
-                    _ = double.TryParse(childnode.InnerText, out double s);
-                    plast.S = s;
-                }
+                     plast.S = childnode.InnerText;
                 else if (childnode.Name == "S_z")
-                {
-                    _ = double.TryParse(childnode.InnerText, out double s_z);
-                    plast.Sz = s_z;
-                }
+                    plast.Sz = childnode.InnerText;
                 else if (childnode.Name == "k_t")
-                {
-                    _ = double.TryParse(childnode.InnerText, out double k_t);
-                    plast.Kt = k_t;
-                }
+                    plast.Kt = childnode.InnerText;
             return plast;
         }
         /// <summary> Чтение данных о модели расчета SCalcBViewModel </summary>

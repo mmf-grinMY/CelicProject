@@ -18,9 +18,8 @@ namespace Celic
             Mv = "2,5";
             Ki = "1";
             H = "500";
-            myID = id;
+            myID = id++;
             Name = $"Пласт_{myID}";
-            id++;
             K = Ki = PD = "";
         }
 
@@ -49,13 +48,19 @@ namespace Celic
         /// <summary> Имя пласта ( поле)  </summary>
         private string _name;
         /// <summary> Уникальный идентификатор пласта ( поле ) </summary>
-        private int myID;
+        private readonly int myID;
         /// <summary> Количество созданных пластов </summary>
         private static int id;
         /// <summary> Сближенный к данному пласт, находящийся сверху ( поле ) </summary>
         private string _top;
         /// <summary> Сближенный к данному пласт, находящийся снизу ( поле ) </summary>
         private string _buttom;
+        /// <summary> Коэффициент степени влияния выемки ( поле ) </summary>
+        private string _s;
+        /// <summary> Коэффициент деформирования массива ( поле ) </summary>
+        private string _sz;
+        /// <summary> Коэффициент порядка разработки пластов ( поле ) </summary>
+        private string _kt;
 
         #endregion
 
@@ -97,21 +102,7 @@ namespace Celic
         {
             set
             {
-                if (value != "" && value != "0")
-                    if (value.Length >= 4 && TryParse(value, out float h))
-                    {
-                        if (h > 1000)
-                            value = "1000";
-                    }
-                    else if (value != "0,")
-                    {
-                        if (value.Length >= 4 && IsDigit(value[0]) && IsDigit(value[1]) &&
-                                IsDigit(value[2]) && IsDigit(value[3]))
-                            value = value.Remove(3, 1);
-                        value = RmZero(value);
-                        value = (value != "" && TryParse(value, out h) && h > 0) ? value : "0";
-                    }
-                _h = value;
+                _h = ValidateStringRange(value, 300, 1000);
                 OnPropertyChanged(nameof(H));
             }
             get => _h;
@@ -121,12 +112,7 @@ namespace Celic
         {
             set
             {
-                if (value != "" && value != "0" && value != "0,")
-                {
-                    value = RmZero(value);
-                    value = (value != "" && TryParse(value, out float tmp) && tmp > 0 && tmp <= 3) ? value : "0";
-                }
-                _mv = value;
+                _mv = ValidateStringRange(value, 0, 3);
                 OnPropertyChanged(nameof(Mv));
             }
             get => _mv;
@@ -149,7 +135,7 @@ namespace Celic
         {
             set
             {
-                _ki = ValidateOneNumber(value);
+                _ki = ValidateStringRange(value);
                 Si = L = Ll = Sl = string.Empty;
                 OnPropertyChanged(nameof(Ki));
             }
@@ -161,8 +147,8 @@ namespace Celic
             get => _lava != null ? _lava.Sl : string.Empty;
             set
             {
-                if(_lava != null)
-                    _lava.Sl = value;
+                if (_lava != null)
+                    _lava.Sl = ValidateString(value);
                 OnPropertyChanged(nameof(Sl));
             }
         }
@@ -172,8 +158,8 @@ namespace Celic
             get => _lava != null ? _lava.L : string.Empty;
             set
             {
-                if(_lava != null)
-                    _lava.L = value;
+                if (_lava != null)
+                    _lava.L = ValidateString(value);
                 OnPropertyChanged(nameof(Ll));
             }
         }
@@ -183,8 +169,8 @@ namespace Celic
             get => _camera != null ? _camera.L : string.Empty;
             set
             {
-                if(_camera != null)
-                    _camera.L = value;
+                if (_camera != null)
+                    _camera.L = ValidateString(value);
                 OnPropertyChanged(nameof(L));
             }
         }
@@ -194,8 +180,8 @@ namespace Celic
             get => _camera != null ? _camera.Si : string.Empty;
             set
             {
-                if(_camera != null)
-                    _camera.Si = value;
+                if (_camera != null)
+                    _camera.Si = ValidateString(value);
                 OnPropertyChanged(nameof(Si));
             }
         }
@@ -208,7 +194,8 @@ namespace Celic
             get => _k;
             set
             {
-                _k = ValidateOneNumber(value);
+                _k = ValidateStringRange(value);
+                B = PD = string.Empty;
                 OnPropertyChanged(nameof(K));
             } 
         }
@@ -218,7 +205,7 @@ namespace Celic
             get => _d;
             set
             {
-                _d = value;
+                _d = ValidateString(value);
                 OnPropertyChanged(nameof(PD));
             }
         }
@@ -229,7 +216,7 @@ namespace Celic
             set
             {
                 if (_lava != null)
-                    _lava.B = value;
+                    _lava.B = ValidateString(value);
                 OnPropertyChanged(nameof(B));
             }
         }
@@ -261,13 +248,37 @@ namespace Celic
         //----------------------------------------------------------
         /// <summary> Коэффициент, учитывающий степень влияния выемки разрабатываемых пластов на развитие техногенных 
         /// водопроводящих трещин в зависимости от взаимного положения ( смещения в плане ) границ остановки работ </summary>
-        public double S { get; set; }
+        public string S 
+        {
+            get => _s;
+            set
+            {
+                _s = ValidateString(value);
+                OnPropertyChanged(nameof(S));
+            }
+        }
         /// <summary> Коэффициент, учитывающий характер деформирования массива пород в краевой части мульды сдвижения над
         /// угловыми участками выработанного пространства, определяемые согласно отдельным рекомендациям
         /// специализированной организации( 0 ≤ S_z ≤ 1 ); при отсутствии таких рекомендаций значение принимается равным 1 </summary>
-        public double Sz { get; set; }
+        public string Sz 
+        {
+            get => _sz;
+            set
+            {
+                _sz = ValidateString(value);
+                OnPropertyChanged(nameof(Sz));
+            }
+        }
         /// <summary> Коэффициент, учитывающий порядок разработки пластов и интервал времени между их отработкой </summary>
-        public double Kt { get; set; }
+        public string Kt 
+        {
+            get => _kt;
+            set
+            {
+                _kt = ValidateStringRange(value);
+                OnPropertyChanged(nameof(Kt));
+            }
+        }
         //----------------------------------------------------------------------
         // Дополнительные парметры пласта
         //----------------------------------------------------------------------
@@ -282,51 +293,11 @@ namespace Celic
 
         #region Private Methods
 
-        /// <summary> Валидация данных для коэффициента от 0 до 1 </summary>
-        /// <param name="value"> Вводимое пользователем значение коэффициента </param>
-        /// <returns> Корректное значение переменной </returns>
-        private string ValidateOneNumber(string value)
-        {
-            if (value != "" && value != "0" && value != "0,")
-            {
-                value = RmZero(value);
-                value = (value != "" && TryParse(value, out float tmp) && tmp > 0 && tmp <= 1) ? value : "0";
-            }
-            return value;
-        }
-        private string ValidateNumber(string value, float startRange, float endRange)
-        {
-            value = RmZero(value);
-            int index;
-            if ((index = value.IndexOf(",")) != -1)
-            {
-                if (index > 4)
-                {
-                    value = value.Remove(0, index - 4);
-                }
-                else
-                {
-                    if(value.Length - index - 1 > 3)
-                    {
-                        value = value.Remove(index + 4);
-                    }
-                }
-            }
-            else
-            {
-                if(value.Length > 4)
-                {
-                    value = value.Remove(4);
-                }
-            }
-            return value;
-        }
-        private bool IsValidate(string value, float startRange, float endRange)
-        {
-            if (float.TryParse(value, out float valueF))
-                return valueF >= startRange && valueF <= endRange;
-            return false;
-        }
+        /// <summary> Проверка строки на схожесть с вещественным числом </summary>
+        /// <param name="str"> Исходная строка </param>
+        /// <returns> Исходная строка, если она схожа с числом, "" в противном случае </returns>
+        private string ValidateString(string str) =>
+            str != string.Empty ? TryParse((str = StringIsNumber(str)) + (str[str.Length - 1] == ',' ? "0" : ""), out float _) ? str : "" : "";
 
         #endregion
 
@@ -336,15 +307,11 @@ namespace Celic
         /// <returns> Значение высоты ЗВТ </returns>
         public float Ht()
         {
-            if(IsValidate(H, 350, 1000) && IsValidate(Mv, 0, 3) && IsValidate(K, 0, 1) && IsValidate(Ki, 0, 1))
-            {
-                _ = TryParse(H, out float h);
-                _ = TryParse(Mv, out float mv);
-                _ = TryParse(Ki, out float ki);
-                _ = TryParse(K, out float k);
-                return mv * ki * k * (-0.01F * h + (TypeDev == "камерная" ? 26 : 46));
-            }
-            return -1;
+            _ = TryParse(H, out float h);
+            _ = TryParse(Mv, out float mv);
+            _ = TryParse(Ki, out float ki);
+            _ = TryParse(K, out float k);
+            return mv * ki * k * (-0.01F * h + (TypeDev == "камерная" ? 26 : 46));
         }
         /// <summary> Расчет коэффициента d, зависящего от системы разраьотки для пласта </summary>
         /// <returns> Значение коэффициента d</returns>
