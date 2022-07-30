@@ -276,7 +276,7 @@
                 </StackPanel>
             </Border>
             <!--Ввод сближенных пластов-->
-            <Border Margin="4">
+            <Border>
                 <StackPanel Orientation="Vertical">
                     <!--Ввод сближенных пластов программно-->
                     <StackPanel Orientation="Vertical"
@@ -322,6 +322,14 @@
                                   Padding="4,-3,0,0"
                                   Click="CheckBoxContiguosSimple_Click"
                                   Margin="0,2"/>
+                    </StackPanel>
+                </StackPanel>
+            </Border>
+            <Border Margin="4">
+                <StackPanel Orientation="Vertical">
+                    <StackPanel>
+                        <TextBlock Text="Коэффициент влияния выемки"/>
+                        <TextBox Text="{Binding Path=S, UpdateSourceTrigger=PropertyChanged}"/>
                     </StackPanel>
                 </StackPanel>
             </Border>

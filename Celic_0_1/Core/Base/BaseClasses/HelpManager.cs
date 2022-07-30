@@ -6,44 +6,37 @@ namespace Celic
     /// <summary> Вспомогательный класс, содержащий часто используемые общие методы </summary>
     public class HelpManager
     {
-        /// <summary> Удаление нулей в начале строки </summary>
-        /// <param name="value"> Строка для преобразования </param>
-        /// <returns> Преобразованная строка без лишних нулей в начале</returns>
-        public static string RmZero(string value)
+        /// <summary> Преобразование строки в строку, схожую на вещественной число </summary>
+        /// <param name="str"> Исходная строка </param>
+        /// <returns> Преобразованная строка </returns>
+        public static string StringIsNumber(string str)
         {
-            /*if (value != "")
+            if (str != string.Empty && str != "")
             {
-                bool isBegin = true;
-                int i;
-                for (i = 0; i < value.Length && isBegin; i++)
-                    if (value[i] != '0')
-                    {
-                        if (value[i] == ',')
-                            i--;
-                        isBegin = false;
-                    }
-                return value.Remove(0, i - 1);
+                if (str.Length >= 2)
+                    if (str[0] == '0' && str[1] != ',')
+                        str = str.Remove(0, 1);
+                bool isFloat = false;
+                for (int i = 0; i < str.Length; i++)
+                    if (str[i] == ',')
+                        if (isFloat == false)
+                            isFloat = true;
+                        else
+                            str = str.Remove(i--, 1);
+                    else if (!char.IsDigit(str[i]))
+                        str = str.Remove(i--, 1);
             }
-            return value;*/
-            int length = 0;
-            bool run = true;
-            for (int i = 0; i < value.Length - 1 && run; i++)
-            {
-                if (value[i] == '0')
-                {
-                    if (value[i + 1] == ',')
-                        run = false;
-                    else if (value[i + 1] == '0')
-                        length++;
-                    else if (char.IsDigit(value[i + 1]))
-                    {
-                        length++;
-                        run = false;
-                    }
-                }
-            }
-            return value.Remove(0, length);
+            return str;
         }
+        /// <summary> Проверка строки на схожесть с вещественным числом в указанном диапазоне </summary>
+        /// <param name="str"> Исходная строка </param>
+        /// <returns> Исходная строка, если она схожа с числом, "" в противном случае </returns>
+        /// <param name="start"> Начальное значение диапазона </param>
+        /// <param name="end"> Конечное значение диапазона </param>
+        /// <returns> Исходная строка, если она схожа с числом из указанного диапазона, "" в противном случае </returns>
+        public static string ValidateStringRange(string str, float start = 0F, float end = 1F) =>
+            str != string.Empty ? float.TryParse((str = StringIsNumber(str)) + (str[str.Length - 1] == ',' ? "0" : ""),
+                out float res) ? (res >= start && res <= end ? str : "") : "" : "";
         /// <summary> Вычисление высот ЗВТ над несколькими пластами </summary>
         /// <param name="begin"> Номер первого элемента, входящего в расчет </param>
         /// <param name="end"> Номер последнего элемента, входящего в расчет </param>

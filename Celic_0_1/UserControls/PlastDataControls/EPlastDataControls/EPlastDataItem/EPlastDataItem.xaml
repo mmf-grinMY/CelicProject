@@ -215,6 +215,10 @@
                     </StackPanel>
                 </Grid>
             </Border>
+            <StackPanel>
+                <TextBlock Text="Коэффициент влияния выемки"/>
+                <TextBlock Text="{Binding Path=S}"/>
+            </StackPanel>
         </StackPanel>
     </Border>
 </UserControl>
