@@ -18,9 +18,10 @@ namespace Celic
             Mv = "2,5";
             Ki = "1";
             H = "500";
-            myID = id++;
+            myID = ++id;
             Name = $"Пласт_{myID}";
             K = Ki = PD = "";
+            Top = Buttom = "отсутствует";
         }
 
         #endregion
@@ -265,7 +266,7 @@ namespace Celic
             get => _sz;
             set
             {
-                _sz = ValidateString(value);
+                _sz = ValidateStringRange(value);
                 OnPropertyChanged(nameof(Sz));
             }
         }

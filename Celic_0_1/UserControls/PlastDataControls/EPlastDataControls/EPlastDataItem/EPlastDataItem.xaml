@@ -39,14 +39,14 @@
                 </StackPanel>
             <!--Вывод калийного горизонта-->
             <StackPanel>
-                    <TextBlock Text="Калийный горизонт"/>
-                    <TextBlock Text="{Binding Path=Gorizont}"/>
-                </StackPanel>
+                <TextBlock Text="Калийный горизонт"/>
+                <TextBlock Text="{Binding Path=Gorizont}"/>
+            </StackPanel>
             <!--Вывод глубины ведения горных работ-->
             <StackPanel>
-                    <TextBlock Text="Глубина ведения горных работ"/>
-                    <TextBlock Text="{Binding Path=H}"/>
-                </StackPanel>
+                <TextBlock Text="Глубина ведения горных работ"/>
+                <TextBlock Text="{Binding Path=H}"/>
+            </StackPanel>
             <!--Вывод вынимаемой мощности-->
             <StackPanel>
                 <TextBlock Text="Вынимаемая мощность"/>
@@ -192,33 +192,37 @@
                 </StackPanel>
             </Border>
             <!--Вывод сближенных вручную пластов-->
-            <Border Margin="0,4,4,4">
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition/>
-                        <RowDefinition/>
-                    </Grid.RowDefinitions>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition/>
-                        <ColumnDefinition/>
-                    </Grid.ColumnDefinitions>
-                    <TextBlock Grid.ColumnSpan="2" Text="Сближенные к данному пласты"/>
+            <Border Margin="0,4">
+                <StackPanel Orientation="Vertical">
+                    <TextBlock Text="Сближенные к данному пласты:"/>
                     <!--Вывод сближенного пласта, находящегося снизу данного-->
-                    <StackPanel Grid.Row="1">
-                        <TextBlock Text=" снизу" Width="43" Margin="0"/>
+                    <StackPanel>
+                        <TextBlock Text=" -  снизу" Width="50"/>
                         <TextBlock Text="{Binding Path=Buttom}"/>
                     </StackPanel>
                     <!--Вывод сближенного пласта, находящегося сверху данного-->
-                    <StackPanel Grid.Column="1" Grid.Row="1">
-                        <TextBlock Text="сверху" Width="43" Margin="0"/>
+                    <StackPanel>
+                        <TextBlock Text=" - сверху" Width="50"/>
                         <TextBlock Text="{Binding Path=Top}"/>
                     </StackPanel>
-                </Grid>
+                </StackPanel>
             </Border>
-            <StackPanel>
-                <TextBlock Text="Коэффициент влияния выемки"/>
-                <TextBlock Text="{Binding Path=S}"/>
-            </StackPanel>
+            <Border Margin="0,4,4,4">
+                <StackPanel Orientation="Vertical">
+                    <StackPanel>
+                        <TextBlock Text="Коэффициент влияния выемки"/>
+                        <TextBlock Text="{Binding Path=S}"/>
+                    </StackPanel>
+                    <StackPanel>
+                        <TextBlock Text="Коэффициент деформации"/>
+                        <TextBlock Text="{Binding Path=Sz}"/>
+                    </StackPanel>
+                    <StackPanel>
+                        <TextBlock Text="Коэффициент порядка разраб. "/>
+                        <TextBlock Text="{Binding Path=Kt}"/>
+                    </StackPanel>
+                </StackPanel>
+            </Border>
         </StackPanel>
     </Border>
 </UserControl>
