@@ -5,44 +5,24 @@
     {
         #region Private Fields
 
+        /// <summary> Главное окно приложения </summary>
         private readonly MainWindow _mainWindow;
 
         #endregion
 
-        /*#region Test
-        private string _value;
-        /// <summary>
-        /// 
-        /// </summary>
-        public string Value {
-            get => _value;
-            set
-            {
-                _value = value;
-                OnPropertyChanged(nameof(Value));
-            }
-        }
-        #endregion*/
-
         #region Constructors
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="mainWindow"></param>
-        public MainViewModel(MainWindow mainWindow)
-        {
-            _mainWindow = mainWindow;
-        }
+        /// <summary> Основной конструктор для данного класса </summary>
+        /// <param name="mainWindow"> Главное окно приложения </param>
+        public MainViewModel(MainWindow mainWindow) : base() => _mainWindow = mainWindow;
 
         #endregion
 
         #region Commands
-        
+
+        /// <summary> Команда открытия окна расчета высоты ЗВТ ( поле ) </summary>
         private RelayCommand simpleCalcBCommand;
-        /// <summary>
-        /// 
-        /// </summary>
+        /// <summary> Команда открытия окна расчета высоты ЗВТ </summary>
         public RelayCommand SimpleCalcBCommand
         {
             get
@@ -50,16 +30,14 @@
                 return simpleCalcBCommand ??
                 (simpleCalcBCommand = new RelayCommand(obj => 
                 {
-                    SCalcBWindow calcBWindow = new SCalcBWindow(_mainWindow);
                     _mainWindow.Hide();
-                    calcBWindow.ShowDialog();
+                    new SCalcBWindow(_mainWindow).ShowDialog();
                 }));
             }
         }
+        /// <summary> Команда открытия окна расчета приразломных целиков ( поле ) </summary>
         private RelayCommand simpleCalcCCommand;
-        /// <summary>
-        /// 
-        /// </summary>
+        /// <summary> Команда открытия окна расчета приразломных целиков </summary>
         public RelayCommand SimpleCalcCCommand
         {
             get
@@ -67,16 +45,14 @@
                 return simpleCalcCCommand ??
                 (simpleCalcCCommand = new RelayCommand(obj =>
                 {
-                    SCalcCWindow calcCWindow = new SCalcCWindow(_mainWindow);
                     _mainWindow.Hide();
-                    calcCWindow.ShowDialog();
+                    new SCalcCWindow(_mainWindow).ShowDialog();
                 }));
             }
         }
+        /// <summary> Команда открытия окна расчета ширины междубарьерных целиков ( поле ) </summary>
         private RelayCommand simpleCalcDCommand;
-        /// <summary>
-        /// 
-        /// </summary>
+        /// <summary> Команда открытия окна расчета ширины междубарьерных целиков </summary>
         public RelayCommand SimpleCalcDCommand
         {
             get
@@ -84,9 +60,8 @@
                 return simpleCalcDCommand ??
                 (simpleCalcDCommand = new RelayCommand(obj =>
                 {
-                    SCalcDWindow calcDWindow = new SCalcDWindow(_mainWindow);
                     _mainWindow.Hide();
-                    calcDWindow.ShowDialog();
+                    new SCalcDWindow(_mainWindow).ShowDialog();
                 }));
             }
         }

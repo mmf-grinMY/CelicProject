@@ -9,11 +9,8 @@
         mc:Ignorable="d"
         FontSize="14"
         Title="Расчет высоты зоны водопроводящих трещин"
-        Height="450"
+        Height="600"
         Width="584">
-    <Window.Resources>
-    </Window.Resources>
-    <!--Release-->
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
@@ -48,25 +45,17 @@
         <StackPanel Grid.Row="1"
                     Grid.Column="1"
                     Margin="0,0,4,0"
-                    HorizontalAlignment="Left"
-                    DataContext="{Binding SelectedPlast}">
-        <TextBlock HorizontalAlignment="Center"
+                    HorizontalAlignment="Left">
+            <TextBlock HorizontalAlignment="Center"
                        Style="{x:Null}"
                        FontSize="14"
                        Text="Выбранный пласт"/>
-        <local:EPlastDataBox x:Name="selected"
+            <local:EPlastDataBox x:Name="selected"
                              SKiVisibility="Visible"
                              EKiVisibility="Collapsed"
                              ECKiVisibility="Collapsed"
                              ELKiVisibility="Collapsed"
                              EContiguosVisibility="Collapsed"/>
-        </StackPanel>                
+        </StackPanel>
     </Grid>
-    <!--Tests-->
-    <!--<controls:ClearableTextBox Text="Очищаемое поле ввода" 
-                                HorizontalAlignment="Center"
-                                VerticalAlignment="Center"
-                                IsEnabled="True"
-                                Width="300"
-                                TextCleared="ClearableTextBox_TextCleared"/>-->
 </Window>

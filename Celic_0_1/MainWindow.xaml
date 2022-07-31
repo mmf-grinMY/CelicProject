@@ -18,7 +18,6 @@
             <Setter Property="Background" Value="White"/>
         </Style>
     </Window.Resources>
-    <!--Release-->
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="0.8*"/>
@@ -41,11 +40,4 @@
             <TextBlock xml:space="preserve">          Расчет<LineBreak/> междубарьерного<LineBreak/>          целика</TextBlock>
         </Button>
     </Grid>
-    <!--Tests-->
-    <!--<controls:InputDataField HorizontalAlignment="Center"
-                             VerticalAlignment="Center"
-                             Width="316.8"
-                             BorderBrush="Black"
-                             BorderThickness="0.5"
-                             Text="{Binding Path=Value, UpdateSourceTrigger=PropertyChanged}"/>-->
 </Window>
