@@ -76,6 +76,12 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Core\Data\BaseTypes\EFloat.cs" />
+    <Compile Include="Core\Data\BaseTypes\StringToFloatConverter.cs" />
+    <Compile Include="Core\Data\BaseTypes\RangeValidationRule.cs" />
+    <Compile Include="Core\Data\DataPlast\MineField.cs" />
+    <Compile Include="Core\Report\ExtentedCalculators\BCalculatorB.cs" />
+    <Compile Include="Core\Report\ExtentedCalculators\ECalculatorB.cs" />
     <Compile Include="WindowsAndLogic\ViewModels\TwoListPlastViewModel.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -1,11 +1,27 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System;
 
 namespace Celic
 {
     /// <summary> Вспомогательный класс, содержащий часто используемые общие методы </summary>
     public class HelpManager
     {
+        #region Public Static Constants
+
+        /// <summary> Камерная система разработки </summary>
+        public static readonly string CAMERA_DEV = "камерная";
+        /// <summary> Cтолбовая система разработки </summary>
+        public static readonly string LAVA_DEV = "столбовая";
+        /// <summary> Система разработки не задана </summary>
+        public static readonly string UNDEFINE_DEV = "не задана";
+        /// <summary> Минимально необходимая величина ПВП </summary>
+        public static readonly int M = 35;
+
+        #endregion
+
+        #region Public Static Methods
+
         /// <summary> Преобразование строки в строку, схожую на вещественной число </summary>
         /// <param name="str"> Исходная строка </param>
         /// <returns> Преобразованная строка </returns>
@@ -28,6 +44,12 @@ namespace Celic
             }
             return str;
         }
+        /// <summary> Проверка строки на схожесть с вещественным числом </summary>
+        /// <param name="str"> Исходная строка </param>
+        /// <returns> Исходная строка, если она схожа с числом, "" в противном случае </returns>
+        public static string ValidateString(string str) =>
+            str != string.Empty ? float.TryParse((str = StringIsNumber(str)) + (str[str.Length - 1] == ',' ?
+                "0" : ""), out float _) ? str : "" : "";
         /// <summary> Проверка строки на схожесть с вещественным числом в указанном диапазоне </summary>
         /// <param name="str"> Исходная строка </param>
         /// <returns> Исходная строка, если она схожа с числом, "" в противном случае </returns>
@@ -63,7 +85,7 @@ namespace Celic
         /// <returns> true, если пласты являются сближенными; false в протичном случае </returns>
         public static bool IsContiguous(Plast plast1, Plast plast2)
         {
-            if(plast1.Height > plast2.Height)
+            if(plast1.H.V > plast2.H.V)
                 return plast1.Buttom.Equals(plast2.Name) && plast2.Top.Equals(plast1.Name);
             else
                 return plast2.Buttom.Equals(plast1.Name) && plast1.Top.Equals(plast2.Name);
@@ -85,13 +107,19 @@ namespace Celic
         public static ObservableCollection<Plast> Sort(ObservableCollection<Plast> plasts)
         {
             for (int i = 1; i < plasts.Count; i++)
-                for (int j = i; j > 0 && plasts[j - 1].Height > plasts[j].Height; j--)
+                for (int j = i; j > 0 && plasts[j - 1].H.V > plasts[j].H.V; j--)
                     plasts.Move(j - 1, j);
             return plasts;
         }
         /// <summary> Выбор коэффициента параметра d при генерации отчета </summary>
         /// <param name="plast"> Рассматриваемый пласт </param>
         /// <returns> Значение коэффициента в виде строки </returns>
-        public static string GetD(Plast plast) => plast.TypeDev == "столбовая" ? "46" : "26";
+        public static string GetD(Plast plast) => plast.TypeDev == LAVA_DEV ? "46" : "26";
+        /// <summary> Вычисление значения котангенса угла </summary>
+        /// <param name="angle"> Угол в радианах </param>
+        /// <returns> Значение котангенса, если он сущестует и 0 в противном случае </returns>
+        public static float Ctg(float angle) => Math.Tan(angle) != 0 ? (float)Math.Tan(angle) : 0;
+
+        #endregion
     }
 }

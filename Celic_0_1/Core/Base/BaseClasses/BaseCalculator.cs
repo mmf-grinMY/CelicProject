@@ -59,11 +59,11 @@ namespace Celic
             if (plasts.Count == 3)
             {
                 ht = new float[plasts.Count];
-                float dh = plasts[2].Height - plasts[1].Height;
+                float dh = plasts[2].H.V - plasts[1].H.V;
                 bool simpleCalcHt1 = ht[2] <= dh;
                 ht[2] = plasts[2].Ht();
                 ht[1] = ht[2] <= dh ? plasts[1].Ht() : SimpleCalcHt(1, 2, plasts);
-                ht[0] = ht[1] <= plasts[1].Height - plasts[0].Height ? plasts[0].Ht() :
+                ht[0] = ht[1] <= plasts[1].H.V - plasts[0].H.V ? plasts[0].Ht() :
                     SimpleCalcHt(0, simpleCalcHt1 == true ? 1 : 2, plasts);
             }
             else
@@ -138,8 +138,8 @@ namespace Celic
             if (plasts.Count == 3)
             {
                 ht = new float[plasts.Count];
-                double dh12 = plasts[1].Height - plasts[0].Height;
-                double dh23 = plasts[2].Height - plasts[1].Height;
+                double dh12 = plasts[1].H.V - plasts[0].H.V;
+                double dh23 = plasts[2].H.V - plasts[1].H.V;
                 string begin = "Список состоит из трех разрабатываемых пластов." +
                                     " Для удобства назовем их пласт 1, пласт 2 и пласт 3 ( перечисление идет вниз по списку)";
                 string plast21 = $"Так как величина HT3 = {ht[2]} меньше величины междупластья ∆H2-3 = {dh23}, " +

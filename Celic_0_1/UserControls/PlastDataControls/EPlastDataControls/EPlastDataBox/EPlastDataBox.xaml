@@ -9,6 +9,8 @@
              d:DesignWidth="324.6"
              x:Name="main">
     <UserControl.Resources>
+        <local:StringToFloatConverter x:Key="floatConverter"/>
+        <local:RangeValidationRule x:Key="rangeRule"/>
         <Style TargetType="TextBox">
             <Setter Property="Width" Value="100"/>
             <Setter Property="Margin" Value="10,2,4,2"/>
@@ -82,12 +84,12 @@
                     <!--Ввод глубины ведения горных работ-->
                     <StackPanel>
                         <TextBlock Text="Глубина ведения горных работ"/>
-                        <TextBox Text="{Binding Path=SelectedPlast.H, UpdateSourceTrigger=PropertyChanged}"/>
+                        <TextBox Text="{Binding Path=SelectedPlast.H, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource floatConverter}}"/>
                     </StackPanel>
                     <!--Ввод вынимаемой мощности-->
                     <StackPanel>
                         <TextBlock Text="Вынимаемая мощность"/>
-                        <TextBox Text="{Binding Path=SelectedPlast.Mv, UpdateSourceTrigger=PropertyChanged}"/>
+                        <TextBox Text="{Binding Path=SelectedPlast.Mv, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource floatConverter}}"/>
                     </StackPanel>
                 </StackPanel>
             </Border>
@@ -114,7 +116,7 @@
                                     </ToolTip>
                                 </TextBlock.ToolTip>
                             </TextBlock>
-                            <TextBox Text="{Binding Path=SelectedPlast.Ki, UpdateSourceTrigger=PropertyChanged}"/>
+                            <TextBox Text="{Binding Path=SelectedPlast.Ki, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource floatConverter}}"/>
                         </StackPanel>
                         <!--Переключатель для ввода дополнительных
                                     параметров для расчета Ki-->
@@ -139,7 +141,7 @@
                                         <ToolTip Content="Cумма поперечных сечений выработок, составляющих очистную камеру"/>
                                     </TextBlock.ToolTip>
                                 </TextBlock>
-                                <TextBox Text="{Binding Path=SelectedPlast.Si, UpdateSourceTrigger=PropertyChanged}"/>
+                                <TextBox Text="{Binding Path=SelectedPlast.Si, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource floatConverter}}"/>
                             </StackPanel>
                             <!--Ввод растояний между осями-->
                             <StackPanel>
@@ -148,7 +150,7 @@
                                         <ToolTip Content="Расстояние между осями соседних междукамерных целиков"/>
                                     </TextBlock.ToolTip>
                                 </TextBlock>
-                                <TextBox Text="{Binding Path=SelectedPlast.L, UpdateSourceTrigger=PropertyChanged}"/>
+                                <TextBox Text="{Binding Path=SelectedPlast.L, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource floatConverter}}"/>
                             </StackPanel>
                         </StackPanel>
                         <!--Ввод дополнительных данных для расчета Ki
@@ -163,7 +165,7 @@
                                         <ToolTip Content="Площадь поперечного сечения лавы"/>
                                     </TextBlock.ToolTip>
                                 </TextBlock>
-                                <TextBox Text="{Binding Path=SelectedPlast.Sl, UpdateSourceTrigger=PropertyChanged}"/>
+                                <TextBox Text="{Binding Path=SelectedPlast.Sl, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource floatConverter}}"/>
                             </StackPanel>
                             <!--Ввод длины лавы-->
                             <StackPanel>
@@ -172,7 +174,7 @@
                                         <ToolTip Content="Длина лавы"/>
                                     </TextBlock.ToolTip>
                                 </TextBlock>
-                                <TextBox Text="{Binding Path=SelectedPlast.Ll, UpdateSourceTrigger=PropertyChanged}"/>
+                                <TextBox Text="{Binding Path=SelectedPlast.Ll, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource floatConverter}}"/>
                             </StackPanel>
                         </StackPanel>
                         <!--Переключатель на ввод Ki в явном виде-->
@@ -206,7 +208,7 @@
                                     </ToolTip>
                                 </TextBlock.ToolTip>
                             </TextBlock>
-                            <TextBox Text="{Binding Path=SelectedPlast.K, UpdateSourceTrigger=PropertyChanged}"/>
+                            <TextBox Text="{Binding Path=SelectedPlast.K, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource floatConverter}}"/>
                         </StackPanel>
                         <!--Переключатель для ввода дополнительных
                                 параметров для расчета K-->
@@ -236,7 +238,7 @@
                                     </ToolTip>
                                 </TextBlock.ToolTip>
                             </TextBlock>
-                            <TextBox Text="{Binding Path=SelectedPlast.B, UpdateSourceTrigger=PropertyChanged}"/>
+                            <TextBox Text="{Binding Path=SelectedPlast.B, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource floatConverter}}"/>
                         </StackPanel>
                         <StackPanel Orientation="Vertical"
                                     x:Name="kExtentedCameraInput"
@@ -260,7 +262,7 @@
                                         </ToolTip>
                                     </TextBlock.ToolTip>
                                 </TextBlock>
-                                <TextBox Text="{Binding Path=SelectedPlast.PD, UpdateSourceTrigger=PropertyChanged}"/>
+                                <TextBox Text="{Binding Path=SelectedPlast.PD, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource floatConverter}}"/>
                             </StackPanel>
                             <!--Переключатель выбора-->
                             <CheckBox Padding="4,-3,0,0"
@@ -353,8 +355,7 @@
                         </CheckBox>
                     </StackPanel>
                     <StackPanel Orientation="Vertical"
-                                x:Name="PlastExtentedInput"
-                                Visibility="Collapsed">
+                                x:Name="PlastExtentedInput">
                         <!--Ввод коэффициента влияния выемки S-->
                         <StackPanel>
                             <TextBlock Text="Коэффициент влияния выемки">
@@ -372,7 +373,7 @@
                                     </ToolTip>
                                 </TextBlock.ToolTip>
                             </TextBlock>
-                            <TextBox Text="{Binding Path=SelectedPlast.S, UpdateSourceTrigger=PropertyChanged}"/>
+                            <TextBox Text="{Binding Path=SelectedPlast.S, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource floatConverter}}"/>
                         </StackPanel>
                         <!--Ввод коэффициента деформирования массива-->
                         <StackPanel>
@@ -397,7 +398,7 @@
                                     </ToolTip>
                                 </TextBlock.ToolTip>
                         </TextBlock>
-                            <TextBox Text="{Binding Path=SelectedPlast.Sz, UpdateSourceTrigger=PropertyChanged}"/>
+                            <TextBox Text="{Binding Path=SelectedPlast.Sz, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource floatConverter}}"/>
                         </StackPanel>
                         <!--Ввод коэффициента порядка разработки-->
                         <StackPanel>
@@ -412,7 +413,7 @@
                                     </ToolTip>
                                 </TextBlock.ToolTip>
                         </TextBlock>
-                            <TextBox Text="{Binding Path=SelectedPlast.Kt, UpdateSourceTrigger=PropertyChanged}"/>
+                            <TextBox Text="{Binding Path=SelectedPlast.Kt, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource floatConverter}}"/>
                         </StackPanel>
                         <CheckBox Padding="4,-3,0,0"
                                   Margin="0,2"

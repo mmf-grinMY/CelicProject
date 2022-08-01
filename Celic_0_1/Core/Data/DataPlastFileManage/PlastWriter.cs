@@ -65,9 +65,9 @@ namespace Celic
             XmlElement kiElem = doc.CreateElement("ki");
             XmlElement typeDevElem = doc.CreateElement("typeDev");
             // Создание данных для тегов-полей шахтного поля
-            XmlText hText = doc.CreateTextNode(plast.H);
-            XmlText mvText = doc.CreateTextNode(plast.Mv);
-            XmlText kiText = doc.CreateTextNode(plast.Ki);
+            XmlText hText = doc.CreateTextNode(plast.H.ToString());
+            XmlText mvText = doc.CreateTextNode(plast.Mv.ToString());
+            XmlText kiText = doc.CreateTextNode(plast.Ki.ToString());
             XmlText typeDevText = doc.CreateTextNode(plast.TypeDev);
             // Запись данных в поля-теги шахтного поля
             hElem.AppendChild(hText);

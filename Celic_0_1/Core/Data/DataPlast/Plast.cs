@@ -1,4 +1,6 @@
-﻿using static System.Char;
+﻿using System;
+using System.Collections.ObjectModel;
+using static System.Char;
 using static System.Single;
 using static Celic.HelpManager;
 
@@ -14,39 +16,27 @@ namespace Celic
         /// <summary> Основной констуктор для данного класса </summary>
         public Plast()
         {
-            TypeDev = "столбовая";
-            Mv = "2,5";
-            Ki = "1";
-            H = "500";
+            _mineFields = new ObservableCollection<MineField> { (_lava = new Lava()) };
             myID = ++id;
             Name = $"Пласт_{myID}";
-            K = Ki = PD = "";
-            Top = Buttom = "отсутствует";
+            K = new EFloat(0);
+            Ki = PD = new EFloat();
+            Top = Buttom = UNDEFINE_DEV;
         }
 
         #endregion
 
         #region Private Fields
 
-        /// <summary> Вынимаемая мощность пласта(высота камер), м ( поле ) </summary>
-        private string _mv;
-        /// <summary> Глубина ведения горных работ в пределах от 350 до 1000 м ( поле )</summary>
-        private string _h;
-        /// <summary> Коэффициент извлечения рудной массы в пределах вынимаемой мощности ( поле ) </summary>
-        private string _ki;
+        /// <summary> Коллекция рассматриваемых шахтных полей, расположенных на данном пласте </summary>
+        private readonly ObservableCollection<MineField> _mineFields;
         /// <summary> Калийный горизонт ( поле ) </summary>
         private string _gorizont;
-        /// <summary> Система разработки шахтного поля ( поле ) </summary>
-        private string _typeDev;
-        /// <summary> Коэффициент, учитывающий размер выработанного пространства ( степень подработанности породного массива ) ( поле ) </summary>
-        private string _k;
         /// <summary> Шахтное поле с камерной системой разработки </summary>
         private Camera _camera;
         /// <summary> Шахтное поле со столбовой системой разработки </summary>
         private Lava _lava;
-        /// <summary> Ширина выработанного пространства ( поле ) </summary>
-        private string _d;
-        /// <summary> Имя пласта ( поле)  </summary>
+        /// <summary> Имя пласта ( поле) </summary>
         private string _name;
         /// <summary> Уникальный идентификатор пласта ( поле ) </summary>
         private readonly int myID;
@@ -57,11 +47,17 @@ namespace Celic
         /// <summary> Сближенный к данному пласт, находящийся снизу ( поле ) </summary>
         private string _buttom;
         /// <summary> Коэффициент степени влияния выемки ( поле ) </summary>
-        private string _s;
+        private EFloat _s;
         /// <summary> Коэффициент деформирования массива ( поле ) </summary>
-        private string _sz;
+        private EFloat _sz;
         /// <summary> Коэффициент порядка разработки пластов ( поле ) </summary>
-        private string _kt;
+        private EFloat _kt;
+        /// <summary> Год отработки рассматриваемого пласта, год ( поле ) </summary>
+        private int _t;
+        /// <summary> Фактическая высота ЗВТ ( поле ) </summary>
+        private EFloat _hf;
+        /// <summary> Расстояние в плане между границами остановки работ на 1-м и рассматриваемом пластах, м ( поле ) </summary>
+        private EFloat _lp;
 
         #endregion
 
@@ -84,39 +80,46 @@ namespace Celic
         {
             set
             {
-                if ((_typeDev = value) == "столбовая")
-                {
-                    _camera = null;
-                    _lava = new Lava();
+                if(TypeDev != value)
+                { 
+                    if (value.Equals(LAVA_DEV))
+                    {
+                        _mineFields.Clear();
+                        _camera = null;
+                        _mineFields.Add(_lava = new Lava());
+                    }
+                    else
+                    {
+                        _mineFields.Clear();
+                        _lava = null;
+                        _mineFields.Add(_camera = new Camera());
+                    }
+                    OnPropertyChanged(nameof(TypeDev));
                 }
-                else
-                {
-                    _camera = new Camera();
-                    _lava = null;
-                }
-                OnPropertyChanged(nameof(TypeDev));
             }
-            get => _typeDev;
+            get => _mineFields[0].TypeDev;
         }
         /// <summary> Глубина ведения горных работ в пределах от 350 до 1000 м </summary>
-        public string H
+        public EFloat H
         {
             set
             {
-                _h = ValidateStringRange(value, 300, 1000);
+                // _mineFields[0].H = ValidateStringRange(value, 300, 1000);
+                _mineFields[0].H = value;
                 OnPropertyChanged(nameof(H));
             }
-            get => _h;
+            get => _mineFields[0].H;
         }
         /// <summary> Вынимаемая мощность пласта(высота камер), м </summary>
-        public string Mv
+        public EFloat Mv
         {
             set
             {
-                _mv = ValidateStringRange(value, 0, 3);
+                // _mineFields[0].Mv = ValidateStringRange(value, 0, 3);
+                _mineFields[0].Mv = value;
                 OnPropertyChanged(nameof(Mv));
             }
-            get => _mv;
+            get => _mineFields[0].Mv;
         }
         /// <summary> Калийный горизонт </summary>
         public string Gorizont
@@ -129,95 +132,101 @@ namespace Celic
             }
         }
         //-------------------------------------------------
-        // Параметры нахождения коэффициента извлечения
+        // Параметры нахождения коэффициента извлечения ( при камерной системе разработки )
         //----------------------------------------------
         /// <summary> Коэффициент извлечения рудной массы в пределах вынимаемой мощности </summary>
-        public string Ki
+        public EFloat Ki
         {
-            set
-            {
-                _ki = ValidateStringRange(value);
-                Si = L = Ll = Sl = string.Empty;
-                OnPropertyChanged(nameof(Ki));
-            }
-            get => _ki;
-        }       
-        /// <summary> Площадь поперечного сечения лавы ( только для шахтного поля со столбовой системой разработки ) </summary>
-        public string Sl
-        {
-            get => _lava != null ? _lava.Sl : string.Empty;
-            set
-            {
-                if (_lava != null)
-                    _lava.Sl = ValidateString(value);
-                OnPropertyChanged(nameof(Sl));
-            }
-        }
-        /// <summary> Длина лавы ( только для шахтного поля со столбовой системой разработки ) </summary>
-        public string Ll
-        {
-            get => _lava != null ? _lava.L : string.Empty;
-            set
-            {
-                if (_lava != null)
-                    _lava.L = ValidateString(value);
-                OnPropertyChanged(nameof(Ll));
-            }
-        }
-        /// <summary> Расстояние между соседними осями междукамерных целиков ( только для шахтного поля с камерной системой разработки ) </summary>
-        public string L
-        {
-            get => _camera != null ? _camera.L : string.Empty;
             set
             {
                 if (_camera != null)
-                    _camera.L = ValidateString(value);
+                {
+                    _camera.Ki = value;
+                    OnPropertyChanged(nameof(Ki));
+                }
+            }
+            get => _camera != null ? _camera.Ki : new EFloat();
+        }
+        /// <summary> Расстояние между осями соседних междукамерных целиков ( только для шахтного поля с камерной системой разработки ) </summary>
+        public EFloat L
+        {
+            get => _camera != null ? _camera.L : new EFloat();
+            set
+            {
+                if (_camera != null)
+                    _camera.L = value;
                 OnPropertyChanged(nameof(L));
             }
         }
         /// <summary> Сумма поперечных сечений выработок, составляющих очистную камеру ( только для шахтного поля с камерной системой разработки ) </summary>
-        public string Si
+        public EFloat Si
         {
-            get => _camera != null ? _camera.Si : string.Empty;
+            get => _camera != null ? _camera.Si : new EFloat();
             set
             {
                 if (_camera != null)
-                    _camera.Si = ValidateString(value);
+                    _camera.Si = value;
                 OnPropertyChanged(nameof(Si));
+            }
+        }
+        //-------------------------------------------
+        // Параметры для нахождения приведенной вынимаемой мощности ( при столбовой системе разработки )
+        //-------------------------------------------
+        /// <summary> Площадь поперечного сечения лавы ( только для шахтного поля со столбовой системой разработки ) </summary>
+        public EFloat Sl
+        {
+            get => _lava != null ? _lava.Sl : new EFloat();
+            set
+            {
+                if (_lava != null)
+                    _lava.Sl = value;
+                OnPropertyChanged(nameof(Sl));
+            }
+        }
+        /// <summary> Длина лавы ( только для шахтного поля со столбовой системой разработки ) </summary>
+        public EFloat Ll
+        {
+            get => _lava != null ? _lava.L : new EFloat();
+            set
+            {
+                if (_lava != null)
+                    _lava.L = value;
+                OnPropertyChanged(nameof(Ll));
             }
         }
         //--------------------------------------------------------------
         // Параметры находжения коэффициента выработанного пространства
         //--------------------------------------------------------------
         /// <summary> Коэффициент, учитывающий размер выработанного пространства ( степень подработанности породного массива ) </summary>
-        public string K
+        public EFloat K
         {
-            get => _k;
+            get => _mineFields[0].K;
             set
             {
-                _k = ValidateStringRange(value);
-                B = PD = string.Empty;
+                // _mineFields[0].K = ValidateStringRange(value);
+                _mineFields[0].K = value;
+                B = PD = new EFloat();
                 OnPropertyChanged(nameof(K));
             } 
         }
         /// <summary> Ширина выработанного пространства </summary>
-        public string PD
+        public EFloat PD
         {
-            get => _d;
+            get => _mineFields[0].D;
             set
             {
-                _d = ValidateString(value);
+                _mineFields[0].D = value;
                 OnPropertyChanged(nameof(PD));
             }
         }
         /// <summary> Расстояние между штреками ( только для шахтного поля со столбовой системой разработки ) </summary>
-        public string B
+        public EFloat B
         {
-            get => _lava != null ? _lava.B : string.Empty;
+            get => _lava != null ? _lava.B : new EFloat();
             set
             {
                 if (_lava != null)
-                    _lava.B = ValidateString(value);
+                    _lava.B = value;
                 OnPropertyChanged(nameof(B));
             }
         }
@@ -249,42 +258,75 @@ namespace Celic
         //----------------------------------------------------------
         /// <summary> Коэффициент, учитывающий степень влияния выемки разрабатываемых пластов на развитие техногенных 
         /// водопроводящих трещин в зависимости от взаимного положения ( смещения в плане ) границ остановки работ </summary>
-        public string S 
+        public EFloat S
         {
             get => _s;
             set
             {
-                _s = ValidateString(value);
+                _s = value;
                 OnPropertyChanged(nameof(S));
             }
         }
         /// <summary> Коэффициент, учитывающий характер деформирования массива пород в краевой части мульды сдвижения над
         /// угловыми участками выработанного пространства, определяемые согласно отдельным рекомендациям
         /// специализированной организации( 0 ≤ S_z ≤ 1 ); при отсутствии таких рекомендаций значение принимается равным 1 </summary>
-        public string Sz 
+        public EFloat Sz 
         {
             get => _sz;
             set
             {
-                _sz = ValidateStringRange(value);
+                _sz = value;
                 OnPropertyChanged(nameof(Sz));
             }
         }
         /// <summary> Коэффициент, учитывающий порядок разработки пластов и интервал времени между их отработкой </summary>
-        public string Kt 
+        public EFloat Kt 
         {
             get => _kt;
             set
             {
-                _kt = ValidateStringRange(value);
+                _kt = value;
                 OnPropertyChanged(nameof(Kt));
             }
         }
+        /// <summary> Год отработки рассматриваемого пласта, год. </summary>
+        public int T
+        {
+            get => _t;
+            set
+            {
+                _t = value <= DateTime.Now.Year && value >= 1900 ? value : DateTime.Now.Year;
+                OnPropertyChanged(nameof(T));
+            }
+        }
+        /// <summary>
+        /// Фактическая максимальная высота распространения ЗВТ над нижележащим пластом 
+        /// спустя время t с момента его отработки(определяется опытным путем), м;
+        /// при отсутствии данных о фактической максимальной высоте распространения ЗВТ над
+        /// нижележащим разрабатываемым пластом принимается равной H_t;
+        /// </summary>
+        public EFloat Hf
+        {
+            get => _hf;
+            set
+            {
+                _hf = value;
+                OnPropertyChanged(nameof(Hf));
+            }
+        }
+        /// <summary> Расстояние в плане между границами остановки работ на 1-м и рассматриваемом пластах, м ( поле ) </summary>
+        public EFloat Lp
+        {
+            get => _lp;
+            set
+            {
+                _lp = value;
+                OnPropertyChanged(nameof(_lp));
+            }
+        }
         //----------------------------------------------------------------------
-        // Дополнительные парметры пласта
+        // Дополнительные парaметры пласта
         //----------------------------------------------------------------------
-        /// <summary> Глубина ведения горных работ в пределах от 350 до 1000 м ( число ) </summary>
-        public float Height { get => TryParse(_h, out float h) ? h : 0; }
         /// <summary> Ширина предохранительного приразломного целика на уровне данного пласта со стороны лежачего крыла разломной зоны, м </summary>
         public float Bl { get; set; }
         /// <summary> Ширина предохранительного приразломного целика на уровне данного пласта со стороны висячего крыла разломной зоны, м </summary>
@@ -293,12 +335,78 @@ namespace Celic
         #endregion
 
         #region Private Methods
-
-        /// <summary> Проверка строки на схожесть с вещественным числом </summary>
-        /// <param name="str"> Исходная строка </param>
-        /// <returns> Исходная строка, если она схожа с числом, "" в противном случае </returns>
-        private string ValidateString(string str) =>
-            str != string.Empty ? TryParse((str = StringIsNumber(str)) + (str[str.Length - 1] == ',' ? "0" : ""), out float _) ? str : "" : "";
+        
+        /// <summary> Расчет значения коэффицента K </summary>
+        /// <returns> Значение коэффициента </returns>
+        private float CalcK()
+        {
+            if (TypeDev.Equals(CAMERA_DEV))
+            {
+                float d0 = D() * Mv.V * Ki.V;
+                return PD.V >= 1.4F * d0 ? 1 : (float)Math.Sqrt(0.8 * (PD.V / (d0 - 0.2)));
+            }
+            else
+            {
+                float d0 = 1.4F * D() * Mv.V;
+                return PD.V >= d0 ? 1 : (d0 != 0 ? (float)Math.Sqrt(PD.V / d0) : 0);
+            }
+        }
+        /// <summary> Расчет значения коэффициента Ki </summary>
+        /// <returns> Значение коэффициента </returns>
+        private float CalcKi() => TypeDev.Equals(CAMERA_DEV) ? L.V != 0 && Mv.V != 0 ? Si.V / (L.V * Mv.V) : 1 : 1;
+        /// <summary> Метод перерасчета коэффициента k для столбовой системы разработки </summary>
+        private void CalcLavaArrayK()
+        {
+            ObservableCollection<Lava> arr = new ObservableCollection<Lava>(); 
+            if (TypeDev.Equals(LAVA_DEV))
+            {
+                bool ef = false, bf = false;
+                int value = 0;
+                for (int i = 0; i < arr.Count - 1; i++)
+                {
+                    if (arr[i] is Lava lava1 && arr[i + 1] is Lava lava2)
+                    {
+                        _ = float.TryParse(lava1.B.ToString(), out float b1);
+                        if (b1 < 0.58 * (lava1.Ht() + lava2.Ht()))
+                        {
+                            if (bf == false)
+                            {
+                                value = i;
+                            }
+                            else
+                            {
+                                if (ef == false && bf == true)
+                                {
+                                    float d0, d, d1, maxD, b, k = 0;
+                                    for (int j = value; j < i - 1; j++)
+                                    {
+                                        if (arr[j] is Lava temp1 && arr[j + 1] is Lava temp2)
+                                        {
+                                            d = temp1.Mv.V;
+                                            d0 = 1.4F * temp1.CalcD() * d;
+                                            d1 = temp2.Mv.V;
+                                            maxD = Math.Max(d, d1);
+                                            b = temp1.B.V;
+                                            k = Math.Max(k, maxD >= d0 ? 1 :
+                                                (maxD + b >= d0 ? (float)Math.Sqrt(maxD / d0) : (d + d1) / (d + 2 * b + d1)));
+                                        }
+                                    }
+                                    for (int j = value; j < i; j++)
+                                    {
+                                        if (arr[j] is Lava tmp)
+                                        {
+                                            tmp.K = new EFloat(k);
+                                        }
+                                    }
+                                    ef = bf = false;
+                                    value = 0;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
 
         #endregion
 
@@ -306,30 +414,13 @@ namespace Celic
 
         /// <summary> Расчет высоты ЗВТ одиночного пласта </summary>
         /// <returns> Значение высоты ЗВТ </returns>
-        public float Ht()
-        {
-            _ = TryParse(H, out float h);
-            _ = TryParse(Mv, out float mv);
-            _ = TryParse(Ki, out float ki);
-            _ = TryParse(K, out float k);
-            return mv * ki * k * (-0.01F * h + (TypeDev == "камерная" ? 26 : 46));
-        }
+        public float Ht() => MPr() * D();
         /// <summary> Расчет коэффициента d, зависящего от системы разраьотки для пласта </summary>
         /// <returns> Значение коэффициента d</returns>
-        public float D()
-        {
-            _ = TryParse(H, out float h);
-            return -0.01F * h + (TypeDev == "камерная" ? 26 : 46);
-        }
+        public float D() => -0.01F * H.V + (TypeDev == "камерная" ? 26 : 46);
         /// <summary> Расчет приведенной вынимаемой мощности для пласта </summary>
         /// <returns> Значение приведенной вынимаеомй мощности </returns>
-        public float MPr()
-        {
-            _ = TryParse(Mv, out float mv);
-            _ = TryParse(Ki, out float ki);
-            _ = TryParse(K, out float k);
-            return mv * ki * k;
-        }
+        public float MPr() => TypeDev.Equals(CAMERA_DEV) ? Mv.V * Ki.V * K.V : L.V != 0 ? Sl.V / L.V * K.V : 0;
 
         #endregion
     }

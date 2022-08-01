@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 using Word = Microsoft.Office.Interop.Word;
+using static Celic.HelpManager;
 
 namespace Celic
 {
@@ -64,10 +65,6 @@ namespace Celic
         /// <param name="angle"> Угол в радианах </param>
         /// <returns> Значение угла в градусах </returns>
         private static double ToGrad(double angle) => angle / Math.PI * 180;
-        /// <summary> Вычисление значения котангенса угла </summary>
-        /// <param name="angle"> Угол в радианах </param>
-        /// <returns> Значение котангенса, если он сущестует и 0 в противном случае </returns>
-        private float Ctg(float angle) => Math.Tan(angle) != 0 ? (float)Math.Tan(angle) : 1;
         /// <summary> Расчет ширины приразломного предохранительного целика 
         /// со стороны лежачего крыла разломной зоны для одного пласта </summary>
         /// <param name="ht"> Значение высоты ЗВТ для данного пласта </param>
