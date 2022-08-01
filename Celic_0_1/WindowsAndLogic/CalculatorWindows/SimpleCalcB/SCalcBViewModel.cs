@@ -3,7 +3,6 @@
     /// <summary> Логика работы окна с расчетом высоты ЗВТ </summary>
     class SCalcBViewModel : OneListPlastViewModel
     {
-        // Добавить возможность определять сближенность пластов
         // При генерации отчета
         // -- выделять новый поток под генерацию и расчет
         // -- показывать с помощью ProgressBar прогресс записи в файл
@@ -26,25 +25,34 @@
 
         #region Private Fields
 
+        /// <summary> Имя пласта, расположенного ниже выбранного ( поле ) </summary>
         private string _buttom;
+        /// <summary> Имя пласта, расположенного выше выбранного ( поле ) </summary>
         private string _top;
+        /// <summary> Имя выбранного сближенного пласта снизу выбранного пласта ( поле ) </summary>
         private string _selectedButtom;
+        /// <summary> Имя выбранного сближенного пласта сверху выбранного пласта ( поле ) </summary>
         private string _selectedTop;
+        /// <summary> Пласт, расположенный снизу выбранного ( поле ) </summary>
         private Plast _next;
+        /// <summary> Пласт, расположенный сверху выбранного ( поле ) </summary>
         private Plast _prev;
+        /// <summary> Отсутствие сближенного пласта </summary>
         private readonly string not = "отсутствует";
+        /// <summary> Сближенный пласт по каким-то причинам не может быть определен </summary>
         private readonly string undefine = "пласт не задан";
 
         #endregion
 
         #region Public Properties
 
+        /// <summary> Выбранный пользователем пласт </summary>
         public new Plast SelectedPlast
         {
             set
             {
                 _selectedPlast = value;
-                next = prev = null;
+                Next = Prev = null;
                 if (_selectedPlast != null)
                 {
                     SelectedTop = _selectedPlast.Top;
@@ -54,15 +62,16 @@
                     if (index != -1)
                     {
                         if (index != Plasts.Count - 1)
-                            next = Plasts[index + 1];
+                            Next = Plasts[index + 1];
                         if (index != 0)
-                            prev = Plasts[index - 1];
+                            Prev = Plasts[index - 1];
                     }
                 }
                 OnPropertyChanged(nameof(SelectedPlast));
             }
             get => _selectedPlast;
         }
+        /// <summary> Имя пласта, расположенного ниже выбранного </summary>
         public string Buttom
         {
             get => _buttom;
@@ -72,6 +81,7 @@
                 OnPropertyChanged(nameof(Buttom));
             }
         }
+        /// <summary> Имя пласта, расположенного выше выбранного </summary>
         public string Top
         {
             get => _top;
@@ -81,6 +91,7 @@
                 OnPropertyChanged(nameof(Top));
             }
         }
+        /// <summary> Имя выбранного сближенного пласта снизу выбранного пласта </summary>
         public string SelectedButtom
         {
             get => _selectedButtom;
@@ -111,6 +122,7 @@
                 OnPropertyChanged(nameof(SelectedButtom));
             }
         }
+        /// <summary> Имя выбранного сближенного пласта сверху выбранного пласта </summary>
         public string SelectedTop
         {
             get => _selectedTop;
@@ -141,16 +153,10 @@
                 OnPropertyChanged(nameof(SelectedTop));
             }
         }
-        private Plast next
-        {
-            get => _next;
-            set => Buttom = (_next = value) != null ? _next.Name : undefine;
-        }
-        private Plast prev
-        {
-            get => _prev;
-            set => Top = (_prev = value) != null ? _prev.Name : undefine;
-        }
+        /// <summary> Пласт, расположенный снизу выбранного </summary>
+        private Plast Next { set => Buttom = (_next = value) != null ? _next.Name : undefine; }
+        /// <summary> Пласт, расположенный сверху выбранного </summary>
+        private Plast Prev {  set => Top = (_prev = value) != null ? _prev.Name : undefine; }
 
         #endregion
     }

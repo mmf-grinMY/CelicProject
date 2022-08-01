@@ -76,7 +76,7 @@ namespace Celic.WPF.CustomControls
         public override void OnApplyTemplate()
         {
             base.OnApplyTemplate();
-            var clearTB = this.GetTemplateChild("PART_ClearableTextBox") as ClearableTextBox;
+            // var clearTB = this.GetTemplateChild("PART_ClearableTextBox") as ClearableTextBox;
         }
     }
 }

@@ -66,14 +66,14 @@ namespace Celic
         private void FormatListLine1()
         {
             FormatVariable2("mв ");
-            Select(_p.Mv, _p.Mv.Length).BoldRun();
+            Select(_p.Mv.ToString(), _p.Mv.ToString().Length).BoldRun();
         }
         /// <summary> Форматирование текста listLine2 </summary>
-        private void FormatListLine2() => Select(_p.H, _p.H.Length).BoldRun();
+        private void FormatListLine2() => Select(_p.H.ToString(), _p.H.ToString().Length).BoldRun();
         /// <summary> Форматирование текста listLine32 </summary>
         private void FormatListLine32()
         {
-            Select(_p.Ki, _p.Ki.Length).BoldRun();
+            Select(_p.Ki.ToString(), _p.Ki.ToString().Length).BoldRun();
             FormatVariable2("kи ");
         }
         /// <summary> Форматирование текста line2 </summary>
@@ -94,9 +94,9 @@ namespace Celic
         private void FormatLine3()
         {
             Select(_p.Gorizont + "-му", 4).BoldRun();
-            Select(_p.Mv, _p.Mv.Length).BoldRun();
+            Select(_p.Mv.ToString(), _p.Mv.ToString().Length).BoldRun();
             FormatVariable2("kи ");
-            Select(_p.Ki, _p.Ki.Length).BoldRun();
+            Select(_p.Ki.ToString(), _p.Ki.ToString().Length).BoldRun();
         }
         /// <summary> Форматирование текста formula1 </summary>
         private void FormatFormula1()

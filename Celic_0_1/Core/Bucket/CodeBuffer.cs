@@ -608,6 +608,125 @@
                 HelpManager.CallOrg();
             }
         }*/
+        // From OldCelicVersion
+        /*using System;
+using System.Collections.ObjectModel;
+
+namespace OldCelic
+{
+    /// <summary>
+    /// Методика расчета приразломных целиков
+    /// </summary>
+    class CalculatorC
+    {
+        private static readonly double delta0 = Math.PI / 3;
+        /// <summary>
+        /// Угол падения плоскости сместителя (разломной зоны),
+        /// определяемый согласно графическим приложениям к настоящим «Правилам…»
+        /// </summary>
+        private readonly double alfa;
+        /// <summary>
+        /// Список разрабатываемых пластов
+        /// </summary>
+        private readonly ObservableCollection<Plast> plasts = new ObservableCollection<Plast>();
+        /// <summary>
+        /// Конструктор с добавлением начальных данных для расчета
+        /// </summary>
+        /// <param name="arr">Коллекция разрабатываемых пластов</param>
+        /// <param name="alfa">Угол падения плоскости сместители разломной зоны</param>
+        public CalculatorC(ObservableCollection<Plast> arr, double alfa)
+        {
+            foreach (Plast plast in arr)
+            {
+                this.plasts.Add(plast);
+            }
+            this.alfa = alfa;
+        }
+        /// <summary>
+        /// Метод подсчета B_l в стандартной ситуации 
+        /// </summary>
+        /// <param name="h_t">ЗВТ</param>
+        /// <returns>Значение B_l</returns>
+        private double CalcBL(double h_t) => 50 + (h_t * (1 / Math.Tan(delta0) + 1 / Math.Tan(alfa)));
+        /// <summary>
+        /// Метод расчета параметром B_l и B_v для заданного пласта 
+        /// </summary>
+        /// <param name="h_t">ЗВТ для рассматриваемого пласта</param>
+        /// <param name="index">Индекс пласта в коллекции</param>
+        private void CalcB(double h_t, int index)
+        {
+            plasts[index].B_l = 50 + h_t * (1 / Math.Tan(delta0) + 1 / Math.Tan(alfa));
+            plasts[index].B_v = 50 + h_t * (1 / Math.Tan(delta0) - 1 / Math.Tan(alfa));
+        }    
+        /// <summary>
+        /// Метод для рассчета ширина предохранительного приразломного
+        /// целика на уровне разрабатываемого пласта со стороны лежачего
+        /// крыла разломной зоны, м;
+        /// </summary>
+        public void B()
+        {
+            double delta0 = Math.PI / 3;
+            if (plasts.Count == 2)
+            {
+                if (!HelpManager.isContiguous(plasts))
+                {
+                    if(alfa > delta0)
+                    {
+                        for (int i = 0; i < plasts.Count; i++)
+                        {
+                            CalcB(plasts[i].H_t(), i);
+                        }
+                    }
+                    else
+                    {
+                        for (int i = 0; i < plasts.Count; i++)
+                        {
+                            plasts[i].B_l = CalcBL(plasts[i].H_t());
+                            plasts[i].B_v = 50;
+                        }
+                    }
+                }
+                else
+                {
+                    CalculatorB calc = new CalculatorB(plasts);
+                    CalcB(calc.H_t(), 0);
+                    CalcB(plasts[1].H_t(), 1);
+                }
+            }
+            else if (plasts.Count >= 3)
+            {
+                if (HelpManager.isContiguous(plasts))
+                {
+                    double[] h_t = new double[3];
+                    h_t[2] = plasts[2].H_t();
+                    h_t[1] = h_t[2] < plasts[2].H - plasts[1].H ? plasts[1].H_t() : HelpManager.calcH_t(1, 2, plasts);
+                    if(h_t[1] < plasts[1].H - plasts[0].H)
+                    {
+                        h_t[0] = plasts[0].H_t();
+                    }
+                    else
+                    {
+                        int endIndex = h_t[1] == plasts[1].H_t() ? 1 : 2;
+                        h_t[0] = HelpManager.calcH_t(0, endIndex, plasts);
+                    }
+                    for(int i = 0; i < 3; i++)
+                    {
+                        CalcB(h_t[i], i);
+                    }
+                }
+                else
+                {
+                    HelpManager.callOrg();
+                }
+            }
+            else
+            {
+                HelpManager.callOrg();
+            }
+        }
+    }
+}
+*/
         #endregion
 
         #region Old Logic SCalculatorD
@@ -708,6 +827,75 @@
                 CallOrg();
             }
             return _bMin;
+        }*/
+        // Logic CalculatroD from OldCelicVersion
+        /*private double bMin(double H_t1, double H_t2)
+        {
+            return 0.18 * (H_t1 + H_t2) + 66;
+        }
+        public List<double> B_min()
+        {
+            List<double> b_min = new List<double>();
+            if (plasts.Count == 2)
+            {
+                b_min.Add(bMin(!HelpManager.isContiguous(plasts) ? plasts[0].H_t() : HelpManager.calcH_t(0, 1, plasts), plasts[1].H_t()));
+            }
+            else if (plasts.Count >= 3)
+            {
+                if (HelpManager.isContiguous(plasts))
+                {
+                    double H_t31 = plasts[2].H_t(), H_t32 = plasts[2].H_t();
+                    b_min.Add(bMin(plasts[2].H_t(), plasts[2].H_t()));
+                    double dH23 = plasts[2].H - plasts[1].H; //расстояние между 3 и 2 пластами
+                    double dH12 = plasts[1].H - plasts[0].H; //расстояние между 2 и 1 пластами
+                    double H_t21 = 0, H_t22 = 0;
+                    if (H_t31 < dH23 && H_t32 < dH23)
+                    {
+                        H_t21 = plasts[1].H_t();
+                        H_t22 = plasts[1].H_t();
+                    }
+                    else if (H_t31 >= dH23 && H_t32 >= dH23)
+                    {
+                        H_t21 = H_t22 = HelpManager.calcH_t(1, 2, plasts);   
+                    }
+                    else
+                    {
+                        HelpManager.callOrg();
+                    }
+                    b_min.Add(bMin(H_t21, H_t22));
+                    double H_t11 = 0, H_t12 = 0;
+                    if (H_t21 < dH12 && H_t22 < dH12)
+                    {
+                        H_t11 = plasts[0].H_t();
+                        H_t12 = plasts[0].H_t();
+                    }
+                    else if (H_t21 >= dH12 && H_t22 >= dH12)
+                    {
+                        if (H_t21 == plasts[1].H_t() && H_t22 == plasts[1].H_t())
+                        {
+                            H_t11 = H_t12 = HelpManager.calcH_t(0, 1, plasts);
+                        }
+                        else
+                        {
+                            H_t11 = H_t12 = H_t21 == HelpManager.calcH_t(1, 2, plasts) && H_t22 == HelpManager.calcH_t(1, 2, plasts) ? HelpManager.calcH_t(0, 2, plasts) : HelpManager.callOrg();
+                        }
+                    }
+                    else
+                    {
+                        HelpManager.callOrg();
+                    }
+                    b_min[0] = 0.18 * (H_t11 + H_t12) + 66;
+                }
+                else
+                {
+                    HelpManager.callOrg();
+                }
+            }
+            else
+            {
+                HelpManager.callOrg();
+            }
+            return b_min;
         }*/
         #endregion
 
@@ -927,6 +1115,35 @@
             par.Range.InsertParagraphAfter();
             _rangeLength = _app.ActiveDocument.Range().Text.Length;
         }*/
+        #endregion
+
+        #region Functions from OldCelicVersion
+
+        /*public static double calck(Lava one, Lava two, double B)
+        {
+            double k = 0;
+            if (B < 0.58 * (one.H_t() + two.H_t()))
+            {
+                if (300 >= Math.Max(one.D, two.D) && Math.Max(one.D, two.D) >= one.D_0)
+                {
+                    k = 1;
+                }
+                else if (Math.Max(one.D, two.D) < one.D_0)
+                {
+                    if (Math.Max(one.D, two.D) + B >= one.D_0)
+                    {
+                        k = Math.Sqrt(Math.Max(one.D, two.D) / one.D_0);
+                    }
+                    else
+                    {
+                        k = (one.D + two.D) / (one.D + 2 * B + two.D);
+                    }
+                }
+            }
+            return k;
+        }*/
+
+
         #endregion
     }
 }

@@ -38,7 +38,7 @@ namespace Celic
         {
             float ht = _plasts[0].Ht();
             for (int i = 1; i < _plasts.Count; i++)
-                ht += h * _plasts[i].Ht() / (h + _plasts[i].Height - _plasts[0].Height);
+                ht += h * _plasts[i].Ht() / (h + _plasts[i].H.V - _plasts[0].H.V);
             return ht;
         }
         /// <summary> Расчет высоты ЗВТ с логированием произведенных операций </summary>
@@ -52,10 +52,10 @@ namespace Celic
             for (int i = 1; i < _plasts.Count; i++)
             {
                 Plast p = _plasts[i];
-                ht += h * _plasts[i].Ht() / (h + _plasts[i].Height - _plasts[0].Height);
+                ht += h * _plasts[i].Ht() / (h + _plasts[i].H.V - _plasts[0].H.V);
                 h = (float)Math.Round(h * 100) / 100;
                 txt += " + (" + h + "∙" + Math.Round(p.D() * 100) / 100 + "∙" + p.MPr() + "∙" +
-                    p.S + "∙" + p.Sz + "∙" + p.Kt + ")/(" + h + " + " + (p.Height - _plasts[0].Height) + ")";
+                    p.S + "∙" + p.Sz + "∙" + p.Kt + ")/(" + h + " + " + (p.H.V - _plasts[0].H.V) + ")";
             }
             txt += " = " + Math.Round(ht * 100) / 100;
             _txt.Add(txt);

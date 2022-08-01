@@ -56,19 +56,19 @@ namespace Celic
                 if (childnode.Name == "minefield")
                     foreach (XmlNode minefield in childnode.ChildNodes)
                         if (minefield.Name == "h")
-                            plast.H = minefield.InnerText;
+                            plast.H = EFloat.Parse(minefield.InnerText);
                         else if (minefield.Name == "mv")
-                            plast.Mv = minefield.InnerText;
+                            plast.Mv = EFloat.Parse(minefield.InnerText);
                         else if (minefield.Name == "ki")
-                            plast.Ki = minefield.InnerText;
+                            plast.Ki = EFloat.Parse(minefield.InnerText);
                         else if (minefield.Name == "typeDev")
                             plast.TypeDev = minefield.InnerText;
                 else if (childnode.Name == "S")
-                     plast.S = childnode.InnerText;
+                     plast.S = EFloat.Parse(childnode.InnerText);
                 else if (childnode.Name == "S_z")
-                    plast.Sz = childnode.InnerText;
+                    plast.Sz = EFloat.Parse(childnode.InnerText);
                 else if (childnode.Name == "k_t")
-                    plast.Kt = childnode.InnerText;
+                    plast.Kt = EFloat.Parse(childnode.InnerText);
             return plast;
         }
         /// <summary> Чтение данных о модели расчета SCalcBViewModel </summary>

@@ -247,7 +247,7 @@ namespace Celic
         /// <param name="e"> Аргументы вызова </param>
         private void ComboBoxTypeDev_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (sender is ComboBox box && DataContext != null)
+            if (sender is ComboBox && DataContext != null)
             {
                 if (EKiVisibility == Visibility.Visible)
                 {
@@ -275,7 +275,7 @@ namespace Celic
                 PlastExtentedInput.Visibility = Visibility.Visible;
                 if(DataContext is Plast plast)
                 {
-                    plast.S = plast.Sz = plast.Kt = "";
+                    plast.S = plast.Sz = plast.Kt = new EFloat(0);
                 }
                 checkBox.IsChecked = false;
             }
@@ -289,7 +289,7 @@ namespace Celic
                 PlastSimpleInput.Visibility = Visibility.Visible;
                 if (DataContext is Plast plast)
                 {
-                    plast.S = plast.Sz = plast.Kt = "1";
+                    plast.S = plast.Sz = plast.Kt = new EFloat(1);
                 }
                 checkBox.IsChecked = false;
             }

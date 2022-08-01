@@ -111,7 +111,7 @@ namespace Celic
         /// <summary> Метод для заполенения первой строки таблицы </summary>
         private void WriteRow1()
         {
-            int contiguosNumber = 1;
+            // int contiguosNumber = 1;
             for(int i = 0; i < _table.Columns.Count; i++)
             {
                 _cell.Range.Text = i == 0 ? "Наименование параметра" :

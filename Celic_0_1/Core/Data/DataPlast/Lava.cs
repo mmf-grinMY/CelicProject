@@ -1,23 +1,40 @@
 ﻿namespace Celic
 {
     /// <summary> Шахтное поле со столбовой системой разработки </summary>
-    public class Lava
+    class Lava : MineField
     {
         #region Contructors
 
         /// <summary> Основной конструктор для данного класса </summary>
-        public Lava() => B = Sl = L;
+        public Lava()
+        {
+            TypeDev = HelpManager.LAVA_DEV;
+        }
 
         #endregion
 
         #region Public Properties
 
         /// <summary> Расстояние между штреками </summary>
-        public string B { set; get; }
+        public EFloat B { set; get; }
         /// <summary> Площадь поперечного сечения лавы </summary>
-        public string Sl { set; get; }
+        public EFloat Sl { set; get; }
         /// <summary> Длина лавы </summary>
-        public string L { set; get; }
+        public EFloat L { set; get; }
+
+        #endregion
+
+        #region Public Methods
+
+        public float Ht() => MPr() * CalcD();
+        public float MPr()
+        {
+            return 0;
+        }
+        public float CalcD()
+        {
+            return 0;
+        }
 
         #endregion
     }
