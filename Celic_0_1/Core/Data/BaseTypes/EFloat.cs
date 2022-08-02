@@ -1,6 +1,4 @@
-﻿using static Celic.HelpManager;
-
-namespace Celic
+﻿namespace Celic
 {
     /// <summary> Вещественное число одинарной точности, которое может окначиваться на запятую и нуль </summary>
     public struct EFloat
@@ -15,6 +13,8 @@ namespace Celic
         private static readonly byte zero1AtEndMask = 2;
         /// <summary> Число окначивается на два нуля </summary>
         private static readonly byte zero2AtEndMask = 4;
+        /// <summary> Число является пустой строкой </summary>
+        private static readonly byte emptyMask = 8;
         /// <summary> Вещественное число одинарной точности ( поле ) </summary>
         private float value;
         /// <summary> Формат числа </summary>
@@ -37,7 +37,7 @@ namespace Celic
         public EFloat(float value = 0, byte format = 0)
         {
             this.value = value;
-            this.format = format;
+            this.format = emptyMask;
         }
 
         #endregion
@@ -72,6 +72,8 @@ namespace Celic
         /// <returns> Строковое представление числа </returns>
         public override string ToString()
         {
+            if ((format & emptyMask) != 0)
+                return "";
             string valueS = value.ToString();
             if ((format & defMask) != 0)
                 return valueS;
@@ -92,11 +94,11 @@ namespace Celic
         public static EFloat Parse(string text)
         {
             EFloat result;
-            result.value = 0;
+            result.value = -1;
             result.format = defMask;
             if (text != null)
             {
-                text = ValidateString(text);
+                // text = ValidateString(text);
                 result.value = float.Parse(text);
                 if (text.Length >= 2 && text.Contains(","))
                 {
@@ -109,6 +111,9 @@ namespace Celic
             }
             return result;
         }
+        /// <summary> EFloat является вещественным числом ( отсутствуют паарметры дополнительного форматирования ) </summary>
+        /// <returns> true, если format == 0 и false в проивном случае </returns>
+        public bool IsFloat() => format == defMask;
 
         #endregion
     }

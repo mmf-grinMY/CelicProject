@@ -25,17 +25,15 @@ namespace Celic
         /// <param name="model"> Модель расчета </param>
         public SCalculatorC(SCalcCViewModel model) : base()
         {
-            _ = float.TryParse(model.Alfa, out float alfa);
-            _alfa = (float)Math.PI / 180 * alfa;
+            _alfa = (float)Math.PI / 180 * model.Alfa.V;
             _plasts = model.Plasts;
         }
         /// <summary> Дополнительный конструктор для расчета без логирования </summary>
         /// <param name="plasts"> Список разрабатываемых пластов </param>
         /// <param name="angle"> Угол падения разломной плоскости </param>
-        public SCalculatorC(ObservableCollection<Plast> plasts, string angle)
+        public SCalculatorC(ObservableCollection<Plast> plasts, EFloat angle)
         {
-            _ = float.TryParse(angle, out float alfa);
-            _alfa = (float)Math.PI * alfa / 180;
+            _alfa = (float)Math.PI * angle.V / 180;
             _plasts = plasts;
         }
 

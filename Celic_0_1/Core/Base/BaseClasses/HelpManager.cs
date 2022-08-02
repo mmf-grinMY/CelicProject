@@ -22,7 +22,7 @@ namespace Celic
 
         #region Public Static Methods
 
-        /// <summary> Преобразование строки в строку, схожую на вещественной число </summary>
+        /*/// <summary> Преобразование строки в строку, схожую на вещественной число </summary>
         /// <param name="str"> Исходная строка </param>
         /// <returns> Преобразованная строка </returns>
         public static string StringIsNumber(string str)
@@ -48,7 +48,7 @@ namespace Celic
         /// <param name="str"> Исходная строка </param>
         /// <returns> Исходная строка, если она схожа с числом, "" в противном случае </returns>
         public static string ValidateString(string str) =>
-            str != string.Empty ? float.TryParse((str = StringIsNumber(str)) + (str[str.Length - 1] == ',' ?
+            str != string.Empty ? float.TryParse((str = StringIsNumber(str)) + (str[str.Length - 1].Equals(',') ?
                 "0" : ""), out float _) ? str : "" : "";
         /// <summary> Проверка строки на схожесть с вещественным числом в указанном диапазоне </summary>
         /// <param name="str"> Исходная строка </param>
@@ -58,7 +58,7 @@ namespace Celic
         /// <returns> Исходная строка, если она схожа с числом из указанного диапазона, "" в противном случае </returns>
         public static string ValidateStringRange(string str, float start = 0F, float end = 1F) =>
             str != string.Empty ? float.TryParse((str = StringIsNumber(str)) + (str[str.Length - 1] == ',' ? "0" : ""),
-                out float res) ? (res >= start && res <= end ? str : "") : "" : "";
+                out float res) ? (res >= start && res <= end ? str : "") : "" : "";*/
         /// <summary> Вычисление высот ЗВТ над несколькими пластами </summary>
         /// <param name="begin"> Номер первого элемента, входящего в расчет </param>
         /// <param name="end"> Номер последнего элемента, входящего в расчет </param>

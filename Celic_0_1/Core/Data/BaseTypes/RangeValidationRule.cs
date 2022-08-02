@@ -50,9 +50,9 @@ namespace Celic
                 {
                     return new ValidationResult(false, "Недопустимые символы.");
                 }
-                return (range.V < Min || range.V > Max) ?
-                    new ValidationResult(false, "Значение не входит в допустимый диапазон " + Min + " до " + Max + ".") :
-                    new ValidationResult(true, null);
+                return (range.V >= Min && (range.V < Max || (range.V == Max && range.IsFloat()))) ?
+                    new ValidationResult(true, null) :
+                    new ValidationResult(false, "Значение не входит в допустимый диапазон " + Min + " до " + Max + ".");                    
             }
             return new ValidationResult(true, null);
         }

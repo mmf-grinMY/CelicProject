@@ -1,17 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+using static Celic.HelpManager;
 
 namespace Celic
 {
@@ -191,7 +180,7 @@ namespace Celic
                 EKiVisibility = Visibility.Visible;
                 if (DataContext != null)
                 {
-                    if ((DataContext as Plast).TypeDev == "камерная")
+                    if ((DataContext as Plast).TypeDev.Equals(CAMERA_DEV))
                     {
                         ECKiVisibility = Visibility.Visible;
                         ELKiVisibility = Visibility.Collapsed;
@@ -225,7 +214,7 @@ namespace Celic
             if (sender is CheckBox checkBox && checkBox.IsChecked == true)
             {
                 SKVisibility = Visibility.Collapsed;
-                ELKVisibility = (DataContext as Plast).TypeDev == "камерная" ? Visibility.Collapsed : Visibility.Visible;
+                ELKVisibility = (DataContext as SCalcBViewModel).SelectedPlast.TypeDev.Equals(CAMERA_DEV) ? Visibility.Collapsed : Visibility.Visible;
                 ECKVisibility = Visibility.Visible;
                 checkBox.IsChecked = false;
             }
@@ -251,7 +240,7 @@ namespace Celic
             {
                 if (EKiVisibility == Visibility.Visible)
                 {
-                    if ((DataContext as Plast).TypeDev != "камерная")
+                    if ((DataContext as Plast).TypeDev.Equals(LAVA_DEV))
                     {
                         ECKiVisibility = Visibility.Visible;
                         ELKiVisibility = Visibility.Collapsed;
@@ -263,10 +252,12 @@ namespace Celic
                     }
                 }
                 if (SKVisibility == Visibility.Collapsed)
-                    ELKVisibility = (DataContext as Plast).TypeDev != "камерная" ? Visibility.Collapsed : Visibility.Visible;
+                    ELKVisibility = (DataContext as Plast).TypeDev.Equals(LAVA_DEV) ? Visibility.Collapsed : Visibility.Visible;
             }
         }
-
+        /// <summary> Обработчик событий "Открыть возможность задания дополнительных данных пласта" </summary>
+        /// <param name="sender"> Вызываемый ComboBox </param>
+        /// <param name="e"> Аргументы вызова </param>
         private void CheckBoxPlastExtented_Click(object sender, RoutedEventArgs e)
         {
             if(sender is CheckBox checkBox && checkBox.IsChecked == true)
@@ -280,7 +271,9 @@ namespace Celic
                 checkBox.IsChecked = false;
             }
         }
-
+        /// <summary> Обработчик событий "Закрыть возможность задания дополнительных данных пласта" </summary>
+        /// <param name="sender"> Вызываемый ComboBox </param>
+        /// <param name="e"> Аргументы вызова </param>
         private void CheckBoxPlastSimple_Click(object sender, RoutedEventArgs e)
         {
             if (sender is CheckBox checkBox && checkBox.IsChecked == true)
