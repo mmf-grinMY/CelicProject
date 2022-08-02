@@ -10,7 +10,6 @@
              x:Name="main">
     <UserControl.Resources>
         <local:StringToFloatConverter x:Key="floatConverter"/>
-        <local:RangeValidationRule x:Key="rangeRule"/>
         <Style TargetType="TextBox">
             <Setter Property="Width" Value="100"/>
             <Setter Property="Margin" Value="10,2,4,2"/>
@@ -61,7 +60,7 @@
                     <StackPanel>
                         <TextBlock Text="Система разработки"/>
                         <ComboBox Text="{Binding SelectedPlast.TypeDev}"
-                                  SelectionChanged="ComboBoxTypeDev_SelectionChanged">
+                                      SelectionChanged="ComboBoxTypeDev_SelectionChanged">
                             <ComboBoxItem Content="столбовая"/>
                             <ComboBoxItem Content="камерная"/>
                         </ComboBox>
@@ -84,12 +83,34 @@
                     <!--Ввод глубины ведения горных работ-->
                     <StackPanel>
                         <TextBlock Text="Глубина ведения горных работ"/>
-                        <TextBox Text="{Binding Path=SelectedPlast.H, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource floatConverter}}"/>
+                        <TextBox>
+                            <TextBox.Text>
+                                <Binding Path="SelectedPlast.H" UpdateSourceTrigger="PropertyChanged">
+                                    <Binding.Converter>
+                                        <local:StringToFloatConverter/>
+                                    </Binding.Converter>
+                                    <Binding.ValidationRules>
+                                        <local:RangeValidationRule Min="300" Max="1000"/>
+                                    </Binding.ValidationRules>
+                                </Binding>
+                            </TextBox.Text>
+                        </TextBox>
                     </StackPanel>
                     <!--Ввод вынимаемой мощности-->
                     <StackPanel>
                         <TextBlock Text="Вынимаемая мощность"/>
-                        <TextBox Text="{Binding Path=SelectedPlast.Mv, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource floatConverter}}"/>
+                        <TextBox>
+                            <TextBox.Text>
+                                <Binding Path="SelectedPlast.Mv" UpdateSourceTrigger="PropertyChanged">
+                                    <Binding.Converter>
+                                        <local:StringToFloatConverter/>
+                                    </Binding.Converter>
+                                    <Binding.ValidationRules>
+                                        <local:RangeValidationRule Max="3"/>
+                                    </Binding.ValidationRules>
+                                </Binding>
+                            </TextBox.Text>
+                        </TextBox>
                     </StackPanel>
                 </StackPanel>
             </Border>
@@ -98,39 +119,50 @@
                 <StackPanel Orientation="Vertical">
                     <!--Ввод явного значения Ki-->
                     <StackPanel Margin="0,0,0,2"
-                                Orientation="Vertical"
-                                x:Name="kiSimpleInput"
-                                Visibility="{Binding ElementName=main, Path=SKiVisibility}">
+                                    Orientation="Vertical"
+                                    x:Name="kiSimpleInput"
+                                    Visibility="{Binding ElementName=main, Path=SKiVisibility}">
                         <!--Ввод явного значения Ki-->
                         <StackPanel>
                             <TextBlock Text="Коэффициент извлечения ">
                                 <TextBlock.ToolTip>
                                     <ToolTip>
                                         <TextBlock>
-                                            Коэффициент извлечения рудной массы в пределах
-                                            <LineBreak/>
-                                            вынимаемой мощности, определяемый в соответствии
-                                            <LineBreak/>
-                                            со стандартным поперечным сечением очистной камеры
+                                                Коэффициент извлечения рудной массы в пределах
+                                                <LineBreak/>
+                                                вынимаемой мощности, определяемый в соответствии
+                                                <LineBreak/>
+                                                со стандартным поперечным сечением очистной камеры
                                         </TextBlock>
                                     </ToolTip>
                                 </TextBlock.ToolTip>
-                            </TextBlock>
-                            <TextBox Text="{Binding Path=SelectedPlast.Ki, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource floatConverter}}"/>
+                                </TextBlock>
+                            <TextBox>
+                                <TextBox.Text>
+                                    <Binding Path="SelectedPlast.Ki" UpdateSourceTrigger="PropertyChanged">
+                                        <Binding.Converter>
+                                            <local:StringToFloatConverter/>
+                                        </Binding.Converter>
+                                        <Binding.ValidationRules>
+                                            <local:RangeValidationRule/>
+                                        </Binding.ValidationRules>
+                                    </Binding>
+                                </TextBox.Text>
+                            </TextBox>
                         </StackPanel>
                         <!--Переключатель для ввода дополнительных
-                                    параметров для расчета Ki-->
+                                        параметров для расчета Ki-->
                         <CheckBox Padding="4,-3,0,0"
-                                      Margin="0,2"
-                                      Click="CheckBoxKiExtented_Click"
-                                      Content="Рассчитать по дополнительным параметрам"/>
+                                          Margin="0,2"
+                                          Click="CheckBoxKiExtented_Click"
+                                          Content="Рассчитать по дополнительным параметрам"/>
                     </StackPanel>
                     <!--Ввод дополнительных параметров для расчета Ki-->
                     <StackPanel Orientation="Vertical"
                                 x:Name="kiExtentedInput"
                                 Visibility="{Binding ElementName=main, Path=EKiVisibility}">
                         <!--Ввод дополнительных данных для расчета Ki
-                                    при камерной системе разработки-->
+                                        при камерной системе разработки-->
                         <StackPanel Orientation="Vertical"
                                     x:Name="kiExtentedCameraInput"
                                     Visibility="{Binding ElementName=main, Path=ECKiVisibility}">
@@ -141,7 +173,18 @@
                                         <ToolTip Content="Cумма поперечных сечений выработок, составляющих очистную камеру"/>
                                     </TextBlock.ToolTip>
                                 </TextBlock>
-                                <TextBox Text="{Binding Path=SelectedPlast.Si, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource floatConverter}}"/>
+                                <TextBox>
+                                    <TextBox.Text>
+                                        <Binding Path="SelectedPlast.Si" UpdateSourceTrigger="PropertyChanged">
+                                            <Binding.Converter>
+                                                <local:StringToFloatConverter/>
+                                            </Binding.Converter>
+                                            <Binding.ValidationRules>
+                                                <local:RangeValidationRule Max="1000"/>
+                                            </Binding.ValidationRules>
+                                        </Binding>
+                                    </TextBox.Text>
+                                </TextBox>
                             </StackPanel>
                             <!--Ввод растояний между осями-->
                             <StackPanel>
@@ -150,14 +193,25 @@
                                         <ToolTip Content="Расстояние между осями соседних междукамерных целиков"/>
                                     </TextBlock.ToolTip>
                                 </TextBlock>
-                                <TextBox Text="{Binding Path=SelectedPlast.L, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource floatConverter}}"/>
+                                <TextBox>
+                                    <TextBox.Text>
+                                        <Binding Path="SelectedPlast.L" UpdateSourceTrigger="PropertyChanged">
+                                            <Binding.Converter>
+                                                <local:StringToFloatConverter/>
+                                            </Binding.Converter>
+                                            <Binding.ValidationRules>
+                                                <local:RangeValidationRule Max="1000"/>
+                                            </Binding.ValidationRules>
+                                        </Binding>
+                                    </TextBox.Text>
+                                </TextBox>
                             </StackPanel>
                         </StackPanel>
                         <!--Ввод дополнительных данных для расчета Ki
-                                    при столбовой системе разработки-->
+                                        при столбовой системе разработки-->
                         <StackPanel Orientation="Vertical"
-                                    x:Name="kiExtentedLavaInput"
-                                    Visibility="{Binding ElementName=main, Path=ELKiVisibility}">
+                                        x:Name="kiExtentedLavaInput"
+                                        Visibility="{Binding ElementName=main, Path=ELKiVisibility}">
                             <!--Ввод площади поперечного сечения-->
                             <StackPanel>
                                 <TextBlock Text="Площадь попер. сечения лавы">
@@ -165,7 +219,18 @@
                                         <ToolTip Content="Площадь поперечного сечения лавы"/>
                                     </TextBlock.ToolTip>
                                 </TextBlock>
-                                <TextBox Text="{Binding Path=SelectedPlast.Sl, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource floatConverter}}"/>
+                                <TextBox >
+                                    <TextBox.Text>
+                                        <Binding Path="SelectedPlast.Sl" UpdateSourceTrigger="PropertyChanged">
+                                            <Binding.Converter>
+                                                <local:StringToFloatConverter/>
+                                            </Binding.Converter>
+                                            <Binding.ValidationRules>
+                                                <local:RangeValidationRule Max="1000"/>
+                                            </Binding.ValidationRules>
+                                        </Binding>
+                                    </TextBox.Text>
+                                </TextBox>
                             </StackPanel>
                             <!--Ввод длины лавы-->
                             <StackPanel>
@@ -174,14 +239,25 @@
                                         <ToolTip Content="Длина лавы"/>
                                     </TextBlock.ToolTip>
                                 </TextBlock>
-                                <TextBox Text="{Binding Path=SelectedPlast.Ll, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource floatConverter}}"/>
+                                <TextBox>
+                                    <TextBox.Text>
+                                        <Binding Path="SelectedPlast.Ll" UpdateSourceTrigger="PropertyChanged">
+                                            <Binding.Converter>
+                                                <local:StringToFloatConverter/>
+                                            </Binding.Converter>
+                                            <Binding.ValidationRules>
+                                                <local:RangeValidationRule Max="1000"/>
+                                            </Binding.ValidationRules>
+                                        </Binding>
+                                    </TextBox.Text>
+                                </TextBox>
                             </StackPanel>
                         </StackPanel>
                         <!--Переключатель на ввод Ki в явном виде-->
                         <CheckBox Padding="4,-3,0,0"
-                                      Margin="0,2"
-                                      Click="CheckBoxKiSimple_Click"
-                                      Content="Задать коэффициент извлечения явно"/>
+                                          Margin="0,2"
+                                          Click="CheckBoxKiSimple_Click"
+                                          Content="Задать коэффициент извлечения явно"/>
                     </StackPanel>
                 </StackPanel>
             </Border>
@@ -190,88 +266,110 @@
                 <StackPanel Orientation="Vertical">
                     <!--Ввод явного значения K-->
                     <StackPanel Margin="0,0,0,2"
-                                Orientation="Vertical"
-                                x:Name="kSimpleInput"
-                                Visibility="{Binding ElementName=main, Path=SKVisibility}">
+                                    Orientation="Vertical"
+                                    x:Name="kSimpleInput"
+                                    Visibility="{Binding ElementName=main, Path=SKVisibility}">
                         <!--Ввод явного значения K-->
                         <StackPanel>
                             <TextBlock Text="Коэффициент выработ. пр-ва ">
                                 <TextBlock.ToolTip>
                                     <ToolTip>
                                         <TextBlock>
-                                            Коэффициент, учитывающий размер выработанного
-                                            <LineBreak/>
-                                            пространства (степень подработанности породного
-                                            <LineBreak/>
-                                            массива).
+                                                Коэффициент, учитывающий размер выработанного
+                                                <LineBreak/>
+                                                пространства (степень подработанности породного
+                                                <LineBreak/>
+                                                массива).
                                         </TextBlock>
                                     </ToolTip>
                                 </TextBlock.ToolTip>
-                            </TextBlock>
-                            <TextBox Text="{Binding Path=SelectedPlast.K, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource floatConverter}}"/>
+                                </TextBlock>
+                            <TextBox>
+                                <TextBox.Text>
+                                    <Binding Path="SelectedPlast.K" UpdateSourceTrigger="PropertyChanged">
+                                        <Binding.Converter>
+                                            <local:StringToFloatConverter/>
+                                        </Binding.Converter>
+                                        <Binding.ValidationRules>
+                                            <local:RangeValidationRule/>
+                                        </Binding.ValidationRules>
+                                    </Binding>
+                                </TextBox.Text>
+                            </TextBox>
                         </StackPanel>
                         <!--Переключатель для ввода дополнительных
-                                параметров для расчета K-->
+                                    параметров для расчета K-->
                         <CheckBox Padding="4,-3,0,0"
-                                  Margin="0,2"
-                                  Click="CheckBoxKExtented_Click"
-                                  Content="Рассчитать по дополнительным параметрам"/>
+                                      Margin="0,2"
+                                      Click="CheckBoxKExtented_Click"
+                                      Content="Рассчитать по дополнительным параметрам"/>
                     </StackPanel>
                     <!--Ввод дополнительных значения для расчета K-->
                     <StackPanel Orientation="Vertical">
                         <!--Ввод расстояния между бортовыми штреками
-                            при столбовой системе разработки-->
+                                при столбовой системе разработки-->
                         <StackPanel x:Name="kExtentedLavaInput"
-                                    Visibility="{Binding ElementName=main, Path=ELKVisibility}">
+                                        Visibility="{Binding ElementName=main, Path=ELKVisibility}">
                             <TextBlock Text="Расстояние между штреками">
                                 <TextBlock.ToolTip>
                                     <ToolTip>
                                         <TextBlock>
-                                            Расстояние между бортовыми штреками
-                                            <LineBreak/>
-                                            проектируемой и смежной с ней лав 
-                                            <LineBreak/>
-                                            (ширина целика между лавами вне зависимости от
-                                            <LineBreak/>
-                                            наличия в нем подготовительных выработок), м
+                                                Расстояние между бортовыми штреками
+                                                <LineBreak/>
+                                                проектируемой и смежной с ней лав 
+                                                <LineBreak/>
+                                                (ширина целика между лавами вне зависимости от
+                                                <LineBreak/>
+                                                наличия в нем подготовительных выработок), м
                                         </TextBlock>
                                     </ToolTip>
                                 </TextBlock.ToolTip>
-                            </TextBlock>
-                            <TextBox Text="{Binding Path=SelectedPlast.B, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource floatConverter}}"/>
+                                </TextBlock>
+                            <TextBox>
+                                <TextBox.Text>
+                                    <Binding Path="SelectedPlast.B" UpdateSourceTrigger="PropertyChanged">
+                                        <Binding.Converter>
+                                            <local:StringToFloatConverter/>
+                                        </Binding.Converter>
+                                        <Binding.ValidationRules>
+                                            <local:RangeValidationRule/>
+                                        </Binding.ValidationRules>
+                                    </Binding>
+                                </TextBox.Text>
+                            </TextBox>
                         </StackPanel>
                         <StackPanel Orientation="Vertical"
-                                    x:Name="kExtentedCameraInput"
-                                    Visibility="{Binding ElementName=main, Path=ECKVisibility}">
+                                        x:Name="kExtentedCameraInput"
+                                        Visibility="{Binding ElementName=main, Path=ECKVisibility}">
                             <!--Ввод ширины выработанного пространства-->
                             <StackPanel>
                                 <TextBlock Text="Ширина выработанного пр-ва">
                                     <TextBlock.ToolTip>
                                         <ToolTip>
                                             <TextBlock>
-                                                Ширина выработанного пространства (блока, панели), м.
-                                                <LineBreak/>
-                                                При этом в выработанное пространство включаются очистные
-                                                <LineBreak/>
-                                                камеры с междукамерными (междуходовыми) целиками совместно
-                                                <LineBreak/>
-                                                с оконтуривающими рассматриваемый участок горноподготовительными
-                                                <LineBreak/>
-                                                выработками и целиками между ними.
+                                                    Ширина выработанного пространства (блока, панели), м.
+                                                    <LineBreak/>
+                                                    При этом в выработанное пространство включаются очистные
+                                                    <LineBreak/>
+                                                    камеры с междукамерными (междуходовыми) целиками совместно
+                                                    <LineBreak/>
+                                                    с оконтуривающими рассматриваемый участок горноподготовительными
+                                                    <LineBreak/>
+                                                    выработками и целиками между ними.
                                             </TextBlock>
                                         </ToolTip>
                                     </TextBlock.ToolTip>
-                                </TextBlock>
+                                    </TextBlock>
                                 <TextBox Text="{Binding Path=SelectedPlast.PD, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource floatConverter}}"/>
                             </StackPanel>
                             <!--Переключатель выбора-->
                             <CheckBox Padding="4,-3,0,0"
-                                      Margin="0,2"
-                                      Click="CheckBoxKSimple_Click">
+                                          Margin="0,2"
+                                          Click="CheckBoxKSimple_Click">
                                 <TextBlock Width="Auto">
-                                    Задать коэффициент выработанного
-                                    <LineBreak/>
-                                    пространства в явном виде
+                                        Задать коэффициент выработанного
+                                        <LineBreak/>
+                                        пространства в явном виде
                                 </TextBlock>
                             </CheckBox>
                         </StackPanel>
@@ -283,20 +381,20 @@
                 <StackPanel Orientation="Vertical">
                     <!--Ввод сближенных пластов программно-->
                     <StackPanel Orientation="Vertical"
-                                x:Name="contiguosSimpleInput"
-                                Visibility="{Binding ElementName=main, Path=SContiguosVisibility}">
+                                    x:Name="contiguosSimpleInput"
+                                    Visibility="{Binding ElementName=main, Path=SContiguosVisibility}">
                         <TextBlock Text="Сближенные пласты выбираются программно"
-                               Width="Auto"/>
+                                   Width="Auto"/>
                         <!--Переключатель для ручного ввода сближенных пластов-->
                         <CheckBox Content="Задать сближенные пласты вручную"
-                              Padding="4,-3,0,0"
-                              Click="CheckBoxContiguosExtented_Click"
-                              Margin="0,2"/>
+                                  Padding="4,-3,0,0"
+                                  Click="CheckBoxContiguosExtented_Click"
+                                  Margin="0,2"/>
                     </StackPanel>
                     <!--Ввод сближенных вручную пластов-->
                     <StackPanel Orientation="Vertical"
-                                x:Name="contiguosExtentedInput"
-                                Visibility="{Binding ElementName=main, Path=EContiguosVisibility}">
+                                    x:Name="contiguosExtentedInput"
+                                    Visibility="{Binding ElementName=main, Path=EContiguosVisibility}">
                         <!--Ввод сближенных вручную пластов-->
                         <Grid>
                             <Grid.ColumnDefinitions>
@@ -322,9 +420,9 @@
                         </Grid>
                         <!--Переключатель для выбора сближенных пластов программно-->
                         <CheckBox Content="Выбрать сближенные пласты автоматически"
-                                  Padding="4,-3,0,0"
-                                  Click="CheckBoxContiguosSimple_Click"
-                                  Margin="0,2"/>
+                                      Padding="4,-3,0,0"
+                                      Click="CheckBoxContiguosSimple_Click"
+                                      Margin="0,2"/>
                     </StackPanel>
                 </StackPanel>
             </Border>
@@ -332,48 +430,60 @@
             <Border Margin="4">
                 <StackPanel Orientation="Vertical">
                     <StackPanel Orientation="Vertical"
-                                x:Name="PlastSimpleInput">
+                                    x:Name="PlastSimpleInput">
                         <TextBlock Width="Auto">
-                            Дополнительные параметры, необходимые для
-                            <LineBreak/>
-                            расчета высоты ЗВТ для нескольких пластов
-                            <LineBreak/>
-                            установлены по умолчанию
+                                Дополнительные параметры, необходимые для
+                                <LineBreak/>
+                                расчета высоты ЗВТ для нескольких пластов
+                                <LineBreak/>
+                                установлены по умолчанию
                         </TextBlock>
                         <CheckBox Padding="4,-5,0,0"
-                                  Margin="0,2"
-                                  Click="CheckBoxPlastExtented_Click">
+                                      Margin="0,2"
+                                      Click="CheckBoxPlastExtented_Click">
                             <CheckBox.Content>
                                 <TextBlock Width="Auto">
-                                    Задать дополнительные параметры,
-                                    <LineBreak/>
-                                    необходимые для расчета вывотсы ЗВТ для
-                                    <LineBreak/>
-                                    нескольких пластов
+                                        Задать дополнительные параметры,
+                                        <LineBreak/>
+                                        необходимые для расчета вывотсы ЗВТ для
+                                        <LineBreak/>
+                                        нескольких пластов
                                 </TextBlock>
                             </CheckBox.Content>
                         </CheckBox>
                     </StackPanel>
                     <StackPanel Orientation="Vertical"
-                                x:Name="PlastExtentedInput">
+                                x:Name="PlastExtentedInput"
+                                Visibility="Collapsed">
                         <!--Ввод коэффициента влияния выемки S-->
                         <StackPanel>
                             <TextBlock Text="Коэффициент влияния выемки">
                                 <TextBlock.ToolTip>
                                     <ToolTip>
                                         <TextBlock>
-                                        Коэффициент, учитывающий степень влияния выемки
-                                        <LineBreak/>
-                                        разрабатываемых пластов на развитие техногенных 
-                                        <LineBreak/>
-                                        водопроводящих трещин в зависимости от взаимного
-                                        <LineBreak/>
-                                        положения ( смещения в плане ) границ остановки работ
+                                            Коэффициент, учитывающий степень влияния выемки
+                                            <LineBreak/>
+                                            разрабатываемых пластов на развитие техногенных 
+                                            <LineBreak/>
+                                            водопроводящих трещин в зависимости от взаимного
+                                            <LineBreak/>
+                                            положения ( смещения в плане ) границ остановки работ
                                         </TextBlock>
                                     </ToolTip>
                                 </TextBlock.ToolTip>
-                            </TextBlock>
-                            <TextBox Text="{Binding Path=SelectedPlast.S, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource floatConverter}}"/>
+                                </TextBlock>
+                            <TextBox>
+                                <TextBox.Text>
+                                    <Binding Path="SelectedPlast.S" UpdateSourceTrigger="PropertyChanged">
+                                        <Binding.Converter>
+                                            <local:StringToFloatConverter/>
+                                        </Binding.Converter>
+                                        <Binding.ValidationRules>
+                                            <local:RangeValidationRule/>
+                                        </Binding.ValidationRules>
+                                    </Binding>
+                                </TextBox.Text>
+                            </TextBox>
                         </StackPanel>
                         <!--Ввод коэффициента деформирования массива-->
                         <StackPanel>
@@ -381,24 +491,35 @@
                                 <TextBlock.ToolTip>
                                     <ToolTip>
                                         <TextBlock>
-                                        Коэффициент, учитывающий характер деформирования
-                                        <LineBreak/>
-                                        массива пород в краевой части мульды сдвижения над
-                                        <LineBreak/>
-                                        угловыми участками выработанного пространства, 
-                                        <LineBreak/>
-                                        определяемые согласно отдельным рекомендациям
-                                        <LineBreak/>
-                                        специализированной организации( 0 ≤ S_z ≤ 1 );
-                                        <LineBreak/>
-                                        при отсутствии таких рекомендаций значение
-                                        <LineBreak/>
-                                        принимается равным 1
+                                            Коэффициент, учитывающий характер деформирования
+                                            <LineBreak/>
+                                            массива пород в краевой части мульды сдвижения над
+                                            <LineBreak/>
+                                            угловыми участками выработанного пространства, 
+                                            <LineBreak/>
+                                            определяемые согласно отдельным рекомендациям
+                                            <LineBreak/>
+                                            специализированной организации( 0 ≤ S_z ≤ 1 );
+                                            <LineBreak/>
+                                            при отсутствии таких рекомендаций значение
+                                            <LineBreak/>
+                                            принимается равным 1
                                         </TextBlock>
                                     </ToolTip>
                                 </TextBlock.ToolTip>
-                        </TextBlock>
-                            <TextBox Text="{Binding Path=SelectedPlast.Sz, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource floatConverter}}"/>
+                            </TextBlock>
+                            <TextBox>
+                                <TextBox.Text>
+                                    <Binding Path="SelectedPlast.Sz" UpdateSourceTrigger="PropertyChanged">
+                                        <Binding.Converter>
+                                            <local:StringToFloatConverter/>
+                                        </Binding.Converter>
+                                        <Binding.ValidationRules>
+                                            <local:RangeValidationRule/>
+                                        </Binding.ValidationRules>
+                                    </Binding>
+                                </TextBox.Text>
+                            </TextBox>
                         </StackPanel>
                         <!--Ввод коэффициента порядка разработки-->
                         <StackPanel>
@@ -406,25 +527,36 @@
                                 <TextBlock.ToolTip>
                                     <ToolTip>
                                         <TextBlock>
-                                        Коэффициент, учитывающий порядок разработки
-                                        <LineBreak/>
-                                        пластов и интервал времени между их отработкой
+                                            Коэффициент, учитывающий порядок разработки
+                                            <LineBreak/>
+                                            пластов и интервал времени между их отработкой
                                         </TextBlock>
                                     </ToolTip>
                                 </TextBlock.ToolTip>
-                        </TextBlock>
-                            <TextBox Text="{Binding Path=SelectedPlast.Kt, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource floatConverter}}"/>
+                            </TextBlock>
+                            <TextBox>
+                                <TextBox.Text>
+                                    <Binding Path="SelectedPlast.Kt" UpdateSourceTrigger="PropertyChanged">
+                                        <Binding.Converter>
+                                            <local:StringToFloatConverter/>
+                                        </Binding.Converter>
+                                        <Binding.ValidationRules>
+                                            <local:RangeValidationRule/>
+                                        </Binding.ValidationRules>
+                                    </Binding>
+                                </TextBox.Text>
+                            </TextBox>
                         </StackPanel>
                         <CheckBox Padding="4,-3,0,0"
-                                  Margin="0,2"
-                                  Click="CheckBoxPlastSimple_Click">
+                                      Margin="0,2"
+                                      Click="CheckBoxPlastSimple_Click">
                             <CheckBox.Content>
                                 <TextBlock Width="Auto">
-                                Задать дополнительные параметры для
-                                <LineBreak/>
-                                расчета высоты ЗВТ для нескольких пластов
-                                <LineBreak/>
-                                по умолчанию
+                                    Задать дополнительные параметры для
+                                    <LineBreak/>
+                                    расчета высоты ЗВТ для нескольких пластов
+                                    <LineBreak/>
+                                    по умолчанию
                                 </TextBlock>
                             </CheckBox.Content>
                         </CheckBox>

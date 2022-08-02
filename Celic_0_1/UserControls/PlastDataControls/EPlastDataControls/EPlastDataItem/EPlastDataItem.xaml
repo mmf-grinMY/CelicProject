@@ -27,6 +27,12 @@
             <StackPanel.ToolTip>
                 <ToolTip Content="Данные отдельного пласта"/>
             </StackPanel.ToolTip>
+            <Border>
+                <StackPanel>
+                    <TextBlock Text="Test Field"/>
+                    <TextBlock Text="{Binding Test}"/>
+                </StackPanel>
+            </Border>
             <!--Вывод имени пласта-->
             <StackPanel>
                 <TextBlock Text="Наименование пласта"/>

@@ -148,7 +148,7 @@ namespace Celic
             XmlElement sysDev = doc.DocumentElement;
             // Запись данных об угле поворота разломной зоны
             XmlElement angleElem = doc.CreateElement("angle");
-            XmlText angleText = doc.CreateTextNode((_model as SCalcCViewModel).Alfa);
+            XmlText angleText = doc.CreateTextNode((_model as SCalcCViewModel).Alfa.ToString());
             angleElem.AppendChild(angleText);
             sysDev.AppendChild(angleElem);
             // Запись информации о разрабатываемой коллекции пластов

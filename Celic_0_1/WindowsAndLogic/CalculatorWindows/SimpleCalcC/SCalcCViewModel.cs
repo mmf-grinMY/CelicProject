@@ -5,19 +5,19 @@
         #region Private Fields
 
         /// <summary> Угол поворота плоскости разлома ( поле ) </summary>
-        private string _alfa;
+        private EFloat _alfa;
 
         #endregion
 
         #region Public Properties
 
         /// <summary> Угол поворота плоскости разлома </summary>
-        public string Alfa
+        public EFloat Alfa
         {
             get => _alfa;
             set
             {
-                _alfa = HelpManager.ValidateStringRange(value, 0, 90); 
+                _alfa = value; 
                 OnPropertyChanged(nameof(Alfa));
             }
         }
