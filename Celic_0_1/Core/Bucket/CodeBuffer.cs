@@ -1142,7 +1142,43 @@ namespace OldCelic
             }
             return k;
         }*/
-
+        // Old Logic Plast.RecalcKLava
+        /*if (lava1.B.V < 0.58F * (lava1.Ht() + lava2.Ht()))
+                        {
+                            if (bf == false)
+                            {
+                                value = i;
+                            }
+                            else
+                            {
+                                if (ef == false && bf == true)
+                                {
+                                    float d0, d, d1, maxD, b, k = 0;
+                                    for (int j = value; j < i - 1; j++)
+                                    {
+                                        if (_mineFields[j] is Lava temp1 && _mineFields[j + 1] is Lava temp2)
+                                        {
+                                            d = temp1.Mv.V;
+                                            d0 = 1.4F * temp1.CalcD() * d;
+                                            d1 = temp2.Mv.V;
+                                            maxD = Max(d, d1);
+                                            b = temp1.B.V;
+                                            k = Max(k, maxD >= d0 ? 1 :
+                                                (maxD + b >= d0 ? (float)Sqrt(maxD / d0) : (d + d1) / (d + 2 * b + d1)));
+                                        }
+                                    }
+                                    for (int j = value; j < i; j++)
+                                    {
+                                        if (_mineFields[j] is Lava tmp)
+                                        {
+                                            tmp.K = new EFloat(k);
+                                        }
+                                    }
+                                    ef = bf = false;
+                                    value = 0;
+                                }
+                            }
+                        }*/
 
         #endregion
     }

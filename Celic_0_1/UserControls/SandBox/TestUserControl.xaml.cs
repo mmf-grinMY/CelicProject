@@ -79,36 +79,19 @@ namespace Celic
             control.RaiseEvent(args);
         }
 
-        #endregion
-
-        #region Public Properties
-
-        /// <summary> Задаваемый текст в TextBox </summary>
-        public string BoxText
-        {
-            get => (string)GetValue(TextBoxTextProperty);
-            set => SetValue(TextBoxTextProperty, value);
-        }
-        /// <summary> Задаваемый текст в TextBlock </summary>
-        public string BlockText
-        {
-            get => (string)GetValue(TextBlockTextProperty);
-            set => SetValue(TextBlockTextProperty, value);
-        }
-
         #endregion*/
-
-        public static DependencyProperty TextProperty;
-        public string Text
+        // Логика тестового UserControl для EPlastDataBox
+        /*public static DependencyProperty TextTBlProperty;
+        public string TextTBl
         {
-            get => (string)GetValue(TextProperty);
-            set => SetValue(TextProperty, value);
+            get => (string)GetValue(TextTBlProperty);
+            set => SetValue(TextTBlProperty, value);
         }
-        public static DependencyProperty ContentToolTipProperty;
-        public string ContentToolTip
+        public static DependencyProperty ContentTTProperty;
+        public string ContentTT
         {
-            get => (string)GetValue(ContentToolTipProperty);
-            set => SetValue(ContentToolTipProperty, value);
+            get => (string)GetValue(ContentTTProperty);
+            set => SetValue(ContentTTProperty, value);
         }
         public static DependencyProperty PathProperty;
         public string PathT
@@ -118,10 +101,10 @@ namespace Celic
         }
         static TestUserControl()
         {
-            TextProperty = DependencyProperty.Register("Text", typeof(string), typeof(TestUserControl));
-            ContentToolTipProperty = DependencyProperty.Register("ContentToolTip", typeof(string), typeof(TestUserControl));
+            TextTBlProperty = DependencyProperty.Register(nameof(TextTBl), typeof(string), typeof(TestUserControl));
+            ContentTTProperty = DependencyProperty.Register(nameof(ContentTT), typeof(string), typeof(TestUserControl));
             PathProperty = DependencyProperty.Register("PathT", typeof(string), typeof(TestUserControl));
         }
-        public TestUserControl() => InitializeComponent();
+        public TestUserControl() => InitializeComponent();*/
     }
 }

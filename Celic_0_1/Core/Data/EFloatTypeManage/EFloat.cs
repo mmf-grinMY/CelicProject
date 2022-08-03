@@ -13,8 +13,10 @@
         private static readonly byte zero1AtEndMask = 2;
         /// <summary> Число окначивается на два нуля </summary>
         private static readonly byte zero2AtEndMask = 4;
-        /// <summary> Число является пустой строкой </summary>
+        /// <summary> Число является пустой строкой ( значение для format ) </summary>
         private static readonly byte emptyMask = 8;
+        /// <summary> Число является пустой строкой ( значение value ) </summary>
+        private static readonly float emptyValue = -1;
         /// <summary> Вещественное число одинарной точности ( поле ) </summary>
         private float value;
         /// <summary> Формат числа </summary>
@@ -25,7 +27,11 @@
         #region Public Properties
 
         /// <summary> Вещественное число одинарной точности </summary>
-        public float V { get => value; }
+        public float V
+        {
+            get => value;
+            set => format = (this.value = value) == -1 ? emptyMask : defMask;
+        }
 
         #endregion
 
@@ -34,10 +40,18 @@
         /// <summary> Основной конструктор для данного класса </summary>
         /// <param name="value"> Вещественное число одинарной точности </param>
         /// <param name="format"> Формат представления числа </param>
-        public EFloat(float value = 0, byte format = 0)
+        public EFloat(float value = -1, byte format = 0)
         {
-            this.value = value;
-            this.format = emptyMask;
+            if (value == emptyValue || format == emptyMask)
+            {
+                this.format = emptyMask;
+                this.value = emptyValue;
+            }
+            else
+            {
+                this.value = value;
+                this.format = format;
+            }
         }
 
         #endregion
@@ -72,8 +86,8 @@
         /// <returns> Строковое представление числа </returns>
         public override string ToString()
         {
-            if ((format & emptyMask) != 0)
-                return "";
+            if (value == emptyValue || (format & emptyMask) != 0)
+                return string.Empty;
             string valueS = value.ToString();
             if ((format & defMask) != 0)
                 return valueS;
@@ -95,17 +109,20 @@
         {
             EFloat result;
             result.value = -1;
-            result.format = defMask;
+            result.format = emptyMask;
             if (text != null)
             {
-                // text = ValidateString(text);
-                result.value = float.Parse(text);
-                if (text.Length >= 2 && text.Contains(","))
+                if(text != "")
                 {
-                    switch(text[text.Length - 1])
+                    text = HelpManager.ValidateString(text);
+                    result.value = float.Parse(text);
+                    if (text.Length >= 2 && text.Contains(","))
                     {
-                        case ',': result.format = commaAtEndMask; break;
-                        case '0': result.format = text[text.Length - 2].Equals('0') ? zero2AtEndMask : zero1AtEndMask; break;
+                        switch (text[text.Length - 1])
+                        {
+                            case ',': result.format = commaAtEndMask; break;
+                            case '0': result.format = text[text.Length - 2].Equals('0') ? zero2AtEndMask : zero1AtEndMask; break;
+                        }
                     }
                 }
             }
@@ -114,6 +131,39 @@
         /// <summary> EFloat является вещественным числом ( отсутствуют паарметры дополнительного форматирования ) </summary>
         /// <returns> true, если format == 0 и false в проивном случае </returns>
         public bool IsFloat() => format == defMask;
+        /// <summary> Перегруженный оператор проверки на равенство </summary>
+        /// <param name="val1"> Переменная типа EFloat, находящаяся слева </param>
+        /// <param name="val2"> Переменная типа EFloat, находящаяся справа </param>
+        /// <returns> true, если переменный равны, false в противном случае </returns>
+        public static bool operator ==(EFloat val1, EFloat val2) => val1.Equals(val2);
+        /// <summary> Перегруженный оператор проверки на неравенство </summary>
+        /// <param name="val1"> Переменная типа EFloat, находящаяся слева </param>
+        /// <param name="val2"> Переменная типа EFloat, находящаяся справа </param>
+        /// <returns> true, если переменный не равны, false в противном случае </returns>
+        public static bool operator !=(EFloat val1, EFloat val2) => !val1.Equals(val2);
+        /// <summary> Перегруженный оператор сравнения двух переменных </summary>
+        /// <param name="val1"> Переменная типа EFloat, находящаяся слева </param>
+        /// <param name="val2"> Переменная типа EFloat, находящаяся справа </param>
+        /// <returns> true, если переменная слева больше переменой справа, false в противном случае </returns>
+        public static bool operator >(EFloat val1, EFloat val2) => val1.value > val2.value;
+        /// <summary> Перегруженный оператор сравнения двух переменных </summary>
+        /// <param name="val1"> Переменная типа EFloat, находящаяся слева </param>
+        /// <param name="val2"> Переменная типа EFloat, находящаяся справа </param>
+        /// <returns> true, если переменная слева меньше переменой справа, false в противном случае </returns>
+        public static bool operator <(EFloat val1, EFloat val2) => val1.value < val2.value;
+        /// <summary> Перегруженный оператор сравнения двух переменных </summary>
+        /// <param name="val1"> Переменная типа EFloat, находящаяся слева </param>
+        /// <param name="val2"> Переменная типа EFloat, находящаяся справа </param>
+        /// <returns> true, если переменная слева больше либо равна переменой справа, false в противном случае </returns>
+        public static bool operator >=(EFloat val1, EFloat val2) => val1 > val2 || val1 == val2;
+        /// <summary> Перегруженный оператор сравнения двух переменных </summary>
+        /// <param name="val1"> Переменная типа EFloat, находящаяся слева </param>
+        /// <param name="val2"> Переменная типа EFloat, находящаяся справа </param>
+        /// <returns> true, если переменная слева меньше либо равна переменой справа, false в противном случае </returns>
+        public static bool operator <=(EFloat val1, EFloat val2) => val1 < val2 || val1 == val2;
+        /// <summary> Проверка переменной на отсутствие значения </summary>
+        /// <returns> true, если переменная не хранит значения, false в противном случае </returns>
+        public bool IsClear() => format == emptyMask;
 
         #endregion
     }

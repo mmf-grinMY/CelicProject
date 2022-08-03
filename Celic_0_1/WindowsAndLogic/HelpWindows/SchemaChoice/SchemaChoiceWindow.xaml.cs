@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -15,16 +14,15 @@ using System.Windows.Shapes;
 
 namespace Celic
 {
-    /// <summary> Логика взаимодействия для SimpleCalcBPlastWindow.xaml </summary>
-    public partial class AddPlastWindow : Window
+    /// <summary> Логика взаимодействия для SchemaChoiceWindow.xaml </summary>
+    public partial class SchemaChoiceWindow : Window
     {
         /// <summary> Основной конструктор для данного класса </summary>
-        /// <param name="plasts"> Изначальный список разрабатываемых пластов </param>
-        public AddPlastWindow(ObservableCollection<Plast> plasts)
+        /// <param name="vm"> Вызывающая модель </param>
+        public SchemaChoiceWindow(SchemaChoiceViewModel vm)
         {
             InitializeComponent();
-            DataContext = new AddPlastViewModel(plasts, this);
-            this.Closing += (DataContext as AddPlastViewModel).Close;
+            DataContext = vm;
         }
     }
 }

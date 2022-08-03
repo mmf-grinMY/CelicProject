@@ -9,7 +9,6 @@
              d:DesignWidth="324.6"
              x:Name="main">
     <UserControl.Resources>
-        <local:StringToFloatConverter x:Key="floatConverter"/>
         <Style TargetType="TextBox">
             <Setter Property="Width" Value="100"/>
             <Setter Property="Margin" Value="10,2,4,2"/>
@@ -283,7 +282,7 @@
                                         </TextBlock>
                                     </ToolTip>
                                 </TextBlock.ToolTip>
-                                </TextBlock>
+                            </TextBlock>
                             <TextBox>
                                 <TextBox.Text>
                                     <Binding Path="SelectedPlast.K" UpdateSourceTrigger="PropertyChanged">
@@ -332,7 +331,7 @@
                                             <local:StringToFloatConverter/>
                                         </Binding.Converter>
                                         <Binding.ValidationRules>
-                                            <local:RangeValidationRule/>
+                                            <local:RangeValidationRule Max="1000"/>
                                         </Binding.ValidationRules>
                                     </Binding>
                                 </TextBox.Text>
@@ -360,7 +359,18 @@
                                         </ToolTip>
                                     </TextBlock.ToolTip>
                                     </TextBlock>
-                                <TextBox Text="{Binding Path=SelectedPlast.PD, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource floatConverter}}"/>
+                                <TextBox>
+                                    <TextBox.Text>
+                                        <Binding Path="SelectedPlast.D" UpdateSourceTrigger="PropertyChanged">
+                                            <Binding.Converter>
+                                                <local:StringToFloatConverter/>
+                                            </Binding.Converter>
+                                            <Binding.ValidationRules>
+                                                <local:RangeValidationRule Max="1000"/>
+                                            </Binding.ValidationRules>
+                                        </Binding>
+                                    </TextBox.Text>
+                                </TextBox>
                             </StackPanel>
                             <!--Переключатель выбора-->
                             <CheckBox Padding="4,-3,0,0"

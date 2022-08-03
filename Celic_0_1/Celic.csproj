@@ -76,12 +76,18 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Core\Data\BaseTypes\EFloat.cs" />
-    <Compile Include="Core\Data\BaseTypes\StringToFloatConverter.cs" />
-    <Compile Include="Core\Data\BaseTypes\RangeValidationRule.cs" />
+    <Compile Include="Core\Base\Interfaces\IMineFieldManage.cs" />
+    <Compile Include="Core\Data\EFloatTypeManage\EFloat.cs" />
+    <Compile Include="Core\Data\EFloatTypeManage\StringToFloatConverter.cs" />
+    <Compile Include="Core\Data\EFloatTypeManage\RangeValidationRule.cs" />
+    <Compile Include="Core\Data\DataPlast\CollectionPlasts.cs" />
     <Compile Include="Core\Data\DataPlast\MineField.cs" />
     <Compile Include="Core\Report\ExtentedCalculators\BCalculatorB.cs" />
     <Compile Include="Core\Report\ExtentedCalculators\ECalculatorB.cs" />
+    <Compile Include="WindowsAndLogic\HelpWindows\SchemaChoice\SchemaChoiceViewModel.cs" />
+    <Compile Include="WindowsAndLogic\HelpWindows\SchemaChoice\SchemaChoiceWindow.xaml.cs">
+      <DependentUpon>SchemaChoiceWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="WindowsAndLogic\ViewModels\TwoListPlastViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -270,6 +276,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="WindowsAndLogic\HelpWindows\SchemaChoice\SchemaChoiceWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.7.2">
@@ -289,5 +299,6 @@
       <Name>Celic.WPF.CustomControls</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
