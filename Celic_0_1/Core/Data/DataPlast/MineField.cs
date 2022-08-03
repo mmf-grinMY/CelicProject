@@ -1,6 +1,7 @@
 ﻿namespace Celic
 {
-    class MineField
+    /// <summary> Шахтное поле </summary>
+    public abstract class MineField
     {
         #region Public Properties
 
@@ -19,6 +20,7 @@
 
         #region Constructors
 
+        /// <summary> Основной конструктор для данного класса </summary>
         public MineField()
         {
             TypeDev = HelpManager.UNDEFINE_DEV;
@@ -29,12 +31,18 @@
 
         #endregion
 
-        #region Protected Methods
-
-
-        #endregion
-
         #region Public Methods
+
+        /// <summary> Параметр, зависящий от системы разработки </summary>
+        /// <returns> Значение параметра </returns>
+        public abstract float CalcD();
+        /// <summary> Приведенная вынимаемая мощность </summary>
+        /// <returns> Значение приведенной вынимаемой мощности </returns>
+        public abstract float MPr();
+        /// <summary> Высота зоны водопроводящих целиков </summary>
+        /// <returns> Значение высоты ЗВТ </returns>
+        public float Ht() => MPr() * CalcD();
+
         #endregion
     }
 }

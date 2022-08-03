@@ -134,7 +134,7 @@ namespace Celic
             Select("Н").ItalicRun();
             Select($"{D} – 0.01 ∙ Н", 9).BoldRun();
             Select($"{D} – 0.01 ∙ {_p.H}", $"{D} – 0.01 ∙ {_p.H}".Length).BoldRun();
-            Select($"{_p.D()}", $"{_p.D()}".Length).BoldRun();
+            Select($"{_p.CalcD()}", $"{_p.CalcD()}".Length).BoldRun();
         }
         /// <summary> Форматирование текста formula5 </summary>
         private void FormatFormula5()
@@ -143,7 +143,7 @@ namespace Celic
             FormatVariable2("НТ");
             Select("d").ItalicRun();
             FormatVariable2("mпр");
-            Select($"{_p.D()} ∙ {_p.MPr()} = {_p.Ht()}", $"{_p.D()} ∙ {_p.MPr()} = {_p.Ht()}".Length).ItalicRun();
+            Select($"{_p.CalcD()} ∙ {_p.MPr()} = {_p.Ht()}", $"{_p.CalcD()} ∙ {_p.MPr()} = {_p.Ht()}".Length).ItalicRun();
         }
 
         #endregion
@@ -196,12 +196,12 @@ namespace Celic
             reporter.StatusReport = (status += offset).ToString();
             AddParagraph("Определяем параметр d согласно приложению Б [1] в зависимости от глубины и системы разработки:");
             reporter.StatusReport = (status += offset).ToString();
-            AddParagraph($"d = {GetD(_p)} – 0.01 ∙ Н = {GetD(_p)} – 0.01 ∙ {_p.H} = {_p.D()}",
+            AddParagraph($"d = {GetD(_p)} – 0.01 ∙ Н = {GetD(_p)} – 0.01 ∙ {_p.H} = {_p.CalcD()}",
                 FormatFormula4, Align.wdAlignParagraphCenter);
             reporter.StatusReport = (status += offset).ToString();
             AddParagraph("Тогда:", align: Align.wdAlignParagraphJustify);
             reporter.StatusReport = (status += offset).ToString();
-            AddParagraph($"НТ = d ∙ mпр = {_p.D()} ∙ {_p.MPr()} = {_p.Ht()} м.", FormatFormula5, Align.wdAlignParagraphCenter);
+            AddParagraph($"НТ = d ∙ mпр = {_p.CalcD()} ∙ {_p.MPr()} = {_p.Ht()} м.", FormatFormula5, Align.wdAlignParagraphCenter);
             reporter.StatusReport = (status += offset).ToString();
         }
 

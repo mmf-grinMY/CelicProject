@@ -101,7 +101,7 @@ namespace Celic
         protected void AddParagraphCalcHt(int i, float[] ht, ObservableCollection<Plast> plasts)
         {
             _range = _app.ActiveDocument.Paragraphs.Add().Range;
-            _range.Text = $"HT = d ∙ mпр = {plasts[i].D()} ∙ {plasts[i].MPr()} = {ht[i] = plasts[i].Ht()} м;";
+            _range.Text = $"HT = d ∙ mпр = {plasts[i].CalcD()} ∙ {plasts[i].MPr()} = {ht[i] = plasts[i].Ht()} м;";
             FormatVariable2("HT");
             Select("d ∙ mпр", 7, 0).ItalicRun();
             Select("mпр", 2, 1).Font.Subscript = 1;

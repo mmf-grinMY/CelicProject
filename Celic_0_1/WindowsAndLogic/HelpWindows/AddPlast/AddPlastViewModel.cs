@@ -4,46 +4,31 @@ using static Celic.HelpManager;
 
 namespace Celic
 {
+    /// <summary> Логика работы окна добавления пластов </summary>
     class AddPlastViewModel : BaseViewModel
     {
         #region Private Fields
 
-        /// <summary>
-        /// Окно, с которым в данный момент работает ViewModel
-        /// </summary>
+        /// <summary> Окно, с которым в данный момент работает ViewModel </summary>
         private AddPlastWindow _plastWindow;
-        /// <summary>
-        /// Основной вводимый пласт
-        /// </summary>
+        /// <summary> Основной вводимый пласт ( поле ) </summary>
         private Plast _mainPlast;
-        /// <summary>
-        /// Сбилженный пласт № 1
-        /// </summary>
+        /// <summary> Сближенный пласт № 1 ( поле ) </summary>
         private Plast _contiguosPlast1;
-        /// <summary>
-        /// Сближеный пласт № 2
-        /// </summary>
+        /// <summary> Сближеный пласт № 2 ( поле ) </summary>
         private Plast _contiguosPlast2;
-        /// <summary>
-        /// Коллекция разрабатываемых пластов
-        /// </summary>
+        /// <summary> Коллекция разрабатываемых пластов </summary>
         private readonly ObservableCollection<Plast> _plasts;
-        /// <summary>
-        /// Флаг выбора добавления сближенного пласта № 1
-        /// </summary>
+        /// <summary> Флаг выбора добавления сближенного пласта № 1 </summary>
         private bool isAddContCom1Clicked = false;
-        /// <summary>
-        /// Флаг выбора добавления сближенного пласта № 2
-        /// </summary>
+        /// <summary> Флаг выбора добавления сближенного пласта № 2 </summary>
         private bool isAddContCom2Clicked = false;
 
         #endregion
 
         #region Public Properties
 
-        /// <summary>
-        /// Свойство для _mainPlast
-        /// </summary>
+        /// <summary> Основной вводимый пласт </summary>
         public Plast MainPlast
         {
             get => _mainPlast;
@@ -53,9 +38,7 @@ namespace Celic
                 OnPropertyChanged(nameof(MainPlast));
             }
         }
-        /// <summary>
-        /// Свойство для _contiguosPlast1
-        /// </summary>
+        /// <summary> Сближенный пласт № 1 </summary>
         public Plast ContiguosPlast1
         {
             get => _contiguosPlast1;
@@ -65,9 +48,7 @@ namespace Celic
                 OnPropertyChanged(nameof(ContiguosPlast1));
             }
         }
-        /// <summary>
-        /// Свойство для _contiguosPlast2
-        /// </summary>
+        /// <summary> Сближеный пласт № 2 </summary>
         public Plast ContiguosPlast2
         {
             get => _contiguosPlast2;
@@ -99,13 +80,52 @@ namespace Celic
 
         #region Constructors
 
-        /// <summary>
-        /// Основной конструктор для AddPlastViewModel
-        /// </summary>
-        /// <param name="plasts">Коллекция пластов</param>
-        /// <param name="plastWindow">Окно вызова</param>
+        /// <summary> Основной конструктор для данного класса </summary>
+        /// <param name="plasts"> Коллекция пластов </param>
+        /// <param name="plastWindow"> Вызывающее модель окно </param>
         public AddPlastViewModel(ObservableCollection<Plast> plasts, AddPlastWindow plastWindow)
         {
+            ExitWithSaveCommand = new RelayCommand(obj => _plastWindow.Close());
+            ExitWithoutSaveCommand = new RelayCommand(obj =>
+            {
+                _plasts.Remove(MainPlast);
+                _plasts.Remove(ContiguosPlast1);
+                _plasts.Remove(ContiguosPlast2);
+                _plastWindow.Close();
+            });
+            AddContiguosPlastCommand1 = new RelayCommand(obj =>
+            {
+                if (!isAddContCom1Clicked)
+                {
+                    _plastWindow.Plast1.IsEnabled = isAddContCom1Clicked = true;
+                    _plasts.Add(ContiguosPlast1 = new Plast());
+                    // ContiguosPlast1.Contiguos = MainPlast.GetHashCode();
+                }
+                else
+                {
+                    _plasts.Remove(ContiguosPlast1);
+                    ContiguosPlast1 = null;
+                    _plastWindow.Plast1.IsEnabled = isAddContCom1Clicked = false;
+                }
+            });
+            AddContiguosPlastCommand2 = new RelayCommand(obj =>
+            {
+                if (isAddContCom1Clicked)
+                {
+                    if (!isAddContCom2Clicked)
+                    {
+                        isAddContCom2Clicked = _plastWindow.Plast2.IsEnabled = true;
+                        _plasts.Add(ContiguosPlast2 = new Plast());
+                        // ContiguosPlast2.Contiguos = MainPlast.GetHashCode();
+                    }
+                    else
+                    {
+                        _plastWindow.Plast2.IsEnabled = isAddContCom2Clicked = false;
+                        _plasts.Remove(ContiguosPlast2);
+                        ContiguosPlast2 = null;
+                    }
+                }
+            });
             _plasts = plasts;
             plasts.Add(MainPlast = new Plast());
             _plastWindow = plastWindow;
@@ -115,109 +135,14 @@ namespace Celic
 
         #region Commands
 
-        /// <summary>
-        /// Команда закрытия окна с сохранением заданных пользователем пластов
-        /// </summary>
-        private RelayCommand exitWithSaveCommand;
-        /// <summary>
-        /// Логика работы команды exitWithSaveCommand
-        /// </summary>
-        public RelayCommand ExitWithSaveCommand
-        {
-            get
-            {
-                return exitWithSaveCommand ??
-                (exitWithSaveCommand = new RelayCommand(obj =>
-                {
-                    _plastWindow.Close();
-                }));
-            }
-        }
-
-        /// <summary>
-        /// Команда закрытия окна без сохранения заданых пользователем пластов
-        /// </summary>
-        private RelayCommand exitWithoutSaveCommand;
-        /// <summary>
-        /// Логика работы команды exitWithoutSaveCommand
-        /// </summary>
-        public RelayCommand ExitWithoutSaveCommand
-        {
-            get
-            {
-                return exitWithoutSaveCommand ??
-                (exitWithoutSaveCommand = new RelayCommand(obj =>
-                {
-                    _plasts.Remove(MainPlast);
-                    _plasts.Remove(ContiguosPlast1);
-                    _plasts.Remove(ContiguosPlast2);
-                    _plastWindow.Close();
-                }));
-            }
-        }
-
-        /// <summary>
-        /// Команда открытия возможности вводить данные для сближенного пласта № 1, при выборе CheckBox
-        /// </summary>
-        private RelayCommand addContiguosPlastCommand1;
-        /// <summary>
-        /// Логика работы команды addContiguosPlastCommand
-        /// </summary>
-        public RelayCommand AddContiguosPlastCommand1
-        {
-            get
-            {
-                return addContiguosPlastCommand1 ??
-                (addContiguosPlastCommand1 = new RelayCommand(obj =>
-                {
-                    if (!isAddContCom1Clicked)
-                    {
-                        _plastWindow.Plast1.IsEnabled = isAddContCom1Clicked = true;
-                        _plasts.Add(ContiguosPlast1 = new Plast());
-                        // ContiguosPlast1.Contiguos = MainPlast.GetHashCode();
-                    }
-                    else
-                    {
-                        _plasts.Remove(ContiguosPlast1);
-                        ContiguosPlast1 = null;
-                        _plastWindow.Plast1.IsEnabled = isAddContCom1Clicked = false;
-                    }
-                }));
-            }
-        }
-
-        /// <summary>
-        /// Команда открытия возможности вводить данные для сближенного пласта № 2, при выборе CheckBox
-        /// </summary>
-        private RelayCommand addContiguosPlastCommand2;
-        /// <summary>
-        /// Логика работы команды addContiguosPlastCommand2
-        /// </summary>
-        public RelayCommand AddContiguosPlastCommand2
-        {
-            get
-            {
-                return addContiguosPlastCommand2 ??
-                (addContiguosPlastCommand2 = new RelayCommand(obj =>
-                {
-                    if (isAddContCom1Clicked)
-                    {
-                        if (!isAddContCom2Clicked)
-                        {
-                            isAddContCom2Clicked = _plastWindow.Plast2.IsEnabled = true;
-                            _plasts.Add(ContiguosPlast2 = new Plast());
-                            // ContiguosPlast2.Contiguos = MainPlast.GetHashCode();
-                        }
-                        else
-                        {
-                            _plastWindow.Plast2.IsEnabled = isAddContCom2Clicked = false;
-                            _plasts.Remove(ContiguosPlast2);
-                            ContiguosPlast2 = null;
-                        }
-                    }
-                }));
-            }
-        }
+        /// <summary> Закрытие окна с сохранением записанных пластов </summary>
+        public RelayCommand ExitWithSaveCommand { private set; get; }
+        /// <summary> Команда закрытия окна без сохранения заданых пользователем пластов </summary>
+        public RelayCommand ExitWithoutSaveCommand { private set; get; }
+        /// <summary> Команда открытия возможности вводить данные для сближенного пласта № 1, при выборе CheckBox </summary>
+        public RelayCommand AddContiguosPlastCommand1 { private set; get; }
+        /// <summary> Команда открытия возможности вводить данные для сближенного пласта № 2, при выборе CheckBox </summary>
+        public RelayCommand AddContiguosPlastCommand2 { private set; get; }
 
         #endregion
     }

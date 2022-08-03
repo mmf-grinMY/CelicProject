@@ -54,7 +54,7 @@ namespace Celic
                 Plast p = _plasts[i];
                 ht += h * _plasts[i].Ht() / (h + _plasts[i].H.V - _plasts[0].H.V);
                 h = (float)Math.Round(h * 100) / 100;
-                txt += " + (" + h + "∙" + Math.Round(p.D() * 100) / 100 + "∙" + p.MPr() + "∙" +
+                txt += " + (" + h + "∙" + Math.Round(p.CalcD() * 100) / 100 + "∙" + p.MPr() + "∙" +
                     p.S + "∙" + p.Sz + "∙" + p.Kt + ")/(" + h + " + " + (p.H.V - _plasts[0].H.V) + ")";
             }
             txt += " = " + Math.Round(ht * 100) / 100;

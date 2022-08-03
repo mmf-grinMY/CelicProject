@@ -164,7 +164,7 @@ namespace Celic
                 else
                 {
                     _cell.Range.Text = "d" + i +" = " + HelpManager.GetD(_plasts[i - 1]) + 
-                        " - 0,01 ∙ H = " + HelpManager.GetD(_plasts[i - 1]) + " - 0,01 ∙ " + _plasts[i - 1].H + " = " + _plasts[i - 1].D();
+                        " - 0,01 ∙ H = " + HelpManager.GetD(_plasts[i - 1]) + " - 0,01 ∙ " + _plasts[i - 1].H + " = " + _plasts[i - 1].CalcD();
                     Select("d" + i, 1, -1).Font.Subscript = 1;
                 }
                 _rangeLength += _cell.Range.Text.Length;
@@ -179,7 +179,7 @@ namespace Celic
             _rangeLength += _cell.Range.Text.Length;
 
             _cell = _cell.Next;
-            _cell.Range.Text = "h1 = d1 ∙ mпр1 ∙ S1 = " + _plasts[0].D() +" ∙ " + 
+            _cell.Range.Text = "h1 = d1 ∙ mпр1 ∙ S1 = " + _plasts[0].CalcD() +" ∙ " + 
                 _plasts[0].MPr() + " ∙ " + _plasts[0].S + " = " + _plasts[0].Ht() + " м";
             Select("h1", 1, -3).Font.Subscript = 1;
             Select("d1", 1, -3).Font.Subscript = 1;
