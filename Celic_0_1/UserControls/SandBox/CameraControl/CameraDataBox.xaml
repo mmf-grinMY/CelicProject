@@ -1,0 +1,33 @@
+﻿<UserControl x:Class="Celic.CameraDataBox"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Celic"
+             mc:Ignorable="d">
+    <UserControl.Resources>
+        <Style TargetType="local:InputBox">
+            <Setter Property="IsEFloat" Value="True"/>
+            <Setter Property="Max" Value="1000"/>
+        </Style>
+    </UserControl.Resources>
+    <StackPanel>
+        <local:InputBox BlockText="Вынимаемая мощность"
+                        DataSource="Mv"/>
+        <local:InputBox BlockText="Глубина ведения горных работ"
+                        DataSource="H"
+                        Min="300"/>
+        <local:InputBox BlockText="Ширина выработанного пространства"
+                        DataSource="D"/>
+        <local:InputBox BlockText="Коэффициент, учитывающий размер выработанного пространства"
+                        DataSource="K"
+                        Max="1"/>
+        <local:InputBox BlockText="Сумма поперечных сечений выработок, составляющих очистную камеру"
+                        DataSource="Si"/>
+        <local:InputBox BlockText="Расстояние между соседними осями междукамерных целиков"
+                        DataSource="L"/>
+        <local:InputBox BlockText="Коэффициент извлечения рудной массы в пределах вынимаемой мощности"
+                        DataSource="Ki"
+                        Max="1"/>
+    </StackPanel>
+</UserControl>

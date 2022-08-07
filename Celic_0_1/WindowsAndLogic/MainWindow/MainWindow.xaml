@@ -4,7 +4,9 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Celic"
-        xmlns:controls="clr-namespace:Celic.WPF.CustomControls;assembly=Celic.WPF.CustomControls" d:DataContext="{d:DesignInstance Type=local:MainViewModel}"
+        xmlns:controls="clr-namespace:Celic.WPF.CustomControls;assembly=Celic.WPF.CustomControls"
+        xmlns:uc="clr-namespace:Celic.WPF.UserControls;assembly=Celic.WPF.UserControls"
+        d:DataContext="{d:DesignInstance Type=local:MainViewModel}"
         mc:Ignorable="d"
         Title="Выбор типа расчета"
         MinHeight="300"
@@ -41,15 +43,5 @@
                 Command="{Binding SimpleCalcDCommand}">
             <TextBlock xml:space="preserve">          Расчет<LineBreak/> междубарьерного<LineBreak/>          целика</TextBlock>
         </Button>
-        <StackPanel Grid.Row="1"
-              Grid.Column="0">
-            <local:InputDataBox BlockText="Наименование пласта"
-                                DataSource="SelectedPlast.H"
-                                IsEFloat="True"
-                                Min="0"
-                                Max="100"
-                                ToolTipText="Коэффициент извлечения рудной массы в пределах вынимаемой мощности, определяемый в соответствии  со стандартным поперечным сечением очистной камеры"/>
-            <local:ShowDataBox/>
-        </StackPanel>
     </Grid>
 </Window>

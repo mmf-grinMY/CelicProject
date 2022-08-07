@@ -16,11 +16,11 @@ using System.Windows.Shapes;
 namespace Celic
 {
     /// <summary>
-    /// Логика взаимодействия для ShowDataBox.xaml
+    /// Логика взаимодействия для CameraDataBox.xaml
     /// </summary>
-    public partial class ShowDataBox : UserControl
+    public partial class CameraDataBox : UserControl
     {
-        public ShowDataBox()
+        public CameraDataBox()
         {
             InitializeComponent();
         }

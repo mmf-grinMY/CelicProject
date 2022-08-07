@@ -3,7 +3,7 @@
 namespace Celic
 {
     /// <summary> Шахтное поле с камерной системой разработки </summary>
-    class Camera : MineField
+    public class Camera : MineField
     {
         #region Contructros
 

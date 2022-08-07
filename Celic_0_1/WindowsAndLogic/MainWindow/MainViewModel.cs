@@ -32,7 +32,7 @@
                 new SCalcDWindow(_mainWindow).ShowDialog();
             });
             _mainWindow = mainWindow;
-            SelectedPlast = new Plast();
+            SelectedPlast = new Camera();
         }
 
         #endregion
@@ -48,8 +48,8 @@
 
         #endregion
 
-        private Plast _selectedPlast;
-        public Plast SelectedPlast
+        private Camera _selectedPlast;
+        public Camera SelectedPlast
         {
             get => _selectedPlast;
             set
