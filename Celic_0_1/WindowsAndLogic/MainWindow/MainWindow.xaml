@@ -4,15 +4,13 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Celic"
-        xmlns:controls="clr-namespace:Celic.WPF.CustomControls;assembly=Celic.WPF.CustomControls"
+        xmlns:controls="clr-namespace:Celic.WPF.CustomControls;assembly=Celic.WPF.CustomControls" d:DataContext="{d:DesignInstance Type=local:MainViewModel}"
         mc:Ignorable="d"
         Title="Выбор типа расчета"
-        Height="300"
-        Width="485"
         MinHeight="300"
-        MaxHeight="300"
-        MinWidth="485"
-        MaxWidth="485">
+        MaxHeight="350"
+        MinWidth="450"
+        MaxWidth="600">
     <Window.Resources>
         <Style TargetType="Button">
             <Setter Property="Background" Value="White"/>
@@ -24,6 +22,10 @@
             <ColumnDefinition Width="0.8*"/>
             <ColumnDefinition Width="0.8*"/>
         </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
         <Button Grid.Column="0" 
                 Margin="4,4,0,4" 
                 Command="{Binding SimpleCalcBCommand}">
@@ -39,5 +41,15 @@
                 Command="{Binding SimpleCalcDCommand}">
             <TextBlock xml:space="preserve">          Расчет<LineBreak/> междубарьерного<LineBreak/>          целика</TextBlock>
         </Button>
+        <StackPanel Grid.Row="1"
+              Grid.Column="0">
+            <local:InputDataBox BlockText="Наименование пласта"
+                                DataSource="SelectedPlast.H"
+                                IsEFloat="True"
+                                Min="0"
+                                Max="100"
+                                ToolTipText="Коэффициент извлечения рудной массы в пределах вынимаемой мощности, определяемый в соответствии  со стандартным поперечным сечением очистной камеры"/>
+            <local:ShowDataBox/>
+        </StackPanel>
     </Grid>
 </Window>

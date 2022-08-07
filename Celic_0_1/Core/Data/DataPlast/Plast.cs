@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 using static Celic.HelpManager;
+using static System.Math;
 
 namespace Celic
 {

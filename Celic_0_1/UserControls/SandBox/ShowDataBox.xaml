@@ -1,0 +1,12 @@
+﻿<UserControl x:Class="Celic.ShowDataBox"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Celic"
+             mc:Ignorable="d">
+    <StackPanel Orientation="Horizontal" MinWidth="200">
+        <TextBlock Text="Наименование пласта"/>
+        <TextBlock Text="{Binding Path=SelectedPlast.H}"/>
+    </StackPanel>
+</UserControl>

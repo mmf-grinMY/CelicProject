@@ -27,21 +27,22 @@ namespace Celic
         /// <returns> Преобразованная строка </returns>
         public static string StringIsNumber(string str)
         {
-            if (str != string.Empty && str != "")
-            {
-                if (str.Length >= 2)
-                    if (str[0] == '0' && str[1] != ',')
-                        str = str.Remove(0, 1);
-                bool isFloat = false;
-                for (int i = 0; i < str.Length; i++)
+            bool isFloat = false;
+            for (int i = 0; i < str.Length; i++)
+                if (char.IsDigit(str[i]) || str[i] == ',')
+                {
                     if (str[i] == ',')
-                        if (isFloat == false)
+                        if (!isFloat)
                             isFloat = true;
                         else
                             str = str.Remove(i--, 1);
-                    else if (!char.IsDigit(str[i]))
+                    else if (str[0] == '0' && str[i] == '0' && (i + 1) < str.Length && str[i + 1] == '0')
                         str = str.Remove(i--, 1);
-            }
+                }
+                else
+                {
+                    str = str.Remove(i--, 1);
+                }
             return str;
         }
         /// <summary> Проверка строки на схожесть с вещественным числом </summary>

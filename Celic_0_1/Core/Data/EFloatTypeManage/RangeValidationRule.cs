@@ -1,4 +1,5 @@
-﻿using System.Windows.Controls;
+﻿using System;
+using System.Windows.Controls;
 
 namespace Celic
 {
@@ -41,15 +42,7 @@ namespace Celic
         {
             if(value != null && value.ToString() != "")
             {
-                EFloat range;
-                try
-                {
-                    range = EFloat.Parse(value.ToString());
-                }
-                catch
-                {
-                    return new ValidationResult(false, "Недопустимые символы.");
-                }
+                EFloat range = EFloat.Parse(HelpManager.StringIsNumber(value.ToString()));
                 return (range.V >= Min && (range.V < Max || (range.V == Max && range.IsFloat()))) ?
                     new ValidationResult(true, null) :
                     new ValidationResult(false, "Значение не входит в допустимый диапазон " + Min + " до " + Max + ".");                    

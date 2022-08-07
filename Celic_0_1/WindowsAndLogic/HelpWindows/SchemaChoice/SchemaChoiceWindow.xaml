@@ -23,7 +23,6 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition/>
-            <RowDefinition/>
         </Grid.RowDefinitions>
         <TextBlock Margin="4"
                    FontSize="14"
@@ -33,23 +32,20 @@
             <LineBreak/> 
             <Run xml:space="preserve">              пластов из предложенных</Run>
         </TextBlock>
-        <Button Grid.Row="1"
-                Content="1"
-                Command="{Binding ChoiceCommand}"
-                CommandParameter="1"/>
-        <Button Grid.Row="1"
-                Grid.Column="1"
-                Content="2"
-                Command="{Binding ChoiceCommand}"
-                CommandParameter="2"/>
-        <Button Grid.Row="2"
-                Content="3"
-                Command="{Binding ChoiceCommand}"
-                CommandParameter="3"/>
-        <Button Grid.Row="2"
-                Grid.Column="1"
-                Content="4"
-                Command="{Binding ChoiceCommand}"
-                CommandParameter="4"/>
+        <UniformGrid Grid.Row="1"
+                     Grid.ColumnSpan="2">
+            <Button Content="1"
+                    Command="{Binding ChoiceCommand}"
+                    CommandParameter="1"/>
+            <Button Content="2"
+                    Command="{Binding ChoiceCommand}"
+                    CommandParameter="2"/>
+            <Button Content="3"
+                    Command="{Binding ChoiceCommand}"
+                    CommandParameter="3"/>
+            <Button Content="4"
+                    Command="{Binding ChoiceCommand}"
+                    CommandParameter="4"/>
+        </UniformGrid>
     </Grid>
 </Window>
