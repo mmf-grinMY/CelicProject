@@ -18,26 +18,26 @@ namespace Celic
     /// <summary>
     /// Логика взаимодействия для InputDataBox.xaml
     /// </summary>
-    public partial class InputDataBox : UserControl
+    public partial class InputBox : UserControl
     {
-        static InputDataBox()
+        static InputBox()
         {
-            BlockTextProperty = DependencyProperty.Register("BlockText", typeof(string), typeof(InputDataBox));
-            DataSourceProperty = DependencyProperty.Register("DataSource", typeof(string), typeof(InputDataBox),
+            TextProperty = DependencyProperty.Register("BlockText", typeof(string), typeof(InputBox));
+            DataSourceProperty = DependencyProperty.Register("DataSource", typeof(string), typeof(InputBox),
                 new FrameworkPropertyMetadata(new PropertyChangedCallback(OnDataSourceChanged)));
-            ToolTipTextProperty = DependencyProperty.Register("ToolTipText", typeof(string), typeof(InputDataBox),
+            ToolTipTextProperty = DependencyProperty.Register("ToolTipText", typeof(string), typeof(InputBox),
                 new FrameworkPropertyMetadata(new PropertyChangedCallback(OnToolTipTextChanged)));
-            IsEFloatProperty = DependencyProperty.Register("IsEFloat", typeof(bool), typeof(InputDataBox),
+            IsEFloatProperty = DependencyProperty.Register("IsEFloat", typeof(bool), typeof(InputBox),
                 new FrameworkPropertyMetadata(new PropertyChangedCallback(OnIsEFloatChanged)));
-            MinProperty = DependencyProperty.Register("Min", typeof(float), typeof(InputDataBox),
+            MinProperty = DependencyProperty.Register("Min", typeof(float), typeof(InputBox),
                 new FrameworkPropertyMetadata(new PropertyChangedCallback(OnIsEFloatChanged)));
-            MaxProperty = DependencyProperty.Register("Max", typeof(float), typeof(InputDataBox),
+            MaxProperty = DependencyProperty.Register("Max", typeof(float), typeof(InputBox),
                 new FrameworkPropertyMetadata(new PropertyChangedCallback(OnIsEFloatChanged)));
         }
 
         private static void OnIsEFloatChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            if(d is InputDataBox box)
+            if(d is InputBox box)
             {
                 if (box.IsEFloat)
                 {
@@ -57,7 +57,7 @@ namespace Celic
 
         private static void OnToolTipTextChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            if(d is InputDataBox box)
+            if(d is InputBox box)
             {
                 box.txtBlock.Text = box.ToolTipText;
             }
@@ -65,7 +65,7 @@ namespace Celic
 
         private static void OnDataSourceChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            if(d is InputDataBox box)
+            if(d is InputBox box)
             {
                 Binding binding = new Binding();
                 binding.UpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged;
@@ -73,20 +73,20 @@ namespace Celic
                 box.txtBox.SetBinding(TextBox.TextProperty, binding);
             }
         }
-        public InputDataBox()
+        public InputBox()
         {
             InitializeComponent();
         }
-        public static DependencyProperty BlockTextProperty;
+        public static DependencyProperty TextProperty;
         public string BlockText
         {
-            get { return GetValue(BlockTextProperty).ToString(); }
-            set { SetValue(BlockTextProperty, value); }
+            get { return GetValue(TextProperty)?.ToString(); }
+            set { SetValue(TextProperty, value); }
         }
         public static DependencyProperty DataSourceProperty;
         public string DataSource
         {
-            get { return GetValue(DataSourceProperty).ToString(); }
+            get { return GetValue(DataSourceProperty)?.ToString(); }
             set { SetValue(DataSourceProperty, value); }
         }
         public static DependencyProperty ToolTipTextProperty;

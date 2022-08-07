@@ -51,9 +51,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
-  <PropertyGroup>
-    <ApplicationManifest>app.manifest</ApplicationManifest>
-  </PropertyGroup>
+  <PropertyGroup />
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -87,14 +85,14 @@
     <Compile Include="Core\Data\DataPlast\MineField.cs" />
     <Compile Include="Core\Report\ExtentedCalculators\BCalculatorB.cs" />
     <Compile Include="Core\Report\ExtentedCalculators\ECalculatorB.cs" />
+    <Compile Include="UserControls\BaseControls\BaseInput\InputBox.xaml.cs">
+      <DependentUpon>InputBox.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\SandBox\CameraControl\CameraDataBox.xaml.cs">
+      <DependentUpon>CameraDataBox.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\SandBox\CameraControl\CameraDataItem.xaml.cs">
       <DependentUpon>CameraDataItem.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="UserControls\SandBox\InputDataBox.xaml.cs">
-      <DependentUpon>InputDataBox.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="UserControls\SandBox\ShowDataBox.xaml.cs">
-      <DependentUpon>ShowDataBox.xaml</DependentUpon>
     </Compile>
     <Compile Include="WindowsAndLogic\HelpWindows\SchemaChoice\SchemaChoiceViewModel.cs" />
     <Compile Include="WindowsAndLogic\HelpWindows\SchemaChoice\SchemaChoiceWindow.xaml.cs">
@@ -131,10 +129,10 @@
     <Compile Include="Core\Report\SimpleDocxCreators\TableManager.cs" />
     <Compile Include="Core\Report\SimpleDocxCreators\TextManager.cs" />
     <Compile Include="Core\Report\SimpleDocxCreators\BaseTextManager.cs" />
-    <Compile Include="UserControls\BaseControls\ListBoxBody\ListBoxBody.xaml.cs">
+    <Compile Include="UserControls\BaseControls\UIControls\ListBoxBody\ListBoxBody.xaml.cs">
       <DependentUpon>ListBoxBody.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserControls\BaseControls\ListBoxTitle\ListBoxTitle.xaml.cs">
+    <Compile Include="UserControls\BaseControls\UIControls\ListBoxTitle\ListBoxTitle.xaml.cs">
       <DependentUpon>ListBoxTitle.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserControls\PlastDataControls\SPlastDataControls\SPlastDataBox\SPlastDataBox.xaml.cs">
@@ -143,7 +141,7 @@
     <Compile Include="UserControls\PlastDataControls\SPlastDataControls\SPlastDataItem\SPlastDataItem.xaml.cs">
       <DependentUpon>SPlastDataItem.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserControls\BaseControls\PlastMenu\PlastMenu.xaml.cs">
+    <Compile Include="UserControls\BaseControls\UIControls\PlastMenu\PlastMenu.xaml.cs">
       <DependentUpon>PlastMenu.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserControls\SandBox\TestUserControl.xaml.cs">
@@ -190,7 +188,6 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <None Include="app.manifest" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -233,11 +230,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UserControls\BaseControls\ListBoxBody\ListBoxBody.xaml">
+    <Page Include="UserControls\BaseControls\BaseInput\InputBox.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UserControls\BaseControls\UIControls\ListBoxBody\ListBoxBody.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UserControls\BaseControls\ListBoxTitle\ListBoxTitle.xaml">
+    <Page Include="UserControls\BaseControls\UIControls\ListBoxTitle\ListBoxTitle.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -253,7 +254,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="UserControls\BaseControls\PlastMenu\PlastMenu.xaml">
+    <Page Include="UserControls\BaseControls\UIControls\PlastMenu\PlastMenu.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -261,15 +262,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="UserControls\SandBox\CameraControl\CameraDataBox.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="UserControls\SandBox\CameraControl\CameraDataItem.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="UserControls\SandBox\InputDataBox.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="UserControls\SandBox\ShowDataBox.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -323,9 +320,10 @@
       <Project>{625ac235-36fb-4f97-857a-6380879bf91c}</Project>
       <Name>Celic.WPF.CustomControls</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resourses\Apple-PNG-Images.png" />
+    <ProjectReference Include="..\Celic.WPF.UserControls\Celic.WPF.UserControls\Celic.WPF.UserControls.csproj">
+      <Project>{498ee49d-219e-4202-845b-b9aa914e22a4}</Project>
+      <Name>Celic.WPF.UserControls</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

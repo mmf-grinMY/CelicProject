@@ -180,7 +180,7 @@ namespace Celic
                 EKiVisibility = Visibility.Visible;
                 if (DataContext != null)
                 {
-                    if ((DataContext as Plast).TypeDev.Equals(CAMERA_DEV))
+                    if ((DataContext as SCalcBViewModel).SelectedPlast.TypeDev.Equals(CAMERA_DEV))
                     {
                         ECKiVisibility = Visibility.Visible;
                         ELKiVisibility = Visibility.Collapsed;
