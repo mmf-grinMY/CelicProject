@@ -48,10 +48,8 @@
         <StackPanel Orientation="Vertical">
             <Border>
                 <!--Ввод имени пласта-->
-                <StackPanel>
-                    <TextBlock Text="Наименование пласта"/>
-                    <TextBox Text="{Binding Path=SelectedPlast.Name, UpdateSourceTrigger=PropertyChanged}"/>
-                </StackPanel>
+                <local:InputDataBox BlockText="Наименование пласта"
+                                    DataSource="SelectedPlast.Name"/>
             </Border>
             <Border>
                 <StackPanel Orientation="Vertical">
@@ -80,13 +78,13 @@
             <Border>
                 <StackPanel Orientation="Vertical">
                     <!--Ввод глубины ведения горных работ-->
-                    <StackPanel>
+                    <!--<StackPanel>
                         <TextBlock Text="Глубина ведения горных работ"/>
                         <TextBox>
                             <TextBox.Text>
                                 <Binding Path="SelectedPlast.H" UpdateSourceTrigger="PropertyChanged">
                                     <Binding.Converter>
-                                        <local:StringToFloatConverter/>
+                                        <local:StringToEFloatConverter/>
                                     </Binding.Converter>
                                     <Binding.ValidationRules>
                                         <local:RangeValidationRule Min="300" Max="1000"/>
@@ -94,7 +92,10 @@
                                 </Binding>
                             </TextBox.Text>
                         </TextBox>
-                    </StackPanel>
+                    </StackPanel>-->
+                    <local:InputDataBox BlockText="Глубина ведения горных работ"
+                                        DataSource="SelectedPlast.H"
+                                        IsEFloat="True"/>
                     <!--Ввод вынимаемой мощности-->
                     <StackPanel>
                         <TextBlock Text="Вынимаемая мощность"/>
@@ -102,7 +103,7 @@
                             <TextBox.Text>
                                 <Binding Path="SelectedPlast.Mv" UpdateSourceTrigger="PropertyChanged">
                                     <Binding.Converter>
-                                        <local:StringToFloatConverter/>
+                                        <local:StringToEFloatConverter/>
                                     </Binding.Converter>
                                     <Binding.ValidationRules>
                                         <local:RangeValidationRule Max="3"/>
@@ -125,22 +126,18 @@
                         <StackPanel>
                             <TextBlock Text="Коэффициент извлечения ">
                                 <TextBlock.ToolTip>
-                                    <ToolTip>
-                                        <TextBlock>
-                                                Коэффициент извлечения рудной массы в пределах
-                                                <LineBreak/>
-                                                вынимаемой мощности, определяемый в соответствии
-                                                <LineBreak/>
-                                                со стандартным поперечным сечением очистной камеры
-                                        </TextBlock>
-                                    </ToolTip>
+                                    <TextBlock TextWrapping="WrapWithOverflow">
+                                        Коэффициент извлечения рудной массы в пределах
+                                        вынимаемой мощности, определяемый в соответствии
+                                        со стандартным поперечным сечением очистной камеры
+                                    </TextBlock>
                                 </TextBlock.ToolTip>
-                                </TextBlock>
+                            </TextBlock>
                             <TextBox>
                                 <TextBox.Text>
                                     <Binding Path="SelectedPlast.Ki" UpdateSourceTrigger="PropertyChanged">
                                         <Binding.Converter>
-                                            <local:StringToFloatConverter/>
+                                            <local:StringToEFloatConverter/>
                                         </Binding.Converter>
                                         <Binding.ValidationRules>
                                             <local:RangeValidationRule/>
@@ -176,7 +173,7 @@
                                     <TextBox.Text>
                                         <Binding Path="SelectedPlast.Si" UpdateSourceTrigger="PropertyChanged">
                                             <Binding.Converter>
-                                                <local:StringToFloatConverter/>
+                                                <local:StringToEFloatConverter/>
                                             </Binding.Converter>
                                             <Binding.ValidationRules>
                                                 <local:RangeValidationRule Max="1000"/>
@@ -196,7 +193,7 @@
                                     <TextBox.Text>
                                         <Binding Path="SelectedPlast.L" UpdateSourceTrigger="PropertyChanged">
                                             <Binding.Converter>
-                                                <local:StringToFloatConverter/>
+                                                <local:StringToEFloatConverter/>
                                             </Binding.Converter>
                                             <Binding.ValidationRules>
                                                 <local:RangeValidationRule Max="1000"/>
@@ -222,7 +219,7 @@
                                     <TextBox.Text>
                                         <Binding Path="SelectedPlast.Sl" UpdateSourceTrigger="PropertyChanged">
                                             <Binding.Converter>
-                                                <local:StringToFloatConverter/>
+                                                <local:StringToEFloatConverter/>
                                             </Binding.Converter>
                                             <Binding.ValidationRules>
                                                 <local:RangeValidationRule Max="1000"/>
@@ -242,7 +239,7 @@
                                     <TextBox.Text>
                                         <Binding Path="SelectedPlast.Ll" UpdateSourceTrigger="PropertyChanged">
                                             <Binding.Converter>
-                                                <local:StringToFloatConverter/>
+                                                <local:StringToEFloatConverter/>
                                             </Binding.Converter>
                                             <Binding.ValidationRules>
                                                 <local:RangeValidationRule Max="1000"/>
@@ -287,7 +284,7 @@
                                 <TextBox.Text>
                                     <Binding Path="SelectedPlast.K" UpdateSourceTrigger="PropertyChanged">
                                         <Binding.Converter>
-                                            <local:StringToFloatConverter/>
+                                            <local:StringToEFloatConverter/>
                                         </Binding.Converter>
                                         <Binding.ValidationRules>
                                             <local:RangeValidationRule/>
@@ -328,7 +325,7 @@
                                 <TextBox.Text>
                                     <Binding Path="SelectedPlast.B" UpdateSourceTrigger="PropertyChanged">
                                         <Binding.Converter>
-                                            <local:StringToFloatConverter/>
+                                            <local:StringToEFloatConverter/>
                                         </Binding.Converter>
                                         <Binding.ValidationRules>
                                             <local:RangeValidationRule Max="1000"/>
@@ -363,7 +360,7 @@
                                     <TextBox.Text>
                                         <Binding Path="SelectedPlast.D" UpdateSourceTrigger="PropertyChanged">
                                             <Binding.Converter>
-                                                <local:StringToFloatConverter/>
+                                                <local:StringToEFloatConverter/>
                                             </Binding.Converter>
                                             <Binding.ValidationRules>
                                                 <local:RangeValidationRule Max="1000"/>
@@ -486,7 +483,7 @@
                                 <TextBox.Text>
                                     <Binding Path="SelectedPlast.S" UpdateSourceTrigger="PropertyChanged">
                                         <Binding.Converter>
-                                            <local:StringToFloatConverter/>
+                                            <local:StringToEFloatConverter/>
                                         </Binding.Converter>
                                         <Binding.ValidationRules>
                                             <local:RangeValidationRule/>
@@ -522,7 +519,7 @@
                                 <TextBox.Text>
                                     <Binding Path="SelectedPlast.Sz" UpdateSourceTrigger="PropertyChanged">
                                         <Binding.Converter>
-                                            <local:StringToFloatConverter/>
+                                            <local:StringToEFloatConverter/>
                                         </Binding.Converter>
                                         <Binding.ValidationRules>
                                             <local:RangeValidationRule/>
@@ -548,7 +545,7 @@
                                 <TextBox.Text>
                                     <Binding Path="SelectedPlast.Kt" UpdateSourceTrigger="PropertyChanged">
                                         <Binding.Converter>
-                                            <local:StringToFloatConverter/>
+                                            <local:StringToEFloatConverter/>
                                         </Binding.Converter>
                                         <Binding.ValidationRules>
                                             <local:RangeValidationRule/>

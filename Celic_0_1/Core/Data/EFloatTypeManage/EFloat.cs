@@ -3,24 +3,31 @@
     /// <summary> Вещественное число одинарной точности, которое может окначиваться на запятую и нуль </summary>
     public struct EFloat
     {
+        #region Special Format Type
+
+        /// <summary> Специальный тип формата представления вещественного числа </summary>
+        public enum Format : byte
+        {
+            /// <summary> Формат числа по умолчанию ( отсутствуют нестандартные ситуации ) </summary>
+            define = 0,
+            /// <summary> Число оканчивается на запятую </summary>
+            commaAtEnd = 1,
+            /// <summary> Число оканчивается на нуль </summary>
+            oneZeroAtEnd = 2,
+            /// <summary> Число окначивается на два нуля </summary>
+            twoZerosAtEnd = 4,
+            /// <summary> Число является пустой строкой ( значение для format ) </summary>
+            empty = 8
+        }
+
+        #endregion
+
         #region Private Fields
 
-        /// <summary> Формат числа по умолчанию ( отсутствуют нестандартные ситуации ) </summary>
-        private static readonly byte defMask = 0;
-        /// <summary> Число оканчивается на запятую </summary>
-        private static readonly byte commaAtEndMask = 1;
-        /// <summary> Число оканчивается на нуль </summary>
-        private static readonly byte zero1AtEndMask = 2;
-        /// <summary> Число окначивается на два нуля </summary>
-        private static readonly byte zero2AtEndMask = 4;
-        /// <summary> Число является пустой строкой ( значение для format ) </summary>
-        private static readonly byte emptyMask = 8;
-        /// <summary> Число является пустой строкой ( значение value ) </summary>
-        private static readonly float emptyValue = -1;
         /// <summary> Вещественное число одинарной точности ( поле ) </summary>
         private float value;
         /// <summary> Формат числа </summary>
-        private byte format;
+        private Format format;
 
         #endregion
 
@@ -30,7 +37,7 @@
         public float V
         {
             get => value;
-            set => format = (this.value = value) == -1 ? emptyMask : defMask;
+            set => format = (this.value = value) == -1 ? Format.empty : Format.define;
         }
 
         #endregion
@@ -40,12 +47,12 @@
         /// <summary> Основной конструктор для данного класса </summary>
         /// <param name="value"> Вещественное число одинарной точности </param>
         /// <param name="format"> Формат представления числа </param>
-        public EFloat(float value = -1, byte format = 0)
+        public EFloat(float value = -1, Format format = Format.define)
         {
-            if (value == emptyValue || format == emptyMask)
+            if (format == Format.empty)
             {
-                this.format = emptyMask;
-                this.value = emptyValue;
+                this.format = Format.empty;
+                this.value = 0;
             }
             else
             {
@@ -81,56 +88,13 @@
         /// <summary> Сравнение двух вещественных чисел типа EFloat </summary>
         /// <param name="obj"> Объект, с которым сравнивается данный </param>
         /// <returns> true, если вещественные чисал и их форматы одинаковы, false в противном случае </returns>
-        public override bool Equals(object obj) => obj != null && (obj is EFloat other && value == other.value && format == other.format);
-        /// <summary> Преобразование вещественного числа типа EFloat к строке </summary>
-        /// <returns> Строковое представление числа </returns>
-        public override string ToString()
-        {
-            if (value == emptyValue || (format & emptyMask) != 0)
-                return string.Empty;
-            string valueS = value.ToString();
-            if ((format & defMask) != 0)
-                return valueS;
-            if((format & commaAtEndMask) != 0)
-                valueS += ",";
-            if((format & zero2AtEndMask) != 0)
-                valueS += "00";
-            if((format & zero1AtEndMask) != 0)
-                valueS += "0";
-            return valueS;
-        }
+        public override bool Equals(object obj) => obj != null && obj is EFloat other && value == other.value && format == other.format;
         /// <summary> Уникальное хеш-значение объекта </summary>
         /// <returns> Хеш-значение </returns>
         public override int GetHashCode() => base.GetHashCode();
-        /// <summary> Преобразование строкового представления вещественного числа типа EFloat в число типа EFloat </summary>
-        /// <param name="text"> Строковое представление числа </param>
-        /// <returns> Вещественное число типа EFloat </returns>
-        public static EFloat Parse(string text)
-        {
-            EFloat result;
-            result.value = -1;
-            result.format = emptyMask;
-            if (text != null)
-            {
-                if(text != "")
-                {
-                    text = HelpManager.ValidateString(text);
-                    result.value = float.Parse(text);
-                    if (text.Length >= 2 && text.Contains(","))
-                    {
-                        switch (text[text.Length - 1])
-                        {
-                            case ',': result.format = commaAtEndMask; break;
-                            case '0': result.format = text[text.Length - 2].Equals('0') ? zero2AtEndMask : zero1AtEndMask; break;
-                        }
-                    }
-                }
-            }
-            return result;
-        }
         /// <summary> EFloat является вещественным числом ( отсутствуют паарметры дополнительного форматирования ) </summary>
         /// <returns> true, если format == 0 и false в проивном случае </returns>
-        public bool IsFloat() => format == defMask;
+        public bool IsFloat() => format == Format.define;
         /// <summary> Перегруженный оператор проверки на равенство </summary>
         /// <param name="val1"> Переменная типа EFloat, находящаяся слева </param>
         /// <param name="val2"> Переменная типа EFloat, находящаяся справа </param>
@@ -163,7 +127,49 @@
         public static bool operator <=(EFloat val1, EFloat val2) => val1 < val2 || val1 == val2;
         /// <summary> Проверка переменной на отсутствие значения </summary>
         /// <returns> true, если переменная не хранит значения, false в противном случае </returns>
-        public bool IsClear() => format == emptyMask;
+        public bool IsClear() => format == Format.empty;
+
+        #endregion
+
+        #region EFloatConverter
+
+        /// <summary> Преобразование вещественного числа типа EFloat к строке </summary>
+        /// <returns> Строковое представление числа </returns>
+        public override string ToString()
+        {
+            string valueS = value.ToString();
+            switch (format)
+            {
+                case Format.empty: valueS = "0"; break;
+                case Format.define: break;
+                case Format.commaAtEnd: valueS += ","; break;
+                case Format.oneZeroAtEnd: valueS += ",0"; break;
+                case Format.twoZerosAtEnd: valueS += ",00"; break;
+            }
+            return valueS;
+        }
+        /// <summary> Преобразование строкового представления вещественного числа типа EFloat в число типа EFloat </summary>
+        /// <param name="text"> Строковое представление числа </param>
+        /// <returns> Вещественное число типа EFloat </returns>
+        public static EFloat Parse(string text)
+        {
+            EFloat result;
+            result.value = -1;
+            result.format = Format.define;
+            if (text != null && text != string.Empty)
+            {
+                text = HelpManager.StringIsNumber(text);
+                if (text != string.Empty)
+                    result.value = float.Parse(text);
+                if (text.Length >= 2 && text.Contains(","))
+                    switch (text[text.Length - 1])
+                    {
+                        case ',': result.format = Format.commaAtEnd; break;
+                        case '0': result.format = text[text.Length - 2].Equals('0') ? Format.twoZerosAtEnd : Format.oneZeroAtEnd; break;
+                    }
+            }
+            return result;
+        }
 
         #endregion
     }

@@ -64,7 +64,7 @@
                         <TextBox.Text>
                             <Binding Path="Alfa" UpdateSourceTrigger="PropertyChanged">
                                 <Binding.Converter>
-                                    <local:StringToFloatConverter/>
+                                    <local:StringToEFloatConverter/>
                                 </Binding.Converter>
                                 <Binding.ValidationRules>
                                     <local:RangeValidationRule Max="90"/>

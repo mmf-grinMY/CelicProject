@@ -32,6 +32,7 @@
                 new SCalcDWindow(_mainWindow).ShowDialog();
             });
             _mainWindow = mainWindow;
+            SelectedPlast = new Plast();
         }
 
         #endregion
@@ -46,5 +47,16 @@
         public RelayCommand SimpleCalcDCommand { private set; get; }
 
         #endregion
+
+        private Plast _selectedPlast;
+        public Plast SelectedPlast
+        {
+            get => _selectedPlast;
+            set
+            {
+                _selectedPlast = value;
+                OnPropertyChanged(nameof(SelectedPlast));
+            }
+        }
     }
 }
