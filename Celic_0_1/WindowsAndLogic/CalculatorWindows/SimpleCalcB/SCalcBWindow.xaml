@@ -9,15 +9,15 @@
         mc:Ignorable="d"
         FontSize="14"
         Title="Расчет высоты зоны водопроводящих трещин"
-        Height="600"
-        Width="584">
+        MinHeight="500"
+        MinWidth="600">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
         <local:PlastMenu Grid.ColumnSpan="2"/>
@@ -27,10 +27,11 @@
             <ListBox ItemsSource="{Binding Plasts}"
                      SelectedItem="{Binding SelectedPlast}"
                      Padding="-2,0"
-                     Width="230">
+                     MinWidth="310"
+                     MinHeight="200">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
-                        <local:EPlastDataItem
+                        <local:PlastDataItem
                             SKiVisibility="{Binding ElementName=selected, Path=SKiVisibility}"
                             EKiVisibility="{Binding ElementName=selected, Path=EKiVisibility}"
                             ECKiVisibility="{Binding ElementName=selected, Path=ECKiVisibility}"
@@ -50,12 +51,8 @@
                        Style="{x:Null}"
                        FontSize="14"
                        Text="Выбранный пласт"/>
-            <local:EPlastDataBox x:Name="selected"
-                             SKiVisibility="Visible"
-                             EKiVisibility="Collapsed"
-                             ECKiVisibility="Collapsed"
-                             ELKiVisibility="Collapsed"
-                             EContiguosVisibility="Collapsed"/>
+            <local:PlastDataBox x:Name="selected"
+                                  EContiguosVisibility="Collapsed"/>
         </StackPanel>
     </Grid>
 </Window>

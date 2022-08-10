@@ -4,6 +4,7 @@
     {
         float CalcD();
         float MPr();
+        float RecalcK();
         float Ht();
     }
 }

@@ -32,7 +32,6 @@
                 new SCalcDWindow(_mainWindow).ShowDialog();
             });
             _mainWindow = mainWindow;
-            SelectedPlast = new Camera();
         }
 
         #endregion
@@ -47,16 +46,5 @@
         public RelayCommand SimpleCalcDCommand { private set; get; }
 
         #endregion
-
-        private Camera _selectedPlast;
-        public Camera SelectedPlast
-        {
-            get => _selectedPlast;
-            set
-            {
-                _selectedPlast = value;
-                OnPropertyChanged(nameof(SelectedPlast));
-            }
-        }
     }
 }
