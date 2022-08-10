@@ -9,7 +9,7 @@ namespace Celic
         #region Private Fields
 
         /// <summary> Список разрабатываемых пластов </summary>
-        private readonly CollectionPlasts _plasts;
+        private readonly ObservableCollection<Plast> _plasts;
 
         #endregion
 
@@ -17,7 +17,7 @@ namespace Celic
 
         /// <summary> Дополнительный конструктор для расчета без логирования </summary>
         /// <param name="plasts"> Коллекция разрабатываемых пластов </param>
-        public ECalculatorB(ObservableCollection<Plast> plasts) => _plasts = new CollectionPlasts(plasts);
+        public ECalculatorB(ObservableCollection<Plast> plasts) => _plasts = plasts;
 
         #endregion
 
@@ -29,14 +29,14 @@ namespace Celic
         {
             float InnerCountHt(float h)
             {
-                float ht = _plasts[0].Ht() * _plasts[0].S.V;
+                float ht = new PlastManager(_plasts[0]).Ht() * _plasts[0].S;
                 for (int i = 1; i < _plasts.Count; i++)
-                    ht += h * _plasts[i].Ht() * _plasts[i].S.V * _plasts[i].Sz.V * _plasts[i].Kt.V / (h + _plasts[i].H.V - _plasts[0].H.V);
+                    ht += h * new PlastManager(_plasts[i]).Ht() * _plasts[i].S * _plasts[i].Sz * _plasts[i].Kt / (h + _plasts[i].MainMineField.H - _plasts[0].MainMineField.H);
                 return ht;
             }
 
             float oldHt, newHt;
-            oldHt = _plasts[0].Ht();
+            oldHt = new PlastManager(_plasts[0]).Ht();
             newHt = InnerCountHt(oldHt);
             while (newHt - oldHt >= 2)
             {
@@ -59,7 +59,7 @@ namespace Celic
             if (_plasts != null)
                 if ((ht = CountHt()) <= M)
                 {
-                    _plasts.RecalcAllParams();
+                    new PlastCollectionManager(_plasts).RecalcAllParams();
                     ht = CountHt();
                 }
             return ht;

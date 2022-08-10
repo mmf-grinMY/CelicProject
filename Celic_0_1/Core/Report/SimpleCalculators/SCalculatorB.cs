@@ -5,8 +5,7 @@ using Word = Microsoft.Office.Interop.Word;
 
 namespace Celic
 {
-    /// <summary> Упрощенная методика расчета высоты распространения зоны техногенных
-    /// водопроводящих трещин над выработанным пространством </summary>
+    /// <summary> Упрощенная методика расчета высоты распространения зоны техногенных водопроводящих трещин над выработанным пространством </summary>
     sealed class SCalculatorB : BaseCalculator
     {
         #region Private Fields
@@ -36,9 +35,9 @@ namespace Celic
         /// <returns> Новое значение высоты ЗВТ </returns>
         private float CountHt(float h)
         {
-            float ht = _plasts[0].Ht();
+            float ht = new PlastManager(_plasts[0]).Ht();
             for (int i = 1; i < _plasts.Count; i++)
-                ht += h * _plasts[i].Ht() / (h + _plasts[i].H.V - _plasts[0].H.V);
+                ht += h * new PlastManager(_plasts[i]).Ht() / (h + _plasts[i].MainMineField.H - _plasts[0].MainMineField.H);
             return ht;
         }
         /// <summary> Расчет высоты ЗВТ с логированием произведенных операций </summary>
@@ -47,15 +46,16 @@ namespace Celic
         private float CountHtWithLog(float h)
         {
             _iter++;
-            float ht = _plasts[0].Ht();
+            float ht = new PlastManager(_plasts[0]).Ht();
             string txt = "H_" + _iter + " = " + ht;
             for (int i = 1; i < _plasts.Count; i++)
             {
                 Plast p = _plasts[i];
-                ht += h * _plasts[i].Ht() / (h + _plasts[i].H.V - _plasts[0].H.V);
+                ht += h * new PlastManager(_plasts[i]).Ht() / (h + _plasts[i].MainMineField.H - _plasts[0].MainMineField.H);
                 h = (float)Math.Round(h * 100) / 100;
-                txt += " + (" + h + "∙" + Math.Round(p.CalcD() * 100) / 100 + "∙" + p.MPr() + "∙" +
-                    p.S + "∙" + p.Sz + "∙" + p.Kt + ")/(" + h + " + " + (p.H.V - _plasts[0].H.V) + ")";
+                PlastManager manager = new PlastManager(p);
+                txt += " + (" + h + "∙" + Math.Round(manager.CalcD() * 100) / 100 + "∙" + manager.MPr() + "∙" +
+                    p.S + "∙" + p.Sz + "∙" + p.Kt + ")/(" + h + " + " + (p.MainMineField.H - _plasts[0].MainMineField.H) + ")";
             }
             txt += " = " + Math.Round(ht * 100) / 100;
             _txt.Add(txt);
@@ -68,7 +68,7 @@ namespace Celic
             float oldHt, newHt;
             string txt = "Н_т = h_1 + (h d_2 m_пр2 S_2 S_z2 k_t2)/(h + ∆H_(1-2) ) + ... + (h d_n m_прn S_n S_zn k_tn)/(h + ∆H_(1-n) )";
             _txt.Add(txt);
-            oldHt = _plasts[0].Ht();
+            oldHt = new PlastManager(_plasts[0]).Ht();
             newHt = CountHtWithLog(oldHt);
             while (newHt - oldHt >= 2)
             {
@@ -111,7 +111,7 @@ namespace Celic
         public float Count()
         {
             float oldHt, newHt;
-            oldHt = _plasts[0].Ht();
+            oldHt = new PlastManager(_plasts[0]).Ht();
             newHt = CountHt(oldHt);
             while (newHt - oldHt >= 2)
             {
