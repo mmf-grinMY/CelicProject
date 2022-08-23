@@ -1,0 +1,62 @@
+﻿<UserControl x:Class="Celic.PlastMenu"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Celic"
+             mc:Ignorable="d">
+    <UserControl.Resources>
+        <Style TargetType="MenuItem">
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="BorderBrush" Value="LightGray"/>
+        </Style>
+        
+    </UserControl.Resources>
+    <StackPanel VerticalAlignment="Top"
+                Background="LightGray">
+        <Menu VerticalAlignment="Top"
+              HorizontalAlignment="Left">
+            <MenuItem Header="Файл"
+                      Background="LightGray">
+                <MenuItem Header="Открыть" Command="{Binding OpenReadCommand}">
+                    <MenuItem.ToolTip>
+                        <ToolTip Content="Открыть файл с данными для расчета"/>
+                    </MenuItem.ToolTip>
+                </MenuItem>
+                <MenuItem Header="Сохранить" Command="{Binding SimpleSaveCommand}">
+                    <MenuItem.ToolTip>
+                        <ToolTip Content="Сохранить файл с данными по умолчанию ( &quot;D:\plast.plast&quot; )"/>
+                    </MenuItem.ToolTip>
+                </MenuItem>
+                <MenuItem Header="Сохранить как" Command="{Binding SaveWithPathCommand}">
+                    <MenuItem.ToolTip>
+                        <ToolTip Content="Сохранить файл с данными по выбранному пути"/>
+                    </MenuItem.ToolTip>
+                </MenuItem>
+            </MenuItem>
+            <MenuItem Header="Расчет"
+                      Background="LightGray">
+                <MenuItem Header="Произвести расчет">
+                    <MenuItem.ToolTip>
+                        <ToolTip Content="Запустить процедуру расчета"/>
+                    </MenuItem.ToolTip>
+                    <MenuItem Header="без записи отчета" Command="{Binding CalcWithoutDocxCommand}">
+                        <MenuItem.ToolTip>
+                            <ToolTip Content="Расчет с показом результата в отдельном окне"/>
+                        </MenuItem.ToolTip>
+                    </MenuItem>
+                    <MenuItem Header="с генерацией отчета" Command="{Binding CalcWithDocxCommand}">
+                        <MenuItem.ToolTip>
+                            <ToolTip Content="Расчет с созданием отчета с описанием произведенных расчетов"/>
+                        </MenuItem.ToolTip>
+                    </MenuItem>
+                </MenuItem>
+                <MenuItem Header="Изменить тип расчета" Command="{Binding OpenMainWindowCommand}">
+                    <MenuItem.ToolTip>
+                        <ToolTip Content="Вернуться на главное окно"/>
+                    </MenuItem.ToolTip>
+                </MenuItem>
+            </MenuItem>
+        </Menu>
+    </StackPanel>
+</UserControl>

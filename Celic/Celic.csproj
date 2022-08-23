@@ -1,0 +1,220 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" DefaultTargets="Build">
+  <PropertyGroup>
+    <ProjectGuid>{3BB73418-80C9-4527-AB04-B61C2CC9D554}</ProjectGuid>
+    <ProjectTypeGuids>{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <OutputType>WinExe</OutputType>
+    <RootNamespace>Celic</RootNamespace>
+    <AssemblyName>Celic</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <TargetFrameworkProfile />
+    <NoWin32Manifest>False</NoWin32Manifest>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Platform)' == 'AnyCPU' ">
+    <PlatformTarget>x86</PlatformTarget>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+    <OutputPath>bin\Debug\</OutputPath>
+    <DebugSymbols>True</DebugSymbols>
+    <DebugType>Full</DebugType>
+    <Optimize>False</Optimize>
+    <CheckForOverflowUnderflow>True</CheckForOverflowUnderflow>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+    <OutputPath>bin\Release\</OutputPath>
+    <DebugSymbols>False</DebugSymbols>
+    <DebugType>None</DebugType>
+    <Optimize>True</Optimize>
+    <CheckForOverflowUnderflow>False</CheckForOverflowUnderflow>
+    <DefineConstants>TRACE</DefineConstants>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.CSharp">
+      <RequiredTargetFramework>4.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="Microsoft.Office.Interop.Word" />
+    <Reference Include="PresentationCore">
+      <RequiredTargetFramework>3.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="PresentationFramework">
+      <RequiredTargetFramework>3.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.DataSetExtensions">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Xaml">
+      <RequiredTargetFramework>4.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Xml.Linq">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="WindowsBase">
+      <RequiredTargetFramework>3.0</RequiredTargetFramework>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <ApplicationDefinition Include="App.xaml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Core\Base\Enums\MineDev\MineDev.cs" />
+    <Compile Include="Core\Base\Enums\MineDev\MineDevManager.cs" />
+    <Compile Include="Core\Base\Enums\SpaceParagraph.cs" />
+    <Compile Include="Core\Report\Calculators\BaseCalculator.cs" />
+    <Compile Include="Core\Report\Calculators\CalculatorC.cs" />
+    <Compile Include="Core\Report\Calculators\CalculatorD.cs" />
+    <Compile Include="Core\Report\ReportCreators\BaseTextManager.cs" />
+    <Compile Include="Core\Report\ReportCreators\ReportManager.cs" />
+    <Compile Include="Core\Report\ReportCreators\TableManager.cs" />
+    <Compile Include="Core\Report\ReportCreators\TextManager.cs" />
+    <Compile Include="UI\CustomControls\FlipPanel.cs" />
+    <Compile Include="UI\CustomControls\Printer.cs" />
+    <Compile Include="UI\CustomControls\Scanner.cs" />
+    <Compile Include="UI\CustomControls\SExpander.cs" />
+    <Compile Include="UI\Windows\HelpInfoWindows\AddPlast\AddPlastViewModel.cs" />
+    <Compile Include="UI\Windows\HelpInfoWindows\AddPlast\AddPlastWindow.xaml.cs">
+      <DependentUpon>AddPlastWindow.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="App.xaml.cs">
+      <SubType>Code</SubType>
+      <DependentUpon>App.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\UserControls\BaseUIControls\ListBoxTitle.xaml.cs">
+      <DependentUpon>ListBoxTitle.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="UI\UserControls\BaseUIControls\PlastMenu.xaml.cs">
+      <DependentUpon>PlastMenu.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Core\Base\Classes\HelpManager.cs" />
+    <Compile Include="Core\Base\Classes\RelayCommand.cs" />
+    <Compile Include="Core\Base\Inrefaces\ICalcViewModel.cs" />
+    <Compile Include="Core\Data\DataFileManage\PlastReader.cs" />
+    <Compile Include="Core\Data\DataFileManage\PlastWriter.cs" />
+    <Compile Include="Core\Data\DataStructs\Base\Camera.cs" />
+    <Compile Include="Core\Data\DataStructs\Base\CameraManager.cs" />
+    <Compile Include="Core\Data\DataStructs\Base\Lava.cs" />
+    <Compile Include="Core\Data\DataStructs\Base\LavaManager.cs" />
+    <Compile Include="Core\Data\DataStructs\Base\MineField.cs" />
+    <Compile Include="Core\Data\DataStructs\Main\Plast.cs" />
+    <Compile Include="Core\Data\DataStructs\Main\PlastCollectionManager.cs" />
+    <Compile Include="Core\Data\DataStructs\Main\PlastManager.cs" />
+    <Compile Include="Core\Report\Calculators\CalculatorB.cs" />
+    <Compile Include="UI\Windows\Main\MainViewModel.cs" />
+    <Compile Include="UI\Windows\Main\MainWindow.xaml.cs">
+      <SubType>Code</SubType>
+      <DependentUpon>MainWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\UserControls\PlastDataControls\PlastDataBox.xaml.cs">
+      <DependentUpon>PlastDataBox.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="UI\UserControls\PlastDataControls\PlastDataItem.xaml.cs">
+      <DependentUpon>PlastDataItem.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="UI\UserControls\PlastDataControls\SPlastDataBox.xaml.cs">
+      <DependentUpon>SPlastDataBox.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="UI\UserControls\PlastDataControls\SPlastDataItem.xaml.cs">
+      <DependentUpon>SPlastDataItem.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\WPFAssemblyInfo.cs" />
+    <Compile Include="UI\Windows\HelpInfoWindows\ReportProgress\RepProViewModel.cs" />
+    <Compile Include="UI\Windows\HelpInfoWindows\ReportProgress\RepProWindow.xaml.cs">
+      <DependentUpon>RepProWindow.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="UI\Windows\CalculationWindows\SCalcB\SCalcBViewModel.cs" />
+    <Compile Include="UI\Windows\CalculationWindows\SCalcB\SCalcBWindow.xaml.cs">
+      <DependentUpon>SCalcBWindow.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="UI\Windows\CalculationWindows\SCalcC\SCalcCViewModel.cs" />
+    <Compile Include="UI\Windows\CalculationWindows\SCalcC\SCalcCWindow.xaml.cs">
+      <DependentUpon>SCalcCWindow.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="UI\Windows\CalculationWindows\SCalcD\SCalcDViewModel.cs" />
+    <Compile Include="UI\Windows\CalculationWindows\SCalcD\SCalcDWindow.xaml.cs">
+      <DependentUpon>SCalcDWindow.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="UI\Windows\HelpInfoWindows\SchemaChoice\SchemaChoiceViewModel.cs" />
+    <Compile Include="UI\Windows\HelpInfoWindows\SchemaChoice\SchemaChoiceWindow.xaml.cs">
+      <DependentUpon>SchemaChoiceWindow.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="UI\ViewModels\BaseViewModel.cs" />
+    <Compile Include="UI\ViewModels\ListPlastViewModel.cs" />
+    <Compile Include="UI\ViewModels\OneListPlastViewModel.cs" />
+    <Compile Include="UI\ViewModels\TwoListPlastViewModel.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="UI\CustomControls\Themes\BaseTemplates.xaml" />
+    <Page Include="UI\Windows\HelpInfoWindows\AddPlast\AddPlastWindow.xaml" />
+    <Page Include="UI\UserControls\BaseUIControls\ListBoxTitle.xaml" />
+    <Page Include="UI\UserControls\BaseUIControls\PlastMenu.xaml" />
+    <Page Include="UI\Windows\Main\MainWindow.xaml" />
+    <Page Include="UI\UserControls\PlastDataControls\PlastDataBox.xaml" />
+    <Page Include="UI\UserControls\PlastDataControls\PlastDataItem.xaml" />
+    <Page Include="UI\UserControls\PlastDataControls\SPlastDataBox.xaml" />
+    <Page Include="UI\UserControls\PlastDataControls\SPlastDataItem.xaml" />
+    <Page Include="UI\Windows\HelpInfoWindows\ReportProgress\RepProWindow.xaml" />
+    <Page Include="UI\Windows\CalculationWindows\SCalcB\SCalcBWindow.xaml" />
+    <Page Include="UI\Windows\CalculationWindows\SCalcC\SCalcCWindow.xaml" />
+    <Page Include="UI\Windows\CalculationWindows\SCalcD\SCalcDWindow.xaml" />
+    <Page Include="UI\Windows\HelpInfoWindows\SchemaChoice\SchemaChoiceWindow.xaml" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Core" />
+    <Folder Include="Core\Base" />
+    <Folder Include="Core\Base\Classes" />
+    <Folder Include="Core\Base\Enums\MineDev" />
+    <Folder Include="Core\Base\Inrefaces" />
+    <Folder Include="Core\Base\Enums" />
+    <Folder Include="Core\Data" />
+    <Folder Include="Core\Data\DataStructs" />
+    <Folder Include="Core\Data\DataFileManage" />
+    <Folder Include="Core\Data\DataStructs\Base" />
+    <Folder Include="Core\Data\DataStructs\Main" />
+    <Folder Include="Core\Report" />
+    <Folder Include="Core\Report\Calculators" />
+    <Folder Include="Core\Report\ReportCreators" />
+    <Folder Include="UI\CustomControls\Themes" />
+    <Folder Include="UI\UserControls" />
+    <Folder Include="UI\CustomControls" />
+    <Folder Include="UI\Windows\HelpInfoWindows\AddPlast" />
+    <Folder Include="UI\Windows\Main" />
+    <Folder Include="UI\UserControls\BaseUIControls" />
+    <Folder Include="UI\Windows\HelpInfoWindows" />
+    <Folder Include="UI\Windows\CalculationWindows" />
+    <Folder Include="UI" />
+    <Folder Include="UI\UserControls\PlastDataControls" />
+    <Folder Include="UI\Windows\HelpInfoWindows\SchemaChoice" />
+    <Folder Include="UI\Windows\CalculationWindows\SCalcD" />
+    <Folder Include="UI\Windows\CalculationWindows\SCalcC" />
+    <Folder Include="UI\Windows\CalculationWindows\SCalcB" />
+    <Folder Include="UI\Windows\HelpInfoWindows\ReportProgress" />
+    <Folder Include="UI\Windows" />
+    <Folder Include="UI\ViewModels" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>
