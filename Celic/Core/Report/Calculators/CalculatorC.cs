@@ -45,14 +45,14 @@ namespace Celic
         /// <returns> Строка с выходными данными </returns>
         public string Count()
         {
-            string output = "";
+            string result = "";
             B();
             for(int i = 0; i < _plasts.Count; i++)
             {
-            	output += "Пласт №" + (i + 1) + ": Ширина со стороны лежачего склона равна " + _plasts[i].Bl + " м," +
+            	result += "Пласт №" + (i + 1) + ": Ширина со стороны лежачего склона равна " + _plasts[i].Bl + " м," +
                     " со стороны висячего склона - " + _plasts[i].Bv + " м\n";
             }
-            return output;
+            return result;
         }
 
         #endregion
@@ -105,7 +105,6 @@ namespace Celic
         {
             if ((_plasts.Count == 2 || _plasts.Count == 3) && _app != null)
             {
-                float status = 65f, offset = 15f / _plasts.Count;
                 float[] ht = HtMorePlastsWithLog(_plasts);
                 AddParagraph("Список состоит из " + _plasts.Count+ "-х пластов. ");
                 for (int i = 0; i < _plasts.Count; i++)

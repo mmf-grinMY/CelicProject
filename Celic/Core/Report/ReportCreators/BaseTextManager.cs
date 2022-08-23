@@ -108,12 +108,28 @@ namespace Celic
             _range.ParagraphFormat.Alignment = Align.wdAlignParagraphCenter;
         }
         /// <summary> Запись математических формул и их корректное форматирование </summary>
-        public static void AddParagraphMath(List<string> mathText, Word.Application app)
+        public static void AddParagraphMath(List<string> mathText, Word.Application _app)
         {
-            Word.OMaths math = app.ActiveDocument.OMaths;
+        	Word.Range _range;
+            Word.OMaths math = _app.ActiveDocument.OMaths;
             for (int i = 0; i < mathText.Count; i++)
             {
-                _range = app.ActiveDocument.Paragraphs.Add().Range;
+                _range = _app.ActiveDocument.Paragraphs.Add().Range;
+                _range.Text = mathText[i];
+                _range.Font.Size = 9;
+                math.Add(_range);
+                _range.InsertParagraphAfter();
+            }
+            math.BuildUp();
+            mathText.Clear();
+        }
+        /// <summary> Запись математических формул и их корректное форматирование </summary>
+        public void AddParagraphMath(List<string> mathText)
+        {
+            Word.OMaths math = _app.ActiveDocument.OMaths;
+            for (int i = 0; i < mathText.Count; i++)
+            {
+                _range = _app.ActiveDocument.Paragraphs.Add().Range;
                 _range.Text = mathText[i];
                 _range.Font.Size = 9;
                 math.Add(_range);

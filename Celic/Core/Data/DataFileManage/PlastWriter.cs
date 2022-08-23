@@ -76,7 +76,7 @@ namespace Celic
             XmlText hText = doc.CreateTextNode(plast.Main.H.ToString());
             XmlText mvText = doc.CreateTextNode(plast.Main.Mv.ToString());
             XmlText kiText = doc.CreateTextNode((plast.Main as Camera).Ki.ToString());
-            XmlText typeDevText = doc.CreateTextNode(plast.TypeDev);
+            XmlText typeDevText = doc.CreateTextNode(MineDevManager.ToString(plast.TypeDev));
             // Запись данных в поля-теги шахтного поля
             hElem.AppendChild(hText);
             mvElem.AppendChild(mvText);

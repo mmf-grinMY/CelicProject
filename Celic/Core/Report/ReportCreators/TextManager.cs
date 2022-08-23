@@ -182,7 +182,7 @@ namespace Celic
             AddParagraph("3.1. Расчёт высоты распространения водопроводящих трещин над разрабатываемым пластом",
                 FormatHeader, Align.wdAlignParagraphCenter, SpaceParagraph.standart);
             AddParagraph("Очистные работы на " + _p.Gorizont + "-м калийном горизонте при " +
-                (_p.TypeDev == "столбовая" ? "столбовой" : "камерной") +
+                (_p.TypeDev == MineDev.lava ? "столбовой" : "камерной") +
                 " системе отработки будут проводиться со следующими параметрами:", FormatLine1);
             AddParagraph("Выемочная мощность " + Tab(5) + "-" +  Tab(1) + "mв = " + _p.Main.Mv + " м;", FormatListLine1, spaceAfter: SpaceParagraph.missing);
             AddParagraph("Глубина ведения горных работ" + Tab(3) + "-" + Tab(1) + _p.Main.H + " м;", FormatListLine2);

@@ -15,19 +15,19 @@ namespace Celic
         /// <returns> Значение параметра, зависящего от системы разработки </returns>
         public static float CalcD(Plast plast) 
         {
-        	return plast.TypeDev.Equals(HelpManager.CAMERA_DEV) ? CameraManager.CalcD(plast.Main as Camera) : LavaManager.CalcD(plast.Main as Lava);
+        	return plast.TypeDev == MineDev.camera ? CameraManager.CalcD(plast.Main as Camera) : LavaManager.CalcD(plast.Main as Lava);
         }
         /// <summary> Расчет приведенной вынимаемой мощности для пласта </summary>
         /// <returns> Значение приведенной вынимаеомй мощности </returns>
         public static float MPr(Plast plast) 
         {
-        	return plast.TypeDev.Equals(HelpManager.CAMERA_DEV) ? CameraManager.MPr(plast.Main as Camera) : LavaManager.MPr(plast.Main as Lava);
+        	return plast.TypeDev == MineDev.camera ? CameraManager.MPr(plast.Main as Camera) : LavaManager.MPr(plast.Main as Lava);
         }
         /// <summary> Перерасчет коэффициентов К для коллекции шахтных полей </summary>
         public static float RecalcK(Plast plast)
         {
             float maxK = 0;
-            if (plast.TypeDev.Equals(HelpManager.CAMERA_DEV))
+            if (plast.TypeDev == MineDev.camera)
             {
                 maxK = CameraManager.RecalcK(plast.Main as Camera);
             }
@@ -59,7 +59,7 @@ namespace Celic
         /// <returns> Значение коэффициента в виде строки </returns>
         public static string GetD(Plast plast) 
         {
-        	switch(MineDevManager.ToMineDev(plast.TypeDev))
+        	switch(plast.TypeDev)
         	{
         		case MineDev.camera: return "26";
         		case MineDev.lava: return "46";

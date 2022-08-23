@@ -1,0 +1,36 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+					xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+					xmlns:local="clr-namespace:Celic">
+	<ControlTemplate x:Key="HorizontalListTemplate" TargetType="{x:Type local:HorizontalList}">
+		<Grid>
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition Width="Auto"/>
+				<ColumnDefinition/>
+				<ColumnDefinition Width="Auto"/>
+			</Grid.ColumnDefinitions>
+			<Button x:Name="prevBtn"
+					Style="{StaticResource ButtonStyle}"
+					HorizontalAlignment="Left">
+				<Path Data="M 4 0 L 0 4 L 4 8 Z"
+					  Style="{StaticResource PathStyle}"/>
+			</Button>
+			<ContentPresenter Grid.Column="1"
+						  	  ContentSource="Template"
+							  Style="{StaticResource BasePositionStyle}"
+							  HorizontalAlignment="Center"/>
+			<Button Grid.Column="2"
+					x:Name="nextBtn"
+					Style="{StaticResource ButtonStyle}"
+					HorizontalAlignment="Right">
+				<Path Data="M 0 0 L 4 4 L 0 8 Z"
+					  Style="{StaticResource PathStyle}"/>
+			</Button>
+		</Grid>
+	</ControlTemplate>
+
+	<Style x:Key="HorizontalListStyle" TargetType="{x:Type local:HorizontalList}">
+		<Setter Property="Template" Value="{StaticResource HorizontalListTemplate}"/>
+	</Style>
+	
+	<Style TargetType="{x:Type local:HorizontalList}" BasedOn="{StaticResource HorizontalListStyle}"/>
+</ResourceDictionary>

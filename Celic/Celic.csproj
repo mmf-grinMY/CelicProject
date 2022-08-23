@@ -67,6 +67,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Core\Base\Enums\MineDev\MineDev.cs" />
+    <Compile Include="Core\Base\Enums\MineDev\MineDevConverter.cs" />
     <Compile Include="Core\Base\Enums\MineDev\MineDevManager.cs" />
     <Compile Include="Core\Base\Enums\SpaceParagraph.cs" />
     <Compile Include="Core\Report\Calculators\BaseCalculator.cs" />
@@ -76,10 +77,27 @@
     <Compile Include="Core\Report\ReportCreators\ReportManager.cs" />
     <Compile Include="Core\Report\ReportCreators\TableManager.cs" />
     <Compile Include="Core\Report\ReportCreators\TextManager.cs" />
-    <Compile Include="UI\CustomControls\FlipPanel.cs" />
-    <Compile Include="UI\CustomControls\Printer.cs" />
-    <Compile Include="UI\CustomControls\Scanner.cs" />
-    <Compile Include="UI\CustomControls\SExpander.cs" />
+    <Compile Include="UI\CustomControls\Containers\FlipPanel\FlipPanel.cs" />
+    <Compile Include="UI\CustomControls\Containers\HorizontalList\HorizontalList.cs" />
+    <Compile Include="UI\CustomControls\Containers\SExpander\SExpander.cs" />
+    <Compile Include="UI\CustomControls\SimpleControls\Printer\Printer.cs" />
+    <Compile Include="UI\CustomControls\SimpleControls\Scanner\Scanner.cs" />
+    <Compile Include="UI\UserControls\PlastDataControls\SimpleDataControls\SPlastDataBox.xaml.cs">
+      <DependentUpon>SPlastDataBox.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="UI\UserControls\PlastDataControls\SimpleDataControls\SPlastDataItem.xaml.cs">
+      <DependentUpon>SPlastDataItem.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="UI\UserControls\PlastDataControls\StandartDataControls\PlastDataBox.xaml.cs">
+      <DependentUpon>PlastDataBox.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="UI\UserControls\PlastDataControls\StandartDataControls\PlastDataItem.xaml.cs">
+      <DependentUpon>PlastDataItem.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="UI\Windows\HelpInfoWindows\AddPlast\AddPlastViewModel.cs" />
     <Compile Include="UI\Windows\HelpInfoWindows\AddPlast\AddPlastWindow.xaml.cs">
       <DependentUpon>AddPlastWindow.xaml</DependentUpon>
@@ -116,22 +134,6 @@
       <SubType>Code</SubType>
       <DependentUpon>MainWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UI\UserControls\PlastDataControls\PlastDataBox.xaml.cs">
-      <DependentUpon>PlastDataBox.xaml</DependentUpon>
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="UI\UserControls\PlastDataControls\PlastDataItem.xaml.cs">
-      <DependentUpon>PlastDataItem.xaml</DependentUpon>
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="UI\UserControls\PlastDataControls\SPlastDataBox.xaml.cs">
-      <DependentUpon>SPlastDataBox.xaml</DependentUpon>
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="UI\UserControls\PlastDataControls\SPlastDataItem.xaml.cs">
-      <DependentUpon>SPlastDataItem.xaml</DependentUpon>
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\WPFAssemblyInfo.cs" />
     <Compile Include="UI\Windows\HelpInfoWindows\ReportProgress\RepProViewModel.cs" />
@@ -165,15 +167,20 @@
     <Compile Include="UI\ViewModels\TwoListPlastViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Page Include="UI\CustomControls\Containers\FlipPanel\FlipPanelResources.xaml" />
+    <Page Include="UI\CustomControls\Containers\HorizontalList\HorizontalListResources.xaml" />
+    <Page Include="UI\CustomControls\Containers\SExpander\SExpanderResources.xaml" />
+    <Page Include="UI\CustomControls\SimpleControls\Printer\PrinterResources.xaml" />
+    <Page Include="UI\CustomControls\SimpleControls\Scanner\ScannerResources.xaml" />
     <Page Include="UI\CustomControls\Themes\BaseTemplates.xaml" />
+    <Page Include="UI\UserControls\PlastDataControls\SimpleDataControls\SPlastDataBox.xaml" />
+    <Page Include="UI\UserControls\PlastDataControls\SimpleDataControls\SPlastDataItem.xaml" />
+    <Page Include="UI\UserControls\PlastDataControls\StandartDataControls\PlastDataBox.xaml" />
+    <Page Include="UI\UserControls\PlastDataControls\StandartDataControls\PlastDataItem.xaml" />
     <Page Include="UI\Windows\HelpInfoWindows\AddPlast\AddPlastWindow.xaml" />
     <Page Include="UI\UserControls\BaseUIControls\ListBoxTitle.xaml" />
     <Page Include="UI\UserControls\BaseUIControls\PlastMenu.xaml" />
     <Page Include="UI\Windows\Main\MainWindow.xaml" />
-    <Page Include="UI\UserControls\PlastDataControls\PlastDataBox.xaml" />
-    <Page Include="UI\UserControls\PlastDataControls\PlastDataItem.xaml" />
-    <Page Include="UI\UserControls\PlastDataControls\SPlastDataBox.xaml" />
-    <Page Include="UI\UserControls\PlastDataControls\SPlastDataItem.xaml" />
     <Page Include="UI\Windows\HelpInfoWindows\ReportProgress\RepProWindow.xaml" />
     <Page Include="UI\Windows\CalculationWindows\SCalcB\SCalcBWindow.xaml" />
     <Page Include="UI\Windows\CalculationWindows\SCalcC\SCalcCWindow.xaml" />
@@ -198,9 +205,18 @@
     <Folder Include="Core\Report" />
     <Folder Include="Core\Report\Calculators" />
     <Folder Include="Core\Report\ReportCreators" />
+    <Folder Include="UI\CustomControls\Containers\FlipPanel" />
+    <Folder Include="UI\CustomControls\Containers" />
+    <Folder Include="UI\CustomControls\Containers\HorizontalList" />
+    <Folder Include="UI\CustomControls\SimpleControls" />
+    <Folder Include="UI\CustomControls\Containers\SExpander" />
+    <Folder Include="UI\CustomControls\SimpleControls\Printer" />
+    <Folder Include="UI\CustomControls\SimpleControls\Scanner" />
     <Folder Include="UI\CustomControls\Themes" />
     <Folder Include="UI\UserControls" />
     <Folder Include="UI\CustomControls" />
+    <Folder Include="UI\UserControls\PlastDataControls\SimpleDataControls" />
+    <Folder Include="UI\UserControls\PlastDataControls\StandartDataControls" />
     <Folder Include="UI\Windows\HelpInfoWindows\AddPlast" />
     <Folder Include="UI\Windows\Main" />
     <Folder Include="UI\UserControls\BaseUIControls" />

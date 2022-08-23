@@ -10,6 +10,13 @@
         Title="Расчет высоты зоны водопроводящих трещин"
         MinHeight="500"
         MinWidth="600">
+	<Window.Resources>
+	
+		<DataTemplate x:Key="PlastDataItem">
+            <local:PlastDataItem/>
+        </DataTemplate>
+	
+	</Window.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
@@ -23,16 +30,19 @@
         <StackPanel Margin="4,0"
                     Grid.Row="1">
             <local:ListBoxTitle/>
-            <ListBox ItemsSource="{Binding Plasts}"
-                     SelectedItem="{Binding SelectedPlast}"
-                     Padding="-2,0"
-                     MinHeight="200">
-                <ListBox.ItemTemplate>
-                    <DataTemplate>
-                        <local:PlastDataItem/>
-                    </DataTemplate>
-                </ListBox.ItemTemplate>
-            </ListBox>
+        	<Border BorderBrush="Black"
+        			BorderThickness="0.3"
+        			SnapsToDevicePixels="True">
+	        	<ScrollViewer MaxHeight="500"
+	        				  VerticalScrollBarVisibility="Auto">
+		        	<ListBox ItemsSource="{Binding Plasts}"
+		                     SelectedItem="{Binding SelectedPlast}"
+		                     Padding="-2,0"
+		                     MinHeight="200"
+		        	         BorderBrush="Transparent"
+		        			 ItemTemplate="{StaticResource PlastDataItem}"/>
+	        	</ScrollViewer>
+        	</Border>
         </StackPanel>
         <StackPanel Grid.Row="1"
                     Grid.Column="1"

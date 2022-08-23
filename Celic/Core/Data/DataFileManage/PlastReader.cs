@@ -69,7 +69,7 @@ namespace Celic
                         else if (minefield.Name == "ki")
                             (plast.Main as Camera).Ki = float.Parse(minefield.InnerText);
                         else if (minefield.Name == "typeDev")
-                            plast.TypeDev = minefield.InnerText;
+                        	plast.TypeDev = MineDevManager.ToMineDev(minefield.InnerText);
                 else if (childnode.Name == "S")
                      plast.S = float.Parse(childnode.InnerText);
                 else if (childnode.Name == "S_z")

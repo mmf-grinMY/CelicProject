@@ -10,7 +10,7 @@ namespace Celic
 			switch(dev)
 			{
 				default:
-				case MineDev.undefine: return "";
+				case MineDev.undefine: return string.Empty;
 				case MineDev.camera: return "камерная";
 				case MineDev.lava: return "столбовая";
 			}

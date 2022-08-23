@@ -76,6 +76,8 @@
     			</DataTrigger>
         	</DataTemplate.Triggers>
         </DataTemplate>
+	
+		<local:MineDevConverter x:Key="MineDevConverter"/>
     </UserControl.Resources>
     <Border Padding="0"
             Margin="-4,-4,-4,0">
@@ -109,7 +111,7 @@
 	                        <ComboBox Grid.Column="1"
 	                                  Grid.Row="1"
 	                                  x:Name="comboBox"
-	                                  Text="{Binding Path=TypeDev, Mode=TwoWay}"
+	                                  Text="{Binding Path=TypeDev, Mode=TwoWay, Converter={StaticResource MineDevConverter}}"
 	                                  Style="{StaticResource comboBoxBaseStyle}"
 	                                  SelectionChanged="ComboBoxTypeDev_SelectionChanged">
 	                            <ComboBoxItem Content="столбовая"/>

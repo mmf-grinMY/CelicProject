@@ -33,9 +33,9 @@ namespace Celic
         /// <returns> Отсортированная коллекция пластов </returns>
         public static ObservableCollection<Plast> Sort(ObservableCollection<Plast> plasts)
         {
-            for (int i = 1; i < plasts.Count; i++)
+            /*for (int i = 1; i < plasts.Count; i++)
                 for (int j = i; j > 0 && plasts[j - 1].Main.H > plasts[j].Main.H; j--)
-                    plasts.Move(j - 1, j);
+                    plasts.Move(j - 1, j);*/
             return plasts;
         }
 
@@ -63,7 +63,7 @@ namespace Celic
         {
             MineField field1 = plasts[0].Main;
             for (int i = 0; i < plasts.Count; i++)
-                if (plasts[i].TypeDev.Equals(HelpManager.CAMERA_DEV)) {
+                if (plasts[i].TypeDev == MineDev.camera) {
                     Camera camera = plasts[i].Main as Camera;
                     float d0 = 1.4F * (CameraManager.CalcD(field1 as Camera) * field1.Mv + (camera.H - field1.H));
                     camera.K = camera.D >= d0 ? 1 : d0 != 0 ? (float)Math.Sqrt(camera.D / d0) : 1;

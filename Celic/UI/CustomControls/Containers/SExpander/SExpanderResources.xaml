@@ -1,0 +1,42 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+					xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+					xmlns:local="clr-namespace:Celic">
+	<ControlTemplate x:Key="SExpanderTemplate" TargetType="{x:Type local:SExpander}">
+		<Grid>
+			<Grid.RowDefinitions>
+				<RowDefinition/>
+				<RowDefinition/>
+			</Grid.RowDefinitions>
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition Width="Auto"/>
+				<ColumnDefinition/>
+			</Grid.ColumnDefinitions>
+				<Button x:Name="collapsedBtn"
+						Style="{StaticResource ButtonStyle}">
+					<Path Data="M 0 0 L 4 4 L 0 8 Z"
+						  Style="{StaticResource PathStyle}"/>
+				</Button>
+				<Button x:Name="expandedBtn"
+						Style="{StaticResource ButtonStyle}"
+						Visibility="Collapsed">
+					<Path Data="M 0 0 L 4 4 L 8 0 Z"
+						  Style="{StaticResource PathStyle}"/>
+				</Button>
+				<TextBlock Grid.Column="1"
+						   Text="{TemplateBinding Header}"
+						   Style="{StaticResource HeaderStyle}"/>
+				<ContentPresenter Grid.Column="1"
+								  Grid.Row="1"
+							  	  ContentSource="Content"
+								  Visibility="Collapsed"
+								  x:Name="content"
+								  Style="{StaticResource BasePositionStyle}"/>
+		</Grid>
+	</ControlTemplate>
+
+	<Style x:Key="SExpanderStyle" TargetType="{x:Type local:SExpander}">
+		<Setter Property="Template" Value="{StaticResource SExpanderTemplate}"/>
+	</Style>
+	
+	<Style TargetType="{x:Type local:SExpander}" BasedOn="{StaticResource SExpanderStyle}"/>
+</ResourceDictionary>

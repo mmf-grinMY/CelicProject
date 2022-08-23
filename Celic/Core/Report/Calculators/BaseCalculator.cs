@@ -45,7 +45,7 @@ namespace Celic
                 else
                 {
                     ht[1] = PlastManager.Ht(plasts[1]);
-                    ht[0] = Help.SimpleCalcHt(0, 1, plasts);
+                    ht[0] = Help.CalculationHtLog(0, 1, plasts);
                 }
             }
             else
@@ -66,8 +66,8 @@ namespace Celic
                 float dh = plasts[2].Main.H - plasts[1].Main.H;
                 bool simpleCalcHt1 = ht[2] <= dh;
                 ht[2] = PlastManager.Ht(plasts[2]);
-                ht[1] = ht[2] <= dh ? PlastManager.Ht(plasts[1]) : Help.SimpleCalcHt(1, 2, plasts);
-                ht[0] = ht[1] <= plasts[1].Main.H - plasts[0].Main.H ? PlastManager.Ht(plasts[0]) : Help.SimpleCalcHt(0, simpleCalcHt1 == true ? 1 : 2, plasts);
+                ht[1] = ht[2] <= dh ? PlastManager.Ht(plasts[1]) : Help.CalculationHtLog(1, 2, plasts);
+                ht[0] = ht[1] <= plasts[1].Main.H - plasts[0].Main.H ? PlastManager.Ht(plasts[0]) : Help.CalculationHtLog(0, simpleCalcHt1 == true ? 1 : 2, plasts);
             }
             else
             {
@@ -103,8 +103,8 @@ namespace Celic
                     AddParagraph("Пласты являются сближенными по условию водозащиты. ");
                     AddParagraph("Так как пласты являются сближенными, высоты ЗВТ для верхнего" +
                         " пласта необходимо подсчитать с учетом выработки нижнего пласта: ");
-                    ht[0] = Help.SimpleCalcHt(0, 1, plasts, _txt);
-                    AddParagraphMath(_txt, _app);
+                    ht[0] = Help.CalculationHtLog(0, 1, plasts, _txt);
+                    AddParagraphMath(_txt);
                     AddParagraph("Величина ЗВТ для нижнего пласта рассчитывается без учета влияния выработки вышележащего: ");
                     AddParagraphCalcHt(1, ht, plasts);
                 }
@@ -152,8 +152,8 @@ namespace Celic
                 else
                 {
                     AddParagraphSpecial(plast22, "HT3", "HT2", "∆H2-3");
-                    ht[1] = Help.SimpleCalcHt(1, 2, plasts, _txt);
-                    AddParagraphMath(_txt, _app);
+                    ht[1] = Help.CalculationHtLog(1, 2, plasts, _txt);
+                    AddParagraphMath(_txt);
                 }
                 if (ht[1] <= dh12)
                 {
@@ -163,8 +163,8 @@ namespace Celic
                 else
                 {
                     AddParagraphWithSelectedThree(simpleCalcHt1 == true ? plast321 : plast322, "HT1", "HT2");
-                    ht[0] = Help.SimpleCalcHt(0, simpleCalcHt1 == true ? 1 : 2, plasts, _txt);
-                    AddParagraphMath(_txt, _app);
+                    ht[0] = Help.CalculationHtLog(0, simpleCalcHt1 == true ? 1 : 2, plasts, _txt);
+                    AddParagraphMath(_txt);
                 }
             }
             else

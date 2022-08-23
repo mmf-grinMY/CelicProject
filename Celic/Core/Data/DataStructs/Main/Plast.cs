@@ -44,10 +44,7 @@ namespace Celic
         /// <summary> Имя пласта </summary>
         public string Name
         {
-            get 
-            {
-            	return _name;
-            }
+            get { return _name; }
             set
             {
                 _name = value;
@@ -55,18 +52,14 @@ namespace Celic
             }
         }
         /// <summary> Система разработки шахтного поля </summary>
-        public string TypeDev
+        public MineDev TypeDev
         {
-            get 
-            {
-            	return _typeDev.ToString();
-            }
+            get { return _typeDev; }
             set
             {
-            	MineDev newValue = MineDevManager.ToMineDev(value);
-                if(_typeDev != newValue)
+                if(_typeDev != value)
                 {
-                	_typeDev = newValue;
+                	_typeDev = value;
                 	switch(_typeDev)
                 	{
                 		case MineDev.camera: CreateMineFieldsWithCamera(); break;
@@ -76,14 +69,10 @@ namespace Celic
                 }
             }
         }
-        
         /// <summary> Калийный горизонт </summary>
         public string Gorizont
         {
-        	get 
-        	{
-        		return _gorizont;
-        	}
+        	get { return _gorizont; }
             set
             {
                 _gorizont = value;
@@ -93,10 +82,7 @@ namespace Celic
         /// <summary> Сближенный к данному пласт, находящийся сверху </summary>
         public string Top
         {
-        	get 
-        	{
-        		return _top;
-        	}
+        	get { return _top; }
             set
             {
                 _top = value;
@@ -106,10 +92,7 @@ namespace Celic
         /// <summary> Сближенный к данному пласт, находящийся снизу </summary>
         public string Buttom
         {
-        	get 
-        	{
-        		return _buttom;
-        	}
+        	get { return _buttom; }
             set
             {
                 _buttom = value;
@@ -119,10 +102,7 @@ namespace Celic
         /// <summary> Коэффициент, учитывающий степень влияния выемки разрабатываемых пластов на развитие техногенных водопроводящих трещин в зависимости от взаимного положения ( смещения в плане ) границ остановки работ </summary>
         public float S
         {
-            get 
-            {
-            	return _s;
-            }
+            get { return _s; }
             set
             {
                 _s = value;
@@ -132,10 +112,7 @@ namespace Celic
         /// <summary> Коэффициент, учитывающий характер деформирования массива пород в краевой части мульды сдвижения над угловыми участками выработанного пространства, определяемые согласно отдельным рекомендациям специализированной организации( 0 ≤ S_z ≤ 1 ); при отсутствии таких рекомендаций значение принимается равным 1 </summary>
         public float Sz 
         {
-        	get 
-        	{
-        		return _sz;
-        	}
+        	get { return _sz; }
             set
             {
                 _sz = value;
@@ -145,10 +122,7 @@ namespace Celic
         /// <summary> Коэффициент, учитывающий порядок разработки пластов и интервал времени между их отработкой </summary>
         public float Kt 
         {
-            get 
-            {
-            	return _kt;
-            }
+            get { return _kt; }
             set
             {
                 _kt = value;
@@ -158,10 +132,7 @@ namespace Celic
         /// <summary> Год отработки рассматриваемого пласта, год. </summary>
         public int T
         {
-            get 
-            {
-            	return _t;
-            }
+            get { return _t; }
             set
             {
                 _t = value <= DateTime.Now.Year && value >= 1900 ? value : DateTime.Now.Year;
@@ -171,10 +142,7 @@ namespace Celic
         /// <summary> Фактическая максимальная высота распространения ЗВТ над нижележащим пластом спустя время t с момента его отработки(определяется опытным путем), м; при отсутствии данных о фактической максимальной высоте распространения ЗВТ над нижележащим разрабатываемым пластом принимается равной H_t; </summary>
         public float Hf
         {
-            get 
-            {
-            	return _hf;
-            }
+            get { return _hf; }
             set
             {
                 _hf = value;
@@ -184,10 +152,7 @@ namespace Celic
         /// <summary> Расстояние в плане между границами остановки работ на 1-м и рассматриваемом пластах, м ( поле ) </summary>
         public float Lp
         {
-            get 
-            {
-            	return _lp;
-            }
+            get { return _lp; }
             set
             {
                 _lp = value;
@@ -203,10 +168,7 @@ namespace Celic
         /// <summary> Главное шахтное поле среди списка рассматриваемых </summary>
         public MineField Main
         {
-            get 
-            {
-            	return _main;
-            }
+            get { return _main; }
             set
             {
                 _main = value;
@@ -227,11 +189,11 @@ namespace Celic
         public Plast()
         {
             MineFields = new ObservableCollection<MineField>();
-            TypeDev = HelpManager.CAMERA_DEV;
+            TypeDev = MineDev.camera;
             myID = ++id;
             Name = "Пласт_" + myID;
             S = Sz = Kt = 1;
-            Top = Buttom = HelpManager.UNDEFINE_DEV;
+            Top = Buttom = "не определен";
         }
 
         #endregion

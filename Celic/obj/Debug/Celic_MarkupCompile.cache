@@ -4,17 +4,17 @@
 winexe
 C#
 .cs
-F:\Users\Максим\Documents\SDCelic\SDCelic\obj\Debug\
+F:\Users\Максим\Documents\CelicProject\Celic\obj\Debug\
 Celic
 none
 false
 DEBUG;TRACE
-F:\Users\Максим\Documents\SDCelic\SDCelic\App.xaml
-141353800165
+F:\Users\Максим\Documents\CelicProject\Celic\App.xaml
+19-1443490847
 
-55-597070335
+57-176954508
 13-448884708
-UI\CustomControls\Themes\BaseTemplates.xaml;UI\Windows\HelpInfoWindows\AddPlast\AddPlastWindow.xaml;UI\UserControls\BaseUIControls\ListBoxTitle.xaml;UI\UserControls\BaseUIControls\PlastMenu.xaml;UI\Windows\Main\MainWindow.xaml;UI\UserControls\PlastDataControls\PlastDataBox.xaml;UI\UserControls\PlastDataControls\PlastDataItem.xaml;UI\UserControls\PlastDataControls\SPlastDataBox.xaml;UI\UserControls\PlastDataControls\SPlastDataItem.xaml;UI\Windows\HelpInfoWindows\ReportProgress\RepProWindow.xaml;UI\Windows\CalculationWindows\SCalcB\SCalcBWindow.xaml;UI\Windows\CalculationWindows\SCalcC\SCalcCWindow.xaml;UI\Windows\CalculationWindows\SCalcD\SCalcDWindow.xaml;UI\Windows\HelpInfoWindows\SchemaChoice\SchemaChoiceWindow.xaml;
+UI\CustomControls\Containers\FlipPanel\FlipPanelResources.xaml;UI\CustomControls\Containers\HorizontalList\HorizontalListResources.xaml;UI\CustomControls\Containers\SExpander\SExpanderResources.xaml;UI\CustomControls\SimpleControls\Printer\PrinterResources.xaml;UI\CustomControls\SimpleControls\Scanner\ScannerResources.xaml;UI\CustomControls\Themes\BaseTemplates.xaml;UI\UserControls\PlastDataControls\SimpleDataControls\SPlastDataBox.xaml;UI\UserControls\PlastDataControls\SimpleDataControls\SPlastDataItem.xaml;UI\UserControls\PlastDataControls\StandartDataControls\PlastDataBox.xaml;UI\UserControls\PlastDataControls\StandartDataControls\PlastDataItem.xaml;UI\Windows\HelpInfoWindows\AddPlast\AddPlastWindow.xaml;UI\UserControls\BaseUIControls\ListBoxTitle.xaml;UI\UserControls\BaseUIControls\PlastMenu.xaml;UI\Windows\Main\MainWindow.xaml;UI\Windows\HelpInfoWindows\ReportProgress\RepProWindow.xaml;UI\Windows\CalculationWindows\SCalcB\SCalcBWindow.xaml;UI\Windows\CalculationWindows\SCalcC\SCalcCWindow.xaml;UI\Windows\CalculationWindows\SCalcD\SCalcDWindow.xaml;UI\Windows\HelpInfoWindows\SchemaChoice\SchemaChoiceWindow.xaml;
 
 False
 

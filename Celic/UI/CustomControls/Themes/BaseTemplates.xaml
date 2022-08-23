@@ -23,40 +23,15 @@
 	</Style>
 	<!--Стандартный стиль TextBlock в вводе данных-->
 	<Style x:Key="txtBlockBaseStyle" TargetType="{x:Type TextBlock}">
-            <Setter Property="FontSize" Value="14"/>
-            <Setter Property="Margin" Value="0,2,2,0"/>
-            <Setter Property="MaxWidth" Value="400"/>
-            <Setter Property="MinWidth" Value="100"/>
-            <Setter Property="MinHeight" Value="20"/>
-            <Setter Property="TextAlignment" Value="Right"/>
-            <Setter Property="TextWrapping" Value="WrapWithOverflow"/>
-        </Style>
-	
-	<ControlTemplate x:Key="ScannerTemplate" TargetType="{x:Type local:Scanner}">
-		<Grid>
-			<Grid.ColumnDefinitions>
-				<ColumnDefinition Width="{TemplateBinding GridWidth}"/>
-				<ColumnDefinition/>
-			</Grid.ColumnDefinitions>
-			<TextBlock Style="{StaticResource txtBlockBaseStyle}"
-					   Text="{TemplateBinding Description}">
-				<TextBlock.ToolTip>
-					<TextBlock Style="{StaticResource txtBlockToolTipStyle}"
-							   Text="{TemplateBinding Info}"/>
-				</TextBlock.ToolTip>
-			</TextBlock>
-			<TextBox Grid.Column="1"
-					 Style="{StaticResource txtBoxBaseStyle}"
-					 Text="{Binding Path=Value, RelativeSource={RelativeSource Mode=TemplatedParent}}"/>
-		</Grid>
-	</ControlTemplate>
-	
-	<Style x:Key="ScannerStyle" TargetType="{x:Type local:Scanner}">
-		<Setter Property="Template" Value="{StaticResource ScannerTemplate}"/>
-	</Style>
-	
-	<Style TargetType="{x:Type local:Scanner}" BasedOn="{StaticResource ScannerStyle}"/>
-	
+        <Setter Property="FontSize" Value="14"/>
+        <Setter Property="Margin" Value="0,2,2,0"/>
+        <Setter Property="MaxWidth" Value="400"/>
+        <Setter Property="MinWidth" Value="100"/>
+        <Setter Property="MinHeight" Value="20"/>
+        <Setter Property="TextAlignment" Value="Right"/>
+        <Setter Property="TextWrapping" Value="WrapWithOverflow"/>
+    </Style>
+
 	<Style x:Key="ButtonStyle" TargetType="{x:Type Button}">
 		<Setter Property="VerticalAlignment" Value="Top"/>
 		<Setter Property="HorizontalAlignment" Value="Left"/>
@@ -78,94 +53,10 @@
 		<Setter Property="TextWrapping" Value="WrapWithOverflow"/>
 	</Style>
 	
-	<ControlTemplate x:Key="FlipPanelTemplate" TargetType="{x:Type local:FlipPanel}">
-		<StackPanel>
-            <StackPanel x:Name="mainInput"
-						Orientation="Vertical">
-            	<StackPanel Orientation="Horizontal">
-            		<TextBlock Text="{TemplateBinding MainHeader}"
-            				   Style="{StaticResource HeaderStyle}"/>
-            		<Button Background="Transparent"
-            		        x:Name="mainButton"
-            		        Style="{StaticResource ButtonStyle}"
-            		        HorizontalAlignment="Right"
-            				Margin="10,0,0,0">
-                		<Path x:Name="rightToLeftArrow"
-					          Data="M 0 0 L 4 4 L 0 8 Z"
-            				  Style="{StaticResource PathStyle}"/>
-                    </Button>
-                </StackPanel>
-            	<ContentPresenter ContentSource="MainContent"/>
-            </StackPanel>
-            <StackPanel x:Name="otherInput"
-						Visibility="Collapsed"
-						Orientation="Vertical">
-            	<StackPanel Orientation="Horizontal">
-                	<Button Background="Transparent"
-                	        x:Name="otherButton"
-   							Margin="0,0,10,0"
-            				Style="{StaticResource ButtonStyle}">
-                		<Path x:Name="rightArrow"
-				              Data="M 4 0 L 0 4 L 4 8 Z"
-                			  Style="{StaticResource PathStyle}"/>
-                	</Button>
-                	<TextBlock Text="{TemplateBinding OtherHeader}"
-                	           Style="{StaticResource HeaderStyle}"/>
-            	</StackPanel>
-            	<ContentPresenter ContentSource="OtherContent"/>
-            </StackPanel>
-        </StackPanel>
-	</ControlTemplate>
-
-	<Style x:Key="FlipPanelStyle" TargetType="{x:Type local:FlipPanel}">
-		<Setter Property="Template" Value="{StaticResource FlipPanelTemplate}"/>
-	</Style>
-	
-	<Style TargetType="{x:Type local:FlipPanel}" BasedOn="{StaticResource FlipPanelStyle}"/>
-	
 	<Style x:Key="BasePositionStyle" TargetType="{x:Type ContentPresenter}">
 		<Setter Property="VerticalAlignment" Value="Top"/>
 		<Setter Property="HorizontalAlignment" Value="Left"/>
 	</Style>
-	
-	<ControlTemplate x:Key="SExpanderTemplate" TargetType="{x:Type local:SExpander}">
-		<Grid>
-			<Grid.RowDefinitions>
-				<RowDefinition/>
-				<RowDefinition/>
-			</Grid.RowDefinitions>
-			<Grid.ColumnDefinitions>
-				<ColumnDefinition Width="Auto"/>
-				<ColumnDefinition/>
-			</Grid.ColumnDefinitions>
-				<Button x:Name="collapsedBtn"
-						Style="{StaticResource ButtonStyle}">
-					<Path Data="M 0 0 L 4 4 L 0 8 Z"
-						  Style="{StaticResource PathStyle}"/>
-				</Button>
-				<Button x:Name="expandedBtn"
-						Style="{StaticResource ButtonStyle}"
-						Visibility="Collapsed">
-					<Path Data="M 0 0 L 4 4 L 8 0 Z"
-						  Style="{StaticResource PathStyle}"/>
-				</Button>
-				<TextBlock Grid.Column="1"
-						   Text="{TemplateBinding Header}"
-						   Style="{StaticResource HeaderStyle}"/>
-				<ContentPresenter Grid.Column="1"
-								  Grid.Row="1"
-							  	  ContentSource="Content"
-								  Visibility="Collapsed"
-								  x:Name="content"
-								  Style="{StaticResource BasePositionStyle}"/>
-		</Grid>
-	</ControlTemplate>
-
-	<Style x:Key="SExpanderStyle" TargetType="{x:Type local:SExpander}">
-		<Setter Property="Template" Value="{StaticResource SExpanderTemplate}"/>
-	</Style>
-	
-	<Style TargetType="{x:Type local:SExpander}" BasedOn="{StaticResource SExpanderStyle}"/>
 	
     <!--Стандартный стиль значения величины  TextBlock в выводе данных-->
     <Style x:Key="txtBlockValueStyle" TargetType="{x:Type TextBlock}" BasedOn="{StaticResource txtBlockBaseStyle}">
@@ -178,29 +69,6 @@
         <Setter Property="TextAlignment" Value="Right"/>
     </Style>
 
-	<ControlTemplate x:Key="PrinterTemplate" TargetType="{x:Type local:Printer}">
-		<Grid>
-			<Grid.ColumnDefinitions>
-				<ColumnDefinition Width="{TemplateBinding GridWidth}"/>
-				<ColumnDefinition/>
-			</Grid.ColumnDefinitions>
-			<TextBlock Style="{StaticResource txtBlockNameStyle}"
-                       Text="{TemplateBinding Description}">
-                <TextBlock.ToolTip>
-                    <TextBlock Style="{StaticResource txtBlockToolTipStyle}"
-                               Text="{TemplateBinding Info}"/>
-                </TextBlock.ToolTip>
-            </TextBlock>
-            <TextBlock Grid.Column="1"
-                       Style="{StaticResource txtBlockValueStyle}"
-                       Text="{Binding Path=Value, RelativeSource={RelativeSource Mode=TemplatedParent}}"/>
-		</Grid>
-	</ControlTemplate>
-
-	<Style x:Key="PrinterStyle" TargetType="{x:Type local:Printer}">
-		<Setter Property="Template" Value="{StaticResource PrinterTemplate}"/>
-	</Style>
 	
-	<Style TargetType="{x:Type local:Printer}" BasedOn="{StaticResource PrinterStyle}"/>
 
 </ResourceDictionary>

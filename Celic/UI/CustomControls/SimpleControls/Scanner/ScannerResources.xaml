@@ -1,0 +1,28 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+					xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+					xmlns:local="clr-namespace:Celic">
+	<ControlTemplate x:Key="ScannerTemplate" TargetType="{x:Type local:Scanner}">
+		<Grid>
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition Width="{TemplateBinding GridWidth}"/>
+				<ColumnDefinition/>
+			</Grid.ColumnDefinitions>
+			<TextBlock Style="{StaticResource txtBlockBaseStyle}"
+					   Text="{TemplateBinding Description}">
+				<TextBlock.ToolTip>
+					<TextBlock Style="{StaticResource txtBlockToolTipStyle}"
+							   Text="{TemplateBinding Info}"/>
+				</TextBlock.ToolTip>
+			</TextBlock>
+			<TextBox Grid.Column="1"
+					 Style="{StaticResource txtBoxBaseStyle}"
+					 Text="{Binding Path=Value, RelativeSource={RelativeSource Mode=TemplatedParent}}"/>
+		</Grid>
+	</ControlTemplate>
+	
+	<Style x:Key="ScannerStyle" TargetType="{x:Type local:Scanner}">
+		<Setter Property="Template" Value="{StaticResource ScannerTemplate}"/>
+	</Style>
+	
+	<Style TargetType="{x:Type local:Scanner}" BasedOn="{StaticResource ScannerStyle}"/>
+</ResourceDictionary>

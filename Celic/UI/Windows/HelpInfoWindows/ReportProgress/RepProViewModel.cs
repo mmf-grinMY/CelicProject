@@ -9,25 +9,19 @@ namespace Celic
     {
         #region Private Fields
 
-        /// <summary>
-        /// Вызывающая окно модель
-        /// </summary>
+        /// <summary> Вызывающая окно модель </summary>
         private readonly ListPlastViewModel _model; 
-        /// <summary>
-        /// Окно, вызвавшее ViewModel
-        /// </summary>
+        /// <summary> Окно, вызвавшее ViewModel </summary>
         private readonly RepProWindow _window;
 
         #endregion
 
         #region Constructors
 
-        /// <summary>
-        /// Основной конструктор дял данного класса
-        /// </summary>
+        /// <summary> Основной конструктор дял данного класса </summary>
         public RepProViewModel(RepProWindow window, ListPlastViewModel model)
         {
-            _model = model;
+            /*_model = model;
             (_window = window).Show();
             if(model.GetType() == typeof(SCalcBViewModel))
                 new Thread(StartCalcB).Start();
@@ -36,21 +30,23 @@ namespace Celic
             else if(model.GetType() == typeof(SCalcDViewModel))
                 new Thread(StartCalcD).Start();
             else
-                _window.Close();
+                _window.Close();*/
+            _model = model;
+            (_window = window).Show();
+            new Thread(Calculate).Start();
         }
 
         #endregion
         
-        #region Private Methods
+        /*
 
         private void StartCalcB()
         {
 			
             // Creating Report about Calculation type B
-            // CalculatorB.WriteResult(this);
+            CalculatorB.WriteResult();
 
-            _window.Dispatcher.BeginInvoke(DispatcherPriority.Normal, 
-            (ThreadStart) delegate { _window.Close(); } ); 
+            WindowClose();
         }
         private void StartCalcC()
         {
@@ -58,18 +54,25 @@ namespace Celic
             // Creating Report about Calculation type C
             // new CalculatorC((SCalcCViewModel)_model).WriteResult(this);
 
-            _window.Dispatcher.BeginInvoke(DispatcherPriority.Normal,
-            (ThreadStart)delegate { _window.Close(); });
+            WindowClose();
         }
         private void StartCalcD()
         {
 			// Creating Report about Calculation type D
             // new CalculatorD((SCalcDViewModel)_model).WriteResult(this);
 
-            _window.Dispatcher.BeginInvoke(DispatcherPriority.Normal,
+            WindowClose();
+        }
+        private void WindowClose()
+        {
+        	_window.Dispatcher.BeginInvoke(DispatcherPriority.Normal,
             (ThreadStart)delegate { _window.Close(); });
         }
-
-        #endregion
+        */
+        private void Calculate()
+        {
+        	ReportManager.WriteReport(_model);
+        	_window.Dispatcher.BeginInvoke(DispatcherPriority.Normal, (ThreadStart)delegate { _window.Close(); });
+        }
     }
 }
