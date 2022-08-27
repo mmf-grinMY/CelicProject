@@ -163,7 +163,7 @@ namespace Celic
                 FormatHeader, Align.wdAlignParagraphCenter, SPACE_PARAGRAPH);
             reporter.StatusReport = (status += offset).ToString();
             AddParagraph($"Очистные работы на {_p.Gorizont}-м калийном горизонте при " +
-                (_p.TypeDev == "столбовая" ? "столбовой" : "камерной") +
+                (_p.TypeDev == MineDev.lava ? "столбовой" : "камерной") +
                 " системе отработки будут проводиться со следующими параметрами:", FormatLine1);
             reporter.StatusReport = (status += offset).ToString();
             AddParagraph($"Выемочная мощность{ Tab(5)}-{ Tab(1)}mв = {_p.MainMineField.Mv} м;", FormatListLine1, spaceAfter: NULL_SPACE_PARAGRAPH);

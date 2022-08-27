@@ -19,7 +19,7 @@ namespace Celic
 
         /// <summary> Главный конструктор для расчета ширины междубарьерного целика </summary>
         /// <param name="model"> Модель расчета </param>
-        public SCalculatorD(SCalcDViewModel model)
+        public SCalculatorD(CalculationDViewModel model)
         {
             _leftPlasts = model.LeftPlasts;
             _rightPlasts = model.RightPlasts;

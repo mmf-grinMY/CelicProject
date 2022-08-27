@@ -48,8 +48,9 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="FlipPanel.xaml.cs">
-      <DependentUpon>FlipPanel.xaml</DependentUpon>
+    <Compile Include="MineDev.cs" />
+    <Compile Include="PlastDataBox.xaml.cs">
+      <DependentUpon>PlastDataBox.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
@@ -74,10 +75,16 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Page Include="FlipPanel.xaml">
+    <Page Include="PlastDataBox.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Celic.WPF.CustomControls\Celic.WPF.CustomControls.csproj">
+      <Project>{625ac235-36fb-4f97-857a-6380879bf91c}</Project>
+      <Name>Celic.WPF.CustomControls</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

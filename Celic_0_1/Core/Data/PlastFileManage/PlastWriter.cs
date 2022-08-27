@@ -43,11 +43,11 @@ namespace Celic
         /// <summary> Запись данных о системе разрабатываемых пластов в выбранный файл </summary>
         public void Write()
         {
-            if(_model.GetType() == typeof(SCalcBViewModel))
+            if(_model.GetType() == typeof(CalculationBViewModel))
                 this.WriteSimpleB();
-            else if (_model.GetType() == typeof(SCalcCViewModel))
+            else if (_model.GetType() == typeof(CalculationCViewModel))
                 this.WriteSimpleC();
-            else if (_model.GetType() == typeof(SCalcDViewModel))
+            else if (_model.GetType() == typeof(CalculationDViewModel))
                 this.WriteSimpleD();
         }
 
@@ -68,7 +68,7 @@ namespace Celic
             XmlText hText = doc.CreateTextNode(plast.MainMineField.H.ToString());
             XmlText mvText = doc.CreateTextNode(plast.MainMineField.Mv.ToString());
             XmlText kiText = doc.CreateTextNode((plast.MainMineField as Camera).Ki.ToString());
-            XmlText typeDevText = doc.CreateTextNode(plast.TypeDev);
+            XmlText typeDevText = doc.CreateTextNode(MineDevManager.ToString(plast.TypeDev));
             // Запись данных в поля-теги шахтного поля
             hElem.AppendChild(hText);
             mvElem.AppendChild(mvText);
@@ -127,7 +127,7 @@ namespace Celic
                 GC.WaitForPendingFinalizers();
             }
             doc.Load(_path);
-            WritePlastCollection((_model as SCalcBViewModel).Plasts, doc, doc.DocumentElement);
+            WritePlastCollection((_model as CalculationBViewModel).Plasts, doc, doc.DocumentElement);
             doc.Save(_path);
         }
         /// <summary> Запись в файл данных о моделе SCalcCViewModel </summary>
@@ -148,11 +148,11 @@ namespace Celic
             XmlElement sysDev = doc.DocumentElement;
             // Запись данных об угле поворота разломной зоны
             XmlElement angleElem = doc.CreateElement("angle");
-            XmlText angleText = doc.CreateTextNode((_model as SCalcCViewModel).Alfa.ToString());
+            XmlText angleText = doc.CreateTextNode((_model as CalculationCViewModel).Alfa.ToString());
             angleElem.AppendChild(angleText);
             sysDev.AppendChild(angleElem);
             // Запись информации о разрабатываемой коллекции пластов
-            WritePlastCollection((_model as SCalcCViewModel).Plasts, doc, sysDev);
+            WritePlastCollection((_model as CalculationCViewModel).Plasts, doc, sysDev);
             doc.Save(_path);
         }
         /// <summary> Запись в файл данных о моделе SCalcDViewModel </summary>
@@ -174,9 +174,9 @@ namespace Celic
             XmlElement left = doc.CreateElement("left");
             XmlElement right = doc.CreateElement("right");
             sysDev.AppendChild(left);
-            WritePlastCollection((_model as SCalcDViewModel).LeftPlasts, doc, left);
+            WritePlastCollection((_model as CalculationDViewModel).LeftPlasts, doc, left);
             sysDev.AppendChild(right);
-            WritePlastCollection((_model as SCalcDViewModel).RightPlasts, doc, right);
+            WritePlastCollection((_model as CalculationDViewModel).RightPlasts, doc, right);
             doc.Save(_path);
         }
 

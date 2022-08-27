@@ -107,15 +107,15 @@ namespace Celic
         /// <returns> Отсортированная коллекция пластов </returns>
         public static ObservableCollection<Plast> Sort(ObservableCollection<Plast> plasts)
         {
-            for (int i = 1; i < plasts.Count; i++)
+            /*for (int i = 1; i < plasts.Count; i++)
                 for (int j = i; j > 0 && plasts[j - 1].MainMineField.H > plasts[j].MainMineField.H; j--)
-                    plasts.Move(j - 1, j);
+                    plasts.Move(j - 1, j);*/
             return plasts;
         }
         /// <summary> Выбор коэффициента параметра d при генерации отчета </summary>
         /// <param name="plast"> Рассматриваемый пласт </param>
         /// <returns> Значение коэффициента в виде строки </returns>
-        public static string GetD(Plast plast) => plast.TypeDev == LAVA_DEV ? "46" : "26";
+        public static string GetD(Plast plast) => plast.TypeDev == MineDev.lava ? "46" : "26";
         /// <summary> Вычисление значения котангенса угла </summary>
         /// <param name="angle"> Угол в радианах </param>
         /// <returns> Значение котангенса, если он сущестует и 0 в противном случае </returns>

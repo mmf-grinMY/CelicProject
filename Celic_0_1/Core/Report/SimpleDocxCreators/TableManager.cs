@@ -126,7 +126,7 @@ namespace Celic
             for (int i = 0; i < _plasts.Count; i++)
             {
                 _cell = _cell.Next;
-                _cell.Range.Text = _plasts[i].TypeDev;
+                _cell.Range.Text = MineDevManager.ToString(_plasts[i].TypeDev);
                 _rangeLength += _cell.Range.Text.Length;
             }
         }
