@@ -48,6 +48,10 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Expander.cs" />
+    <Compile Include="FlipPanel.cs" />
+    <Compile Include="NameScanner.cs" />
+    <Compile Include="Scanner.cs" />
     <Page Include="Themes\Generic.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -55,6 +59,10 @@
     <Compile Include="ClearableTextBox.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Themes\ScannerStyle.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="InputDataField.cs" />

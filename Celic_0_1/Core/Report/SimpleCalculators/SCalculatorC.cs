@@ -23,7 +23,7 @@ namespace Celic
 
         /// <summary> Главный конструктор </summary>
         /// <param name="model"> Модель расчета </param>
-        public SCalculatorC(SCalcCViewModel model) : base()
+        public SCalculatorC(CalculationCViewModel model) : base()
         {
             _alfa = (float)Math.PI / 180 * model.Alfa;
             _plasts = model.Plasts;

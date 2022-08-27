@@ -21,7 +21,7 @@ namespace Celic
 
         /// <summary> Главный конструктор, принимающий модель расчета </summary>
         /// <param name="model"> Модель расчета </param>
-        public SCalculatorB(SCalcBViewModel model) : base() => _plasts = model.Plasts;
+        public SCalculatorB(CalculationBViewModel model) : base() => _plasts = model.Plasts;
         /// <summary> Дополнительный конструктор для расчета без логирования </summary>
         /// <param name="plasts"> Коллекция разрабатываемых пластов </param>
         public SCalculatorB(ObservableCollection<Plast> plasts) => _plasts = plasts;

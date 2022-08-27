@@ -15,7 +15,7 @@ namespace Celic
         /// <summary> Калийный горизонт ( поле ) </summary>
         private string _gorizont;
         /// <summary> Система разработки пласта </summary>
-        private string _typeDev;
+        private MineDev _typeDev;
         /// <summary> Уникальный идентификатор пласта ( поле ) </summary>
         private readonly int myID;
         /// <summary> Количество созданных пластов </summary>
@@ -54,7 +54,7 @@ namespace Celic
             }
         }
         /// <summary> Система разработки шахтного поля </summary>
-        public string TypeDev
+        public MineDev TypeDev
         {
             get => _typeDev;
             set
@@ -62,7 +62,7 @@ namespace Celic
                 if(_typeDev != value)
                 {
                     _typeDev = value;
-                    if (_typeDev.Equals(LAVA_DEV))
+                    if (_typeDev == MineDev.camera)
                     {
                         MineFields?.Clear();
                         MineFields.Add(new Lava());
@@ -193,7 +193,7 @@ namespace Celic
         public Plast()
         {
             MineFields = new ObservableCollection<MineField>();
-            TypeDev = CAMERA_DEV;
+            TypeDev = MineDev.camera;
             myID = ++id;
             Name = $"Пласт_{myID}";
             S = Sz = Kt = 1;

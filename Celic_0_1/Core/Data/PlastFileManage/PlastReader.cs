@@ -34,11 +34,11 @@ namespace Celic
         /// <summary> Чтение данных из файла с добавлением данных в модель расчета </summary>
         public void Read()
         {
-            if(_model.GetType() == typeof(SCalcBViewModel))
+            if(_model.GetType() == typeof(CalculationBViewModel))
                 ReadSimpleB();
-            else if (_model.GetType() == typeof(SCalcCViewModel))
+            else if (_model.GetType() == typeof(CalculationCViewModel))
                 ReadSimpleC();
-            else if (_model.GetType() == typeof(SCalcDViewModel))
+            else if (_model.GetType() == typeof(CalculationDViewModel))
                 ReadSimpleD();
         }
 
@@ -62,7 +62,7 @@ namespace Celic
                         else if (minefield.Name == "ki")
                             (plast.MainMineField as Camera).Ki = float.Parse(minefield.InnerText);
                         else if (minefield.Name == "typeDev")
-                            plast.TypeDev = minefield.InnerText;
+                            plast.TypeDev = MineDevManager.ToMineDev(minefield.InnerText);
                 else if (childnode.Name == "S")
                      plast.S = float.Parse(childnode.InnerText);
                 else if (childnode.Name == "S_z")
@@ -82,7 +82,7 @@ namespace Celic
                 if (sysDev != null && (sysDev.Attributes.GetNamedItem("type")?.Value == "simpleB")
                     || (sysDev.Attributes.GetNamedItem("type") == null))
                     foreach (XmlElement plastNode in sysDev)
-                        (_model as SCalcBViewModel).Plasts.Add(ReadSimplePlast(plastNode));
+                        (_model as CalculationBViewModel).Plasts.Add(ReadSimplePlast(plastNode));
                 else
                     MessageBox.Show("Данные в файле некорректны для данного типа расчета");
             }
@@ -98,9 +98,9 @@ namespace Celic
                 if (sysDev != null && (sysDev.Attributes.GetNamedItem("type")?.Value == "simpleC"))
                     foreach (XmlElement plastNode in sysDev)
                         if (plastNode.Name == "angle")
-                            (_model as SCalcCViewModel).Alfa = float.Parse(plastNode.InnerText);
+                            (_model as CalculationCViewModel).Alfa = float.Parse(plastNode.InnerText);
                         else
-                            (_model as SCalcCViewModel).Plasts.Add(ReadSimplePlast(plastNode));
+                            (_model as CalculationCViewModel).Plasts.Add(ReadSimplePlast(plastNode));
                 else
                     MessageBox.Show("Данные в файле некорректны для данного типа расчета");
             }
@@ -117,10 +117,10 @@ namespace Celic
                     foreach(XmlElement type in sysDev.ChildNodes)
                         if(type.Name == "left")
                             foreach (XmlElement plastNode in type)
-                                (_model as SCalcDViewModel).LeftPlasts.Add(ReadSimplePlast(plastNode));
+                                (_model as CalculationDViewModel).LeftPlasts.Add(ReadSimplePlast(plastNode));
                         else if (type.Name == "right")
                             foreach (XmlElement plastNode in type)
-                                (_model as SCalcDViewModel).RightPlasts.Add(ReadSimplePlast(plastNode));
+                                (_model as CalculationDViewModel).RightPlasts.Add(ReadSimplePlast(plastNode));
                         else
                             ReadFailed();
                 else

@@ -77,37 +77,47 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Core\Base\Enums\MineDev.cs" />
     <Compile Include="Core\Base\Interfaces\IMineFieldManage.cs" />
     <Compile Include="Core\Data\DataStructs\MainDataStructs\PlastCollectionManager.cs" />
     <Compile Include="Core\Data\DataStructs\BaseDataStructs\MineField.cs" />
     <Compile Include="Core\Report\ExtentedCalculators\BCalculatorB.cs" />
     <Compile Include="Core\Report\ExtentedCalculators\ECalculatorB.cs" />
-    <Compile Include="UserControls\DataControls\PlastDataItem.xaml.cs">
-      <DependentUpon>PlastDataItem.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="UserControls\DataControls\PlastDataBox.xaml.cs">
+    <Compile Include="UI\CustomControls\ClearableTextBox.cs" />
+    <Compile Include="UI\CustomControls\Expander.cs" />
+    <Compile Include="UI\CustomControls\FlipPanel.cs" />
+    <Compile Include="UI\CustomControls\NameScanner.cs" />
+    <Compile Include="UI\CustomControls\Printer.cs" />
+    <Compile Include="UI\CustomControls\Scanner.cs" />
+    <Compile Include="UI\UserControls\PlastDataBox.xaml.cs">
       <DependentUpon>PlastDataBox.xaml</DependentUpon>
     </Compile>
-    <Compile Include="WindowsAndLogic\HelpWindows\AddPlast\AddPlastViewModel.cs" />
-    <Compile Include="WindowsAndLogic\HelpWindows\AddPlast\AddPlastWindow.xaml.cs">
+    <Compile Include="UI\UserControls\PlastDataItem.xaml.cs">
+      <DependentUpon>PlastDataItem.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\UserControls\PlastListBox.xaml.cs">
+      <DependentUpon>PlastListBox.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Windows\Logic\HelpViewModels\AddPlastViewModel.cs" />
+    <Compile Include="UI\Windows\Design\HelpWindows\AddPlastWindow.xaml.cs">
       <DependentUpon>AddPlastWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="WindowsAndLogic\HelpWindows\SchemaChoice\SchemaChoiceViewModel.cs" />
-    <Compile Include="WindowsAndLogic\HelpWindows\SchemaChoice\SchemaChoiceWindow.xaml.cs">
+    <Compile Include="UI\Windows\Logic\HelpViewModels\SchemaChoiceViewModel.cs" />
+    <Compile Include="UI\Windows\Design\HelpWindows\SchemaChoiceWindow.xaml.cs">
       <DependentUpon>SchemaChoiceWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="WindowsAndLogic\ViewModels\TwoListPlastViewModel.cs" />
+    <Compile Include="UI\Windows\Logic\BaseViewModels\TwoListPlastViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Core\Base\Classes\BaseCalculator.cs" />
     <Compile Include="Core\Data\DataStructs\BaseDataStructs\Camera.cs" />
     <Compile Include="Core\Data\DataStructs\BaseDataStructs\Lava.cs" />
-    <Compile Include="WindowsAndLogic\ViewModels\BaseViewModel.cs" />
+    <Compile Include="UI\Windows\Logic\BaseViewModels\BaseViewModel.cs" />
     <Compile Include="Core\Base\Classes\HelpManager.cs" />
     <Compile Include="Core\Base\Interfaces\ICalcViewModel.cs" />
     <Compile Include="Core\Base\Classes\RelayCommand.cs" />
-    <Compile Include="WindowsAndLogic\ViewModels\ListPlastViewModel.cs" />
-    <Compile Include="WindowsAndLogic\ViewModels\OneListPlastViewModel.cs" />
+    <Compile Include="UI\Windows\Logic\BaseViewModels\ListPlastViewModel.cs" />
+    <Compile Include="UI\Windows\Logic\BaseViewModels\OneListPlastViewModel.cs" />
     <Compile Include="Core\Data\PlastFileManage\PlastReader.cs" />
     <Compile Include="Core\Data\PlastFileManage\PlastWriter.cs" />
     <Compile Include="Core\Data\DataStructs\MainDataStructs\Plast.cs" />
@@ -117,30 +127,27 @@
     <Compile Include="Core\Report\SimpleDocxCreators\TableManager.cs" />
     <Compile Include="Core\Report\SimpleDocxCreators\TextManager.cs" />
     <Compile Include="Core\Report\SimpleDocxCreators\BaseTextManager.cs" />
-    <Compile Include="UserControls\BaseControls\ListBoxTitle\ListBoxTitle.xaml.cs">
-      <DependentUpon>ListBoxTitle.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="UserControls\BaseControls\PlastMenu\PlastMenu.xaml.cs">
+    <Compile Include="UI\UserControls\PlastMenu.xaml.cs">
       <DependentUpon>PlastMenu.xaml</DependentUpon>
     </Compile>
-    <Compile Include="WindowsAndLogic\HelpWindows\ReportProgress\RepProViewModel.cs" />
-    <Compile Include="WindowsAndLogic\HelpWindows\ReportProgress\RepProWindow.xaml.cs">
+    <Compile Include="UI\Windows\Logic\HelpViewModels\RepProViewModel.cs" />
+    <Compile Include="UI\Windows\Design\HelpWindows\RepProWindow.xaml.cs">
       <DependentUpon>RepProWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="WindowsAndLogic\CalculatorWindows\SimpleCalcB\SCalcBViewModel.cs" />
-    <Compile Include="WindowsAndLogic\CalculatorWindows\SimpleCalcB\SCalcBWindow.xaml.cs">
-      <DependentUpon>SCalcBWindow.xaml</DependentUpon>
+    <Compile Include="UI\Windows\Logic\CalculatorViewModels\CalculationBViewModel.cs" />
+    <Compile Include="UI\Windows\Design\CalculatorWindows\CalculationBWindow.xaml.cs">
+      <DependentUpon>CalculationBWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="WindowsAndLogic\CalculatorWindows\SimpleCalcC\SCalcCViewModel.cs" />
-    <Compile Include="WindowsAndLogic\CalculatorWindows\SimpleCalcC\SCalcCWindow.xaml.cs">
-      <DependentUpon>SCalcCWindow.xaml</DependentUpon>
+    <Compile Include="UI\Windows\Logic\CalculatorViewModels\CalculationCViewModel.cs" />
+    <Compile Include="UI\Windows\Design\CalculatorWindows\CalculationCWindow.xaml.cs">
+      <DependentUpon>CalculationCWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="WindowsAndLogic\CalculatorWindows\SimpleCalcD\SCalcDViewModel.cs" />
-    <Compile Include="WindowsAndLogic\CalculatorWindows\SimpleCalcD\SCalcDWindow.xaml.cs">
-      <DependentUpon>SCalcDWindow.xaml</DependentUpon>
+    <Compile Include="UI\Windows\Logic\CalculatorViewModels\CalculationDViewModel.cs" />
+    <Compile Include="UI\Windows\Design\CalculatorWindows\CalculationDWindow.xaml.cs">
+      <DependentUpon>CalculationDWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="WindowsAndLogic\MainWindow\MainViewModel.cs" />
-    <Compile Include="WindowsAndLogic\MainWindow\MainWindow.xaml.cs">
+    <Compile Include="UI\Windows\Main\MainViewModel.cs" />
+    <Compile Include="UI\Windows\Main\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs">
@@ -198,47 +205,55 @@
     </COMReference>
   </ItemGroup>
   <ItemGroup>
-    <Page Include="UserControls\BaseControls\ListBoxTitle\ListBoxTitle.xaml">
+    <Page Include="UI\CustomControls\Themes\Generic.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="UserControls\BaseControls\PlastMenu\PlastMenu.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="UserControls\DataControls\PlastDataItem.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="UserControls\DataControls\PlastDataBox.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="WindowsAndLogic\HelpWindows\AddPlast\AddPlastWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="WindowsAndLogic\HelpWindows\ReportProgress\RepProWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="WindowsAndLogic\CalculatorWindows\SimpleCalcB\SCalcBWindow.xaml">
+    <Page Include="UI\CustomControls\Themes\ScannerStyle.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="WindowsAndLogic\CalculatorWindows\SimpleCalcC\SCalcCWindow.xaml">
+    <Page Include="UI\UserControls\PlastDataBox.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="WindowsAndLogic\CalculatorWindows\SimpleCalcD\SCalcDWindow.xaml">
+    <Page Include="UI\UserControls\PlastMenu.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\UserControls\PlastDataItem.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\UserControls\PlastListBox.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\Windows\Design\HelpWindows\AddPlastWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\Windows\Design\HelpWindows\RepProWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\Windows\Design\CalculatorWindows\CalculationBWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="WindowsAndLogic\MainWindow\MainWindow.xaml">
+    <Page Include="UI\Windows\Design\CalculatorWindows\CalculationCWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="WindowsAndLogic\HelpWindows\SchemaChoice\SchemaChoiceWindow.xaml">
+    <Page Include="UI\Windows\Design\CalculatorWindows\CalculationDWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UI\Windows\Main\MainWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UI\Windows\Design\HelpWindows\SchemaChoiceWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -255,15 +270,6 @@
       <Install>false</Install>
     </BootstrapperPackage>
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Celic.WPF.CustomControls\Celic.WPF.CustomControls.csproj">
-      <Project>{625ac235-36fb-4f97-857a-6380879bf91c}</Project>
-      <Name>Celic.WPF.CustomControls</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Celic.WPF.UserControls\Celic.WPF.UserControls\Celic.WPF.UserControls.csproj">
-      <Project>{498ee49d-219e-4202-845b-b9aa914e22a4}</Project>
-      <Name>Celic.WPF.UserControls</Name>
-    </ProjectReference>
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
