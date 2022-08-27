@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System.Collections.ObjectModel;
+using System.Windows;
 using System.Windows.Controls;
 using static Celic.HelpManager;
 
@@ -17,8 +18,11 @@ namespace Celic
         /// <summary> Статический конструктор для данного класса </summary>
         static PlastDataBox()
         {
-            ContiguosSimpleInputVisibility = DependencyProperty.Register("SContiguosVisibility", typeof(Visibility), typeof(EPlastDataBox));
-            ContiguosExtentedInputVisibility = DependencyProperty.Register("EContiguosVisibility", typeof(Visibility), typeof(EPlastDataBox));
+            ContiguosSimpleInputVisibility = DependencyProperty.Register("SContiguosVisibility", typeof(Visibility), typeof(PlastDataBox));
+            ContiguosExtentedInputVisibility = DependencyProperty.Register("EContiguosVisibility", typeof(Visibility), typeof(PlastDataBox));
+            KiValueVisibilityProperty = DependencyProperty.Register("KiValueVisibility", typeof(Visibility), typeof(PlastDataBox));
+            KiAppendValuesCameraVisibilityProperty = DependencyProperty.Register("KiAppendValuesCameraVisibility", typeof(Visibility), typeof(PlastDataBox));
+            KiAppendValuesLavaVisibilityProperty = DependencyProperty.Register("KiAppendValuesLavaVisibility", typeof(Visibility), typeof(PlastDataBox));
         }
 
         #endregion
@@ -74,6 +78,29 @@ namespace Celic
 
         #endregion
 
+        #region DependencyProperty
+
+        public static readonly DependencyProperty KiValueVisibilityProperty;
+        public Visibility KiValueVisibility
+        {
+            get { return (Visibility)GetValue(KiValueVisibilityProperty); }
+            set { SetValue(KiValueVisibilityProperty, value); }
+        }
+        public static readonly DependencyProperty KiAppendValuesCameraVisibilityProperty;
+        public Visibility KiAppendValuesCameraVisibility
+        {
+            get { return (Visibility)GetValue(KiAppendValuesCameraVisibilityProperty); }
+            set { SetValue(KiAppendValuesCameraVisibilityProperty, value); }
+        }
+        public static readonly DependencyProperty KiAppendValuesLavaVisibilityProperty;
+        public Visibility KiAppendValuesLavaVisibility
+        {
+            get { return (Visibility)GetValue(KiAppendValuesLavaVisibilityProperty); }
+            set { SetValue(KiAppendValuesLavaVisibilityProperty, value); }
+        }
+
+        #endregion
+
         #region EventHandlers
 
         /// <summary> Обработчик события "Изменение системы разработки пласта" </summary>
@@ -98,8 +125,61 @@ namespace Celic
             simpleInputKt.Visibility = Visibility.Visible;
         }
 
+
         #endregion
 
+        #region New EventHandlers
 
+        private void AddMineFieldMenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            if(lstBoxMine.ItemsSource is ObservableCollection<MineField> mineFields)
+            {
+                if((lstBoxMine.DataContext as Plast).TypeDev.Equals(CAMERA_DEV))
+                {
+                    mineFields.Add(new Camera());
+                }
+                else
+                {
+                    mineFields.Add(new Lava());
+                }
+            }
+        }
+
+        private void RemoveMineFieldMenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            if(lstBoxMine.ItemsSource is ObservableCollection<MineField> mineFields)
+            {
+                if (lstBoxMine.SelectedItem != null)
+                    mineFields.Remove((MineField)lstBoxMine.SelectedItem);
+            }
+        }
+
+        private void RemoveSelectionMenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            if (lstBoxMine.SelectedItem != null)
+                lstBoxMine.SelectedItem = null;
+        }
+
+        private void CoefficientKiNewValuesExpander_Expanded(object sender, RoutedEventArgs e)
+        {
+            KiValueVisibility = Visibility.Collapsed;
+            if((lstBoxMine.DataContext as Plast).TypeDev.Equals(CAMERA_DEV))
+            {
+                KiAppendValuesCameraVisibility = Visibility.Visible;
+                KiAppendValuesLavaVisibility = Visibility.Collapsed;
+            }
+            else
+            {
+                KiAppendValuesCameraVisibility = Visibility.Collapsed;
+                KiAppendValuesLavaVisibility = Visibility.Visible;
+            }
+        }
+
+        private void CoefficientKiNewValuesExpander_Collapsed(object sender, RoutedEventArgs e)
+        {
+            KiValueVisibility = Visibility.Visible;
+        }
+
+        #endregion
     }
 }

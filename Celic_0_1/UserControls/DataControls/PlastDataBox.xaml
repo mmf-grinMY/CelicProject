@@ -5,7 +5,8 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Celic"
              d:DataContext="{d:DesignInstance local:SCalcBViewModel}"
-             mc:Ignorable="d">
+             mc:Ignorable="d"
+             x:Name="main">
     <UserControl.Resources>
         <!--#region Base Styles In InputBox-->
         <Style x:Key="txtBlockDefaultStyle" TargetType="{x:Type TextBlock}">
@@ -86,7 +87,7 @@
             Margin="-4,-4,-4,0">
         <ScrollViewer MaxHeight="500">
             <StackPanel Orientation="Vertical"
-                        MaxWidth="302">
+                        MinWidth="302">
                 <!--Ввод основной информации о пласте-->
                 <Expander DataContext="{Binding SelectedPlast}">
                     <Expander.Header>
@@ -166,9 +167,21 @@
                     <Expander.Header>
                         <TextBlock Text="Список шахтных полей, разрабатываемых на данном пласте"
                                    TextWrapping="WrapWithOverflow"
-                                   TextAlignment="Center"/>
+                                   TextAlignment="Center">
+                            <TextBlock.ContextMenu>
+                                <ContextMenu>
+                                    <MenuItem Header="Добавить шахтное поле"
+                                              Click="AddMineFieldMenuItem_Click"/>
+                                    <MenuItem Header="Удалить выбранное шахтное поле"
+                                              Click="RemoveMineFieldMenuItem_Click"/>
+                                    <MenuItem Header="Отменить выделение шахтного поля"
+                                              Click="RemoveSelectionMenuItem_Click"/>
+                                </ContextMenu>
+                            </TextBlock.ContextMenu>
+                        </TextBlock>
                     </Expander.Header>
-                    <ListBox ItemsSource="{Binding MineFields}"
+                    <ListBox x:Name="lstBoxMine"
+                             ItemsSource="{Binding MineFields}"
                              MinHeight="70"
                              Padding="-3,0">
                         <ListBox.ItemTemplate>
@@ -207,9 +220,9 @@
                                         <!--#endregion-->
                                     </Grid>
                                     <!--Ввод коэффициента извлечения и коэффициентов, от которых он зависит-->
-                                    <StackPanel>
+                                    <StackPanel> 
                                         <!--Ввод явного значения коэффициента извлечения-->
-                                        <Grid>
+                                        <Grid Visibility="{Binding ElementName=main, Path=KiValueVisibility}">
                                             <Grid.ColumnDefinitions>
                                                 <ColumnDefinition Width="2*"/>
                                                 <ColumnDefinition/>
@@ -227,88 +240,99 @@
                                                          Text="{Binding Path=Ki, Mode=TwoWay}"/>
                                             <!--#endregion-->
                                         </Grid>
-                                        <!--Ввод коэффициентов, от которых зависит коэффициент извлечения при камерной системе разработки-->
-                                        <Grid>
-                                            <!--#region Grid Definetions-->
-                                            <Grid.ColumnDefinitions>
-                                                <ColumnDefinition Width="2*"/>
-                                                <ColumnDefinition/>
-                                            </Grid.ColumnDefinitions>
-                                            <Grid.RowDefinitions>
-                                                <RowDefinition/>
-                                                <RowDefinition/>
-                                            </Grid.RowDefinitions>
-                                            <!--#endregion-->
+                                        <Expander Expanded="CoefficientKiNewValuesExpander_Expanded"
+                                                  Collapsed="CoefficientKiNewValuesExpander_Collapsed">
+                                            <Expander.Header>
+                                                <TextBlock FontSize="14"
+                                                           Text="Ввести дополнительные коэффициенты для расчета коэффициента извлечения"
+                                                           TextAlignment="Center"
+                                                           TextWrapping="WrapWithOverflow"/>
+                                            </Expander.Header>
+                                            <StackPanel>
+                                            <!--Ввод коэффициентов, от которых зависит коэффициент извлечения при камерной системе разработки-->
+                                                <Grid Visibility="{Binding ElementName=main, Path=KiAppendValuesCameraVisibility}">
+                                                    <!--#region Grid Definetions-->
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition Width="2*"/>
+                                                        <ColumnDefinition/>
+                                                    </Grid.ColumnDefinitions>
+                                                    <Grid.RowDefinitions>
+                                                        <RowDefinition/>
+                                                        <RowDefinition/>
+                                                    </Grid.RowDefinitions>
+                                                    <!--#endregion-->
 
-                                            <!--#region Вывод суммы поперечных сечений-->
-                                            <TextBlock Style="{StaticResource txtBlockBaseStyle}"
-                                                       Text="Cумма поперечных сечений">
-                                                <TextBlock.ToolTip>
-                                                    <TextBlock Style="{StaticResource txtBlockToolTipStyle}"
-                                                           Text="Cумма поперечных сечений выработок, составляющих очистную камеру"/>
-                                                </TextBlock.ToolTip>
-                                                </TextBlock>
-                                            <TextBox Grid.Column="1"
-                                                         Style="{StaticResource txtBoxBaseStyle}"
-                                                         Text="{Binding Path=Si, Mode=TwoWay}"/>
-                                            <!--#endregion-->
+                                                    <!--#region Вывод суммы поперечных сечений-->
+                                                    <TextBlock Style="{StaticResource txtBlockBaseStyle}"
+                                                           Text="Cумма поперечных сечений">
+                                                        <TextBlock.ToolTip>
+                                                            <TextBlock Style="{StaticResource txtBlockToolTipStyle}"
+                                                               Text="Cумма поперечных сечений выработок, составляющих очистную камеру"/>
+                                                        </TextBlock.ToolTip>
+                                                    </TextBlock>
+                                                    <TextBox Grid.Column="1"
+                                                             Style="{StaticResource txtBoxBaseStyle}"
+                                                             Text="{Binding Path=Si, Mode=TwoWay}"/>
+                                                    <!--#endregion-->
 
-                                            <!--#region Вывод растояний между осями-->
-                                            <TextBlock Grid.Row="1"
-                                                           Style="{StaticResource txtBlockBaseStyle}"
-                                                           Text="Расстояние между осями">
-                                                <TextBlock.ToolTip>
-                                                    <TextBlock Style="{StaticResource txtBlockToolTipStyle}"
-                                                           Text="Расстояние между осями соседних междукамерных целиков"/>
-                                                </TextBlock.ToolTip>
-                                                </TextBlock>
-                                            <TextBox Grid.Row="1"
-                                                         Grid.Column="1"
-                                                         Style="{StaticResource txtBoxBaseStyle}"
-                                                         Text="{Binding Path=L, Mode=TwoWay}"/>
-                                            <!--#endregion-->
-                                        </Grid>
-                                        <!--Ввод коэффициентов, от которых зависит коэффициент извлечения при столбовой системе разработки-->
-                                        <Grid>
-                                            <!--#region Grid Definetions-->
-                                            <Grid.ColumnDefinitions>
-                                                <ColumnDefinition Width="2*"/>
-                                                <ColumnDefinition/>
-                                            </Grid.ColumnDefinitions>
-                                            <Grid.RowDefinitions>
-                                                <RowDefinition/>
-                                                <RowDefinition/>
-                                            </Grid.RowDefinitions>
-                                            <!--#endregion-->
+                                                    <!--#region Вывод растояний между осями-->
+                                                    <TextBlock Grid.Row="1"
+                                                               Style="{StaticResource txtBlockBaseStyle}"
+                                                               Text="Расстояние между осями">
+                                                        <TextBlock.ToolTip>
+                                                            <TextBlock Style="{StaticResource txtBlockToolTipStyle}"
+                                                               Text="Расстояние между осями соседних междукамерных целиков"/>
+                                                        </TextBlock.ToolTip>
+                                                    </TextBlock>
+                                                    <TextBox Grid.Row="1"
+                                                             Grid.Column="1"
+                                                             Style="{StaticResource txtBoxBaseStyle}"
+                                                             Text="{Binding Path=L, Mode=TwoWay}"/>
+                                                    <!--#endregion-->
+                                                </Grid>
+                                                <!--Ввод коэффициентов, от которых зависит коэффициент извлечения при столбовой системе разработки-->
+                                                <Grid Visibility="{Binding ElementName=main, Path=KiAppendValuesLavaVisibility}">
+                                                    <!--#region Grid Definetions-->
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition Width="2*"/>
+                                                        <ColumnDefinition/>
+                                                    </Grid.ColumnDefinitions>
+                                                    <Grid.RowDefinitions>
+                                                        <RowDefinition/>
+                                                        <RowDefinition/>
+                                                    </Grid.RowDefinitions>
+                                                    <!--#endregion-->
 
-                                            <!--#region Вывод площади поперечного сечения-->
-                                            <TextBlock Style="{StaticResource txtBlockBaseStyle}"
-                                                           Text="Площадь попер. сечения лавы">
-                                                <TextBlock.ToolTip>
-                                                    <TextBlock Style="{StaticResource txtBlockToolTipStyle}"
-                                                                   Text="Площадь поперечного сечения лавы"/>
-                                                </TextBlock.ToolTip>
-                                                </TextBlock>
-                                            <TextBox Grid.Column="1"
-                                                         Style="{StaticResource txtBoxBaseStyle}"
-                                                         Text="{Binding Path=Sl, Mode=TwoWay}"/>
-                                            <!--#endregion-->
+                                                    <!--#region Вывод площади поперечного сечения-->
+                                                    <TextBlock Style="{StaticResource txtBlockBaseStyle}"
+                                                               Text="Площадь попер. сечения лавы">
+                                                        <TextBlock.ToolTip>
+                                                            <TextBlock Style="{StaticResource txtBlockToolTipStyle}"
+                                                                       Text="Площадь поперечного сечения лавы"/>
+                                                        </TextBlock.ToolTip>
+                                                    </TextBlock>
+                                                    <TextBox Grid.Column="1"
+                                                             Style="{StaticResource txtBoxBaseStyle}"
+                                                             Text="{Binding Path=Sl, Mode=TwoWay}"/>
+                                                    <!--#endregion-->
 
-                                            <!--#region Вывод длины лавы-->
-                                            <TextBlock Grid.Row="1"
-                                                           Style="{StaticResource txtBlockBaseStyle}"
-                                                           Text="Длина лавы">
-                                                <TextBlock.ToolTip>
-                                                    <TextBlock Style="{StaticResource txtBlockToolTipStyle}"
-                                                           Text="Длина лавы"/>
-                                                </TextBlock.ToolTip>
-                                                </TextBlock>
-                                            <TextBox Grid.Row="1"
-                                                         Grid.Column="1"
-                                                         Style="{StaticResource txtBoxBaseStyle}"
-                                                         Text="{Binding Path=L, Mode=TwoWay}"/>
-                                            <!--#endregion-->
-                                        </Grid>
+                                                    <!--#region Вывод длины лавы-->
+                                                    <TextBlock Grid.Row="1"
+                                                               Style="{StaticResource txtBlockBaseStyle}"
+                                                               Text="Длина лавы">
+                                                        <TextBlock.ToolTip>
+                                                            <TextBlock Style="{StaticResource txtBlockToolTipStyle}"
+                                                               Text="Длина лавы"/>
+                                                        </TextBlock.ToolTip>
+                                                    </TextBlock>
+                                                    <TextBox Grid.Row="1"
+                                                             Grid.Column="1"
+                                                             Style="{StaticResource txtBoxBaseStyle}"
+                                                             Text="{Binding Path=L, Mode=TwoWay}"/>
+                                                    <!--#endregion-->
+                                                </Grid>
+                                            </StackPanel>
+                                        </Expander>
                                     </StackPanel>
                                 </StackPanel>
                             </DataTemplate>

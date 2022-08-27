@@ -68,7 +68,7 @@ namespace Celic
                 {
                     for (int j = 0; j < _plasts[i].MineFields.Count - 1; j++)
                         if (_plasts[i].MainMineField is Lava lava)
-                            if (lava.B.V >= lava.D)
+                            if (lava.B >= lava.D)
                             {
                                 new LavaManager(lava).RecalcK();
                             }
@@ -77,7 +77,7 @@ namespace Celic
                                 float d0 = new LavaManager(field1 as Lava).CalcD() * field1.Mv + (lava.H - field1.H);
                                 float d1 = _plasts[i].MineFields[j + 1].D;
                                 float d = lava.D;
-                                float b = lava.B.V;
+                                float b = lava.B;
                                 if (300 >= Max(d, d1))
                                     lava.K = Max(d, d1) >= d0 ? 1 : Max(d, d1) + b >= d0 ? (float)Sqrt(d0 != 0 ? Max(d, d1) / d0 : 0) : (d + 2 * b + d1) != 0 ? (d + d1) / (d + 2 * b + d1) : 0;
                             }

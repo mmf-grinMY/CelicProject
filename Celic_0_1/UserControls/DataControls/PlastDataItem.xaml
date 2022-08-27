@@ -24,6 +24,7 @@
         <!--Стандартный стиль значения величины  TextBlock в выводе данных-->
         <Style x:Key="txtBlockValueStyle" TargetType="{x:Type TextBlock}" BasedOn="{StaticResource txtBlockBaseStyle}">
             <Setter Property="MaxHeight" Value="20"/>
+            <Setter Property="VerticalAlignment" Value="Top"/>
         </Style>
         <!--Стандартный стиль наименования величины TextBlock в выводе данных-->
         <Style x:Key="txtBlockNameStyle" TargetType="{x:Type TextBlock}" BasedOn="{StaticResource txtBlockToolTipStyle}">

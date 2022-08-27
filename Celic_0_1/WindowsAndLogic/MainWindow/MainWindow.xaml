@@ -50,6 +50,7 @@
                        Text="Расчет ширины междубарьерного целика"/>
         </Button>
         <StackPanel Grid.Row="1">
+            <uc:FlipPanel/>
         </StackPanel>
     </Grid>
 </Window>
