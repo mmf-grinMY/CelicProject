@@ -5,14 +5,14 @@
         #region Private Fields
 
         /// <summary> Угол поворота плоскости разлома ( поле ) </summary>
-        private EFloat _alfa;
+        private float _alfa;
 
         #endregion
 
         #region Public Properties
 
         /// <summary> Угол поворота плоскости разлома </summary>
-        public EFloat Alfa
+        public float Alfa
         {
             get => _alfa;
             set

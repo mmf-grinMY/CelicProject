@@ -36,7 +36,7 @@
                      MaxWidth="244">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
-                        <local:SPlastDataItem/>
+                        <local:PlastDataItem DataContext="{Binding MineFields}"/>
                     </DataTemplate>
                 </ListBox.ItemTemplate>
             </ListBox>
@@ -48,7 +48,7 @@
             <StackPanel>
                 <TextBlock HorizontalAlignment="Center"
                            Text="Выбранный пласт"/>
-                <local:SPlastDataBox x:Name="selected"
+                <local:PlastDataBox x:Name="selected"
                                     DataContext="{Binding SelectedPlast}"/>
             </StackPanel>
             <Border BorderThickness="0.3"
@@ -62,13 +62,7 @@
                     <TextBox Margin="10,4,0,4"
                              Width="100">
                         <TextBox.Text>
-                            <Binding Path="Alfa" UpdateSourceTrigger="PropertyChanged">
-                                <Binding.Converter>
-                                    <local:StringToEFloatConverter/>
-                                </Binding.Converter>
-                                <Binding.ValidationRules>
-                                    <local:RangeValidationRule Max="90"/>
-                                </Binding.ValidationRules>
+                            <Binding Path="Alfa">
                             </Binding>
                         </TextBox.Text>
                     </TextBox>

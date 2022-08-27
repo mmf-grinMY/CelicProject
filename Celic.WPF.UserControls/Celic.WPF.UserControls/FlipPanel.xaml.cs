@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
@@ -15,32 +16,24 @@ using System.Windows.Shapes;
 
 namespace Celic.WPF.UserControls
 {
-    /// <summary>
-    /// Логика взаимодействия для InputBox.xaml
-    /// </summary>
-    public partial class InputBox : UserControl
+    /// <summary> Логика взаимодействия для FlipPanel.xaml </summary>
+    public partial class FlipPanel : UserControl
     {
         /// <summary> Основной конструктор для данного класса </summary>
-        public InputBox()
+        public FlipPanel()
         {
             InitializeComponent();
         }
+        static FlipPanel()
+        {
+            TextProperty = DependencyProperty.Register("Text", typeof(string), typeof(FlipPanel));
+        }
+
         public static readonly DependencyProperty TextProperty;
         public string Text
         {
-            get { return GetValue(TextProperty)?.ToString(); }
+            get { return GetValue(TextProperty).ToString(); }
             set { SetValue(TextProperty, value); }
-        }
-        public static readonly DependencyProperty TextBoxTextProperty;
-        public string TextBoxText
-        {
-            get { return GetValue(TextBoxTextProperty)?.ToString(); }
-            set { SetValue(TextBoxTextProperty, value); }
-        }
-        static InputBox()
-        {
-            TextProperty = DependencyProperty.Register("Text", typeof(string), typeof(InputBox));
-            TextBoxTextProperty = DependencyProperty.Register("TextBoxText", typeof(string), typeof(InputBox));
         }
     }
 }

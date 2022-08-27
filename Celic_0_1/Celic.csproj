@@ -88,6 +88,10 @@
     <Compile Include="UserControls\DataControls\PlastDataBox.xaml.cs">
       <DependentUpon>PlastDataBox.xaml</DependentUpon>
     </Compile>
+    <Compile Include="WindowsAndLogic\HelpWindows\AddPlast\AddPlastViewModel.cs" />
+    <Compile Include="WindowsAndLogic\HelpWindows\AddPlast\AddPlastWindow.xaml.cs">
+      <DependentUpon>AddPlastWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="WindowsAndLogic\HelpWindows\SchemaChoice\SchemaChoiceViewModel.cs" />
     <Compile Include="WindowsAndLogic\HelpWindows\SchemaChoice\SchemaChoiceWindow.xaml.cs">
       <DependentUpon>SchemaChoiceWindow.xaml</DependentUpon>
@@ -113,18 +117,11 @@
     <Compile Include="Core\Report\SimpleDocxCreators\TableManager.cs" />
     <Compile Include="Core\Report\SimpleDocxCreators\TextManager.cs" />
     <Compile Include="Core\Report\SimpleDocxCreators\BaseTextManager.cs" />
-    <Compile Include="UserControls\BaseControls\ListBoxBody\ListBoxBody.xaml.cs">
-      <DependentUpon>ListBoxBody.xaml</DependentUpon>
-    </Compile>
     <Compile Include="UserControls\BaseControls\ListBoxTitle\ListBoxTitle.xaml.cs">
       <DependentUpon>ListBoxTitle.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserControls\BaseControls\PlastMenu\PlastMenu.xaml.cs">
       <DependentUpon>PlastMenu.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="WindowsAndLogic\HelpWindows\AddPlast\AddPlastViewModel.cs" />
-    <Compile Include="WindowsAndLogic\HelpWindows\AddPlast\AddPlastWindow.xaml.cs">
-      <DependentUpon>AddPlastWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="WindowsAndLogic\HelpWindows\ReportProgress\RepProViewModel.cs" />
     <Compile Include="WindowsAndLogic\HelpWindows\ReportProgress\RepProWindow.xaml.cs">
@@ -201,10 +198,6 @@
     </COMReference>
   </ItemGroup>
   <ItemGroup>
-    <Page Include="UserControls\BaseControls\ListBoxBody\ListBoxBody.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="UserControls\BaseControls\ListBoxTitle\ListBoxTitle.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -222,8 +215,8 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="WindowsAndLogic\HelpWindows\AddPlast\AddPlastWindow.xaml">
-      <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="WindowsAndLogic\HelpWindows\ReportProgress\RepProWindow.xaml">
       <SubType>Designer</SubType>

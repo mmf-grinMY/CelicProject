@@ -28,7 +28,9 @@
                      SelectedItem="{Binding SelectedPlast}"
                      Padding="-2,0"
                      MinWidth="310"
-                     MinHeight="200">
+                     MaxHeight="400"
+                     SnapsToDevicePixels="True"
+                     MinHeight="168">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                         <local:PlastDataItem
@@ -52,7 +54,7 @@
                        FontSize="14"
                        Text="Выбранный пласт"/>
             <local:PlastDataBox x:Name="selected"
-                                  EContiguosVisibility="Collapsed"/>
+                                EContiguosVisibility="Collapsed"/>
         </StackPanel>
     </Grid>
 </Window>

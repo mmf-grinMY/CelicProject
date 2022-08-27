@@ -44,24 +44,9 @@
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
         <StackPanel>
-            <local:SPlastDataBox DataContext="{Binding MainPlast}"
-                                Margin="4,4,4,0"/>
-        </StackPanel>
-        <StackPanel Margin="4"
-                    Grid.Row="1">
-            <CheckBox Content="Сближенный слой 1"
-                      Command="{Binding AddContiguosPlastCommand1}"/>
-            <local:SPlastDataBox DataContext="{Binding ContiguosPlast1}"
-                                IsEnabled="False"
-                                x:Name="Plast1"/>
-        </StackPanel>
-        <StackPanel Margin="4,0"
-                    Grid.Row="2">
-            <CheckBox Content="Сближенный слой 2"
-                      Command="{Binding AddContiguosPlastCommand2}"/>
-            <local:SPlastDataBox x:Name="Plast2"
-                                IsEnabled="False"
-                                DataContext="{Binding ContiguosPlast2}"/>
+            <local:PlastDataBox DataContext="{Binding MainPlast}"
+                                Margin="4,4,4,0"
+                                MinHeight="370"/>
         </StackPanel>
         <Button Margin="4,4,2,0"
                 Content="Сохранить"

@@ -51,7 +51,7 @@
                            Style="{x:Null}"
                            FontSize="14"
                            Text="Выбранный пласт"/>
-                <local:SPlastDataBox x:Name="selected"
+                <local:PlastDataBox x:Name="selected"
                                     DataContext="{Binding SelectedPlast}"/>
                 <Button HorizontalAlignment="Center"
                         Margin="4"
@@ -81,7 +81,7 @@
                      Width="Auto">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
-                        <local:SPlastDataItem/>
+                        <local:PlastDataItem DataContext="{Binding MineFields}"/>
                     </DataTemplate>
                 </ListBox.ItemTemplate>
             </ListBox >
@@ -107,7 +107,7 @@
                      Margin="4,0,0,0">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
-                        <local:SPlastDataItem/>
+                        <local:PlastDataItem DataContext="{Binding MineFields}"/>
                     </DataTemplate>
                 </ListBox.ItemTemplate>
             </ListBox >

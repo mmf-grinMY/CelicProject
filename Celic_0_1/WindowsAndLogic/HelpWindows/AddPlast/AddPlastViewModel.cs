@@ -1,6 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using static Celic.HelpManager;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace Celic
 {
@@ -13,16 +16,8 @@ namespace Celic
         private AddPlastWindow _plastWindow;
         /// <summary> Основной вводимый пласт ( поле ) </summary>
         private Plast _mainPlast;
-        /// <summary> Сближенный пласт № 1 ( поле ) </summary>
-        private Plast _contiguosPlast1;
-        /// <summary> Сближеный пласт № 2 ( поле ) </summary>
-        private Plast _contiguosPlast2;
         /// <summary> Коллекция разрабатываемых пластов </summary>
         private readonly ObservableCollection<Plast> _plasts;
-        /// <summary> Флаг выбора добавления сближенного пласта № 1 </summary>
-        private bool isAddContCom1Clicked = false;
-        /// <summary> Флаг выбора добавления сближенного пласта № 2 </summary>
-        private bool isAddContCom2Clicked = false;
 
         #endregion
 
@@ -38,39 +33,17 @@ namespace Celic
                 OnPropertyChanged(nameof(MainPlast));
             }
         }
-        /// <summary> Сближенный пласт № 1 </summary>
-        public Plast ContiguosPlast1
-        {
-            get => _contiguosPlast1;
-            set
-            {
-                _contiguosPlast1 = value;
-                OnPropertyChanged(nameof(ContiguosPlast1));
-            }
-        }
-        /// <summary> Сближеный пласт № 2 </summary>
-        public Plast ContiguosPlast2
-        {
-            get => _contiguosPlast2;
-            set
-            {
-                _contiguosPlast2 = value;
-                OnPropertyChanged(nameof(ContiguosPlast2));
-            }
-        }
 
         #endregion
 
         #region Public Methods
 
-        /// <summary>
-        /// Метод для корректного закрытия окна добавления пластов
-        /// </summary>
-        /// <param name="sender">Вызываемый объект</param>
-        /// <param name="e"></param>
+        /// <summary> Корректное закрытие окна добавления пластов </summary>
+        /// <param name="sender"> Закрываемое окно </param>
+        /// <param name="e"> Параметры закрытия окна </param>
         public void Close(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            Sort(_plasts);
+            HelpManager.Sort(_plasts);
             _plastWindow = null;
             GC.Collect();
             GC.WaitForFullGCComplete();
@@ -89,42 +62,7 @@ namespace Celic
             ExitWithoutSaveCommand = new RelayCommand(obj =>
             {
                 _plasts.Remove(MainPlast);
-                _plasts.Remove(ContiguosPlast1);
-                _plasts.Remove(ContiguosPlast2);
                 _plastWindow.Close();
-            });
-            AddContiguosPlastCommand1 = new RelayCommand(obj =>
-            {
-                if (!isAddContCom1Clicked)
-                {
-                    _plastWindow.Plast1.IsEnabled = isAddContCom1Clicked = true;
-                    _plasts.Add(ContiguosPlast1 = new Plast());
-                    // ContiguosPlast1.Contiguos = MainPlast.GetHashCode();
-                }
-                else
-                {
-                    _plasts.Remove(ContiguosPlast1);
-                    ContiguosPlast1 = null;
-                    _plastWindow.Plast1.IsEnabled = isAddContCom1Clicked = false;
-                }
-            });
-            AddContiguosPlastCommand2 = new RelayCommand(obj =>
-            {
-                if (isAddContCom1Clicked)
-                {
-                    if (!isAddContCom2Clicked)
-                    {
-                        isAddContCom2Clicked = _plastWindow.Plast2.IsEnabled = true;
-                        _plasts.Add(ContiguosPlast2 = new Plast());
-                        // ContiguosPlast2.Contiguos = MainPlast.GetHashCode();
-                    }
-                    else
-                    {
-                        _plastWindow.Plast2.IsEnabled = isAddContCom2Clicked = false;
-                        _plasts.Remove(ContiguosPlast2);
-                        ContiguosPlast2 = null;
-                    }
-                }
             });
             _plasts = plasts;
             plasts.Add(MainPlast = new Plast());
@@ -139,10 +77,6 @@ namespace Celic
         public RelayCommand ExitWithSaveCommand { private set; get; }
         /// <summary> Команда закрытия окна без сохранения заданых пользователем пластов </summary>
         public RelayCommand ExitWithoutSaveCommand { private set; get; }
-        /// <summary> Команда открытия возможности вводить данные для сближенного пласта № 1, при выборе CheckBox </summary>
-        public RelayCommand AddContiguosPlastCommand1 { private set; get; }
-        /// <summary> Команда открытия возможности вводить данные для сближенного пласта № 2, при выборе CheckBox </summary>
-        public RelayCommand AddContiguosPlastCommand2 { private set; get; }
 
         #endregion
     }

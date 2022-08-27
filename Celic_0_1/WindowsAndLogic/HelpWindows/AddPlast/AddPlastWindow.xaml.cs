@@ -15,7 +15,7 @@ using System.Windows.Shapes;
 
 namespace Celic
 {
-    /// <summary> Логика взаимодействия для SimpleCalcBPlastWindow.xaml </summary>
+    /// <summary> Логика взаимодействия для AddPlastWindow.xaml </summary>
     public partial class AddPlastWindow : Window
     {
         /// <summary> Основной конструктор для данного класса </summary>

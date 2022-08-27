@@ -238,7 +238,7 @@ namespace Celic
                     if (_plast.MineFields[i] is Lava lava1 && _plast.MineFields[i + 1] is Lava lava2)
                     {
                         LavaManager manager1 = new LavaManager(lava1), manager2 = new LavaManager(lava2);
-                        maxK = Max(maxK, lava1.B.V >= 0.58F * (manager1.Ht() + manager2.Ht()) ? manager1.RecalcK() : manager1.ERecalcK(lava2));
+                        maxK = Max(maxK, lava1.B >= 0.58F * (manager1.Ht() + manager2.Ht()) ? manager1.RecalcK() : manager1.ERecalcK(lava2));
                     }
                         
             }

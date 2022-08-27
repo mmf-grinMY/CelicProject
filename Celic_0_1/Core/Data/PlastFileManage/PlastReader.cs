@@ -98,7 +98,7 @@ namespace Celic
                 if (sysDev != null && (sysDev.Attributes.GetNamedItem("type")?.Value == "simpleC"))
                     foreach (XmlElement plastNode in sysDev)
                         if (plastNode.Name == "angle")
-                            (_model as SCalcCViewModel).Alfa = EFloat.Parse(plastNode.InnerText);
+                            (_model as SCalcCViewModel).Alfa = float.Parse(plastNode.InnerText);
                         else
                             (_model as SCalcCViewModel).Plasts.Add(ReadSimplePlast(plastNode));
                 else
