@@ -12,7 +12,11 @@
         /// <summary> Ширина выработанного пространства ( поле ) </summary>
         private float _d;
         /// <summary> Коэффициент, учитывающий размер выработанного пространства ( степень подработанности породного массива ) ( поле ) </summary>
-        private float _k; 
+        private float _k;
+        /// <summary> Коэффициент извлечения рудной массы в пределах вынимаемой мощности ( поле ) </summary>
+        private float _ki;
+        /// <summary> Расстояние между соседними осями междукамерных целиков ( поле ) </summary>
+        private float _l;
 
         #endregion
 
@@ -56,6 +60,26 @@
             {
                 _k = value;
                 OnPropertyChanged("K");
+            }
+        }
+        /// <summary> Коэффициент извлечения рудной массы в пределах вынимаемой мощности </summary>
+        public float Ki
+        {
+            get => _ki;
+            set
+            {
+                _ki = value;
+                OnPropertyChanged("Ki");
+            }
+        }
+        /// <summary> Расстояние между соседними осями междукамерных целиков </summary>
+        public float L
+        {
+            get => _l;
+            set
+            {
+                _l = value;
+                OnPropertyChanged("L");
             }
         }
 

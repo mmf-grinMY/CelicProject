@@ -56,18 +56,18 @@ namespace Celic
         /// <summary> Коэффициент k при вычислении ЗВТ для нескольких пластов </summary>
         public void RecalcK()
         {
-            MineField field1 = _plasts[0].MainMineField;
+            MineField field1 = _plasts[0].Main;
             for (int i = 0; i < _plasts.Count; i++)
                 if (_plasts[i].TypeDev.Equals(CAMERA_DEV))
                 {
-                    Camera camera = _plasts[i].MainMineField as Camera;
+                    Camera camera = _plasts[i].Main as Camera;
                     float d0 = 1.4F * (new CameraManager(field1 as Camera).CalcD() * field1.Mv + (camera.H - field1.H));
                     camera.K = camera.D >= d0 ? 1 : d0 != 0 ? (float)Sqrt(camera.D / d0) : 1;
                 }
                 else
                 {
                     for (int j = 0; j < _plasts[i].MineFields.Count - 1; j++)
-                        if (_plasts[i].MainMineField is Lava lava)
+                        if (_plasts[i].Main is Lava lava)
                             if (lava.B >= lava.D)
                             {
                                 new LavaManager(lava).RecalcK();
@@ -126,7 +126,7 @@ namespace Celic
             {
                 schema = GetSchema();
                 Lij = Abs(_plasts[i].Lp - _plasts[j].Lp);
-                dH = Abs(_plasts[i].MainMineField.H - _plasts[j].MainMineField.H);
+                dH = Abs(_plasts[i].Main.H - _plasts[j].Main.H);
                 dh = new PlastManager(_plasts[i]).Ht() * _plasts[i].S + dH;
                 switch (schema)
                 {
@@ -148,7 +148,7 @@ namespace Celic
             {
                 schema = GetSchema();
                 Lij = Abs(_plasts[i].Lp - _plasts[j].Lp);
-                dH = Abs(_plasts[i].MainMineField.H - _plasts[j].MainMineField.H);
+                dH = Abs(_plasts[i].Main.H - _plasts[j].Main.H);
                 dh = new PlastManager(_plasts[i]).Ht() * _plasts[i].S + dH;
                 switch (schema)
                 {

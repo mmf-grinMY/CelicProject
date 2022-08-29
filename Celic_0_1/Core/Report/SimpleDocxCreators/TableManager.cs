@@ -143,8 +143,8 @@ namespace Celic
                 }
                 else
                 {
-                    _cell.Range.Text = "mпр" + i + " = mв ∙ k' = " + _plasts[i - 1].MainMineField.Mv + " ∙ " 
-                        + _plasts[i - 1].MainMineField.K + " = " + new PlastManager(_plasts[i - 1]).MPr() + " м";
+                    _cell.Range.Text = "mпр" + i + " = mв ∙ k' = " + _plasts[i - 1].Main.Mv + " ∙ " 
+                        + _plasts[i - 1].Main.K + " = " + new PlastManager(_plasts[i - 1]).MPr() + " м";
                     Select("mпр" + i, 3, 1).Font.Subscript = 1;
                     Select("mв",1,1).Font.Subscript = 1;
                 }
@@ -164,7 +164,7 @@ namespace Celic
                 else
                 {
                     _cell.Range.Text = "d" + i +" = " + HelpManager.GetD(_plasts[i - 1]) + 
-                        " - 0,01 ∙ H = " + HelpManager.GetD(_plasts[i - 1]) + " - 0,01 ∙ " + _plasts[i - 1].MainMineField.H + " = " + new PlastManager(_plasts[i - 1]).CalcD();
+                        " - 0,01 ∙ H = " + HelpManager.GetD(_plasts[i - 1]) + " - 0,01 ∙ " + _plasts[i - 1].Main.H + " = " + new PlastManager(_plasts[i - 1]).CalcD();
                     Select("d" + i, 1, -1).Font.Subscript = 1;
                 }
                 _rangeLength += _cell.Range.Text.Length;

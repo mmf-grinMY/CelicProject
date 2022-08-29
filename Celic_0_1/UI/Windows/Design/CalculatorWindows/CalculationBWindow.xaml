@@ -6,16 +6,21 @@
         xmlns:local="clr-namespace:Celic"
         d:DataContext="{d:DesignInstance Type=local:CalculationBViewModel}"
         mc:Ignorable="d"
-        FontSize="14"
+        UseLayoutRounding="True"
         Title="Расчет высоты зоны водопроводящих трещин"
-        MinHeight="500"
-        MinWidth="600">
-    <DockPanel>
-        <local:PlastMenu DockPanel.Dock="Top"/>
-        <local:PlastListBox Margin="4,0"
-                            DockPanel.Dock="Left"
-                            Itemsource="{Binding Plasts}"
-                            SelectedItem="{Binding SelectedPlast}"/>
-        <local:PlastDataBox x:Name="selected"/>
-    </DockPanel>
+        SizeToContent="WidthAndHeight">
+    <StackPanel>
+        <local:PlastMenu/>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <local:PlastListBox Style="{StaticResource oneListBoxStyle}"/>
+            <StackPanel Grid.Column="1">
+                <local:PlastDataBox x:Name="selected"/>
+                <local:OneListPlastControlPanel Style="{StaticResource centerPositionStyle}"/>
+            </StackPanel>
+        </Grid>
+    </StackPanel>
 </Window>

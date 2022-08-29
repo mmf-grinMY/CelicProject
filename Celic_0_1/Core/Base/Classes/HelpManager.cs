@@ -86,7 +86,7 @@ namespace Celic
         /// <returns> true, если пласты являются сближенными; false в протичном случае </returns>
         public static bool IsContiguous(Plast plast1, Plast plast2)
         {
-            if(plast1.MainMineField.H > plast2.MainMineField.H)
+            if(plast1.Main.H > plast2.Main.H)
                 return plast1.Buttom.Equals(plast2.Name) && plast2.Top.Equals(plast1.Name);
             else
                 return plast2.Buttom.Equals(plast1.Name) && plast1.Top.Equals(plast2.Name);

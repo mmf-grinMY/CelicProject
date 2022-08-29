@@ -15,7 +15,7 @@ namespace Celic
         /// <summary> Окно проведения расчета </summary>
         protected Window _calcWindow = null;
         /// <summary> Выбранный пласт </summary>
-        protected Plast _selectedPlast = null;
+        private Plast _selectedPlast = null;
 
         #endregion
 
@@ -91,6 +91,7 @@ namespace Celic
             OpenReadCommand = new RelayCommand(obj => new PlastReader(InitializeFileDialog(new OpenFileDialog()).FileName, this).Read());
             SimpleSaveCommand = new RelayCommand(obj => new PlastWriter(this).Write());
             SaveWithPathCommand = new RelayCommand(obj => new PlastWriter(InitializeFileDialog(new SaveFileDialog()).FileName, this).Write());
+            RemoveSelectionCommand = new RelayCommand(obj => SelectedPlast = null, obj => SelectedPlast != null);
         }
 
         #endregion

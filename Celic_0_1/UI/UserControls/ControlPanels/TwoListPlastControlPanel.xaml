@@ -1,0 +1,16 @@
+﻿<UserControl x:Class="Celic.TwoListPlastControlPanel"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Celic"
+             mc:Ignorable="d" 
+            d:DataContext="{d:DesignInstance local:TwoListPlastViewModel}">
+    <StackPanel Orientation="Horizontal">
+        <Button Style="{StaticResource removeButtonStyle}">
+            <Image Source="../../Resources/wastebasket.jpg"/>
+        </Button>
+        <Button Style="{StaticResource removeSelectionButtonStyle}"/>
+        <Button Style="{StaticResource swapButtonStyle}"/>
+    </StackPanel>
+</UserControl>

@@ -77,26 +77,32 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Core\Base\Enums\GorizontDev.cs" />
     <Compile Include="Core\Base\Enums\MineDev.cs" />
     <Compile Include="Core\Base\Interfaces\IMineFieldManage.cs" />
     <Compile Include="Core\Data\DataStructs\MainDataStructs\PlastCollectionManager.cs" />
     <Compile Include="Core\Data\DataStructs\BaseDataStructs\MineField.cs" />
     <Compile Include="Core\Report\ExtentedCalculators\BCalculatorB.cs" />
     <Compile Include="Core\Report\ExtentedCalculators\ECalculatorB.cs" />
-    <Compile Include="UI\CustomControls\ClearableTextBox.cs" />
-    <Compile Include="UI\CustomControls\Expander.cs" />
-    <Compile Include="UI\CustomControls\FlipPanel.cs" />
-    <Compile Include="UI\CustomControls\NameScanner.cs" />
-    <Compile Include="UI\CustomControls\Printer.cs" />
-    <Compile Include="UI\CustomControls\Scanner.cs" />
-    <Compile Include="UI\UserControls\PlastDataBox.xaml.cs">
+    <Compile Include="UI\CustomControls\Controls\Expander.cs" />
+    <Compile Include="UI\CustomControls\Controls\FlipPanel.cs" />
+    <Compile Include="UI\CustomControls\Controls\NameScanner.cs" />
+    <Compile Include="UI\CustomControls\Controls\Printer.cs" />
+    <Compile Include="UI\CustomControls\Controls\Scanner.cs" />
+    <Compile Include="UI\UserControls\ControlPanels\OneListPlastControlPanel.xaml.cs">
+      <DependentUpon>OneListPlastControlPanel.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\UserControls\PlastControls\PlastDataBox.xaml.cs">
       <DependentUpon>PlastDataBox.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UI\UserControls\PlastDataItem.xaml.cs">
+    <Compile Include="UI\UserControls\PlastControls\PlastDataItem.xaml.cs">
       <DependentUpon>PlastDataItem.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UI\UserControls\PlastListBox.xaml.cs">
+    <Compile Include="UI\UserControls\PlastControls\PlastListBox.xaml.cs">
       <DependentUpon>PlastListBox.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\UserControls\ControlPanels\TwoListPlastControlPanel.xaml.cs">
+      <DependentUpon>TwoListPlastControlPanel.xaml</DependentUpon>
     </Compile>
     <Compile Include="UI\Windows\Logic\HelpViewModels\AddPlastViewModel.cs" />
     <Compile Include="UI\Windows\Design\HelpWindows\AddPlastWindow.xaml.cs">
@@ -127,12 +133,12 @@
     <Compile Include="Core\Report\SimpleDocxCreators\TableManager.cs" />
     <Compile Include="Core\Report\SimpleDocxCreators\TextManager.cs" />
     <Compile Include="Core\Report\SimpleDocxCreators\BaseTextManager.cs" />
-    <Compile Include="UI\UserControls\PlastMenu.xaml.cs">
+    <Compile Include="UI\UserControls\PlastControls\PlastMenu.xaml.cs">
       <DependentUpon>PlastMenu.xaml</DependentUpon>
     </Compile>
     <Compile Include="UI\Windows\Logic\HelpViewModels\RepProViewModel.cs" />
-    <Compile Include="UI\Windows\Design\HelpWindows\RepProWindow.xaml.cs">
-      <DependentUpon>RepProWindow.xaml</DependentUpon>
+    <Compile Include="UI\Windows\Design\HelpWindows\ReportProgress.xaml.cs">
+      <DependentUpon>ReportProgress.xaml</DependentUpon>
     </Compile>
     <Compile Include="UI\Windows\Logic\CalculatorViewModels\CalculationBViewModel.cs" />
     <Compile Include="UI\Windows\Design\CalculatorWindows\CalculationBWindow.xaml.cs">
@@ -209,23 +215,31 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="UI\CustomControls\Themes\ScannerStyle.xaml">
+    <Page Include="UI\CustomControls\Themes\CustomControlsTemplate.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="UI\UserControls\PlastDataBox.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="UI\UserControls\PlastMenu.xaml">
+    <Page Include="UI\UserControls\ControlPanels\OneListPlastControlPanel.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UI\UserControls\PlastDataItem.xaml">
+    <Page Include="UI\UserControls\PlastControls\PlastDataBox.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UI\UserControls\PlastControls\PlastMenu.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UI\UserControls\PlastListBox.xaml">
+    <Page Include="UI\UserControls\PlastControls\PlastDataItem.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\UserControls\PlastControls\PlastListBox.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\UserControls\ControlPanels\TwoListPlastControlPanel.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -233,7 +247,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UI\Windows\Design\HelpWindows\RepProWindow.xaml">
+    <Page Include="UI\Windows\Design\HelpWindows\ReportProgress.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -257,6 +271,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="UI\Windows\Themes\WindowsDesign.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.7.2">
@@ -270,6 +288,8 @@
       <Install>false</Install>
     </BootstrapperPackage>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="UI\Resources\wastebasket.jpg" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

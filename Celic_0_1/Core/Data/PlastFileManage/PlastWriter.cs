@@ -55,31 +55,44 @@ namespace Celic
 
         #region Private Methods
 
+        private string ToString(float data) => data == -1 ? "undefine" : data.ToString();
+
         private XmlElement WriteMineFieldData(XmlDocument doc, Plast plast)
         {
-            // Создание главного узла шахтного поля ( <minefield></minefield> )
-            XmlElement minefiledElem = doc.CreateElement("minefield");
-            // Создание тегов-полей для шахтного поля
-            XmlElement hElem = doc.CreateElement("h");
-            XmlElement mvElem = doc.CreateElement("mv");
-            XmlElement kiElem = doc.CreateElement("ki");
-            XmlElement typeDevElem = doc.CreateElement("typeDev");
-            // Создание данных для тегов-полей шахтного поля
-            XmlText hText = doc.CreateTextNode(plast.MainMineField.H.ToString());
-            XmlText mvText = doc.CreateTextNode(plast.MainMineField.Mv.ToString());
-            XmlText kiText = doc.CreateTextNode((plast.MainMineField as Camera).Ki.ToString());
-            XmlText typeDevText = doc.CreateTextNode(MineDevManager.ToString(plast.TypeDev));
-            // Запись данных в поля-теги шахтного поля
-            hElem.AppendChild(hText);
-            mvElem.AppendChild(mvText);
-            kiElem.AppendChild(kiText);
-            typeDevElem.AppendChild(typeDevText);
-            // Добавление тегов-полей в шахтное поле
-            minefiledElem.AppendChild(hElem);
-            minefiledElem.AppendChild(mvElem);
-            minefiledElem.AppendChild(kiElem);
-            minefiledElem.AppendChild(typeDevElem);
-            return minefiledElem;
+            XmlElement plastNode = doc.CreateElement("plast");
+            XmlNode minefields = plastNode.AppendChild(doc.CreateElement("minefields"));
+            foreach(MineField mine in plast.MineFields)
+            {
+                XmlElement root;
+                if (mine is Lava lava)
+                {
+                    root = doc.CreateElement("lava");
+                    root.AppendChild(doc.CreateElement("H")).AppendChild(doc.CreateTextNode(ToString(lava.H)));
+                    root.AppendChild(doc.CreateElement("Mv")).AppendChild(doc.CreateTextNode(ToString(lava.Mv)));
+                    root.AppendChild(doc.CreateElement("Ki")).AppendChild(doc.CreateTextNode(ToString(lava.Ki)));
+                    root.AppendChild(doc.CreateElement("K")).AppendChild(doc.CreateTextNode(ToString(lava.K)));
+                    root.AppendChild(doc.CreateElement("D")).AppendChild(doc.CreateTextNode(ToString(lava.D)));
+                    root.AppendChild(doc.CreateElement("L")).AppendChild(doc.CreateTextNode(ToString(lava.L)));
+                    root.AppendChild(doc.CreateElement("B")).AppendChild(doc.CreateTextNode(ToString(lava.B)));
+                    root.AppendChild(doc.CreateElement("Sl")).AppendChild(doc.CreateTextNode(ToString(lava.Sl)));
+                    root.Attributes.Append(doc.CreateAttribute("status")).AppendChild(doc.CreateTextNode(mine == plast.Main ? "main" : "other"));
+                }
+                else
+                {
+                    Camera camera = mine as Camera;
+                    root = doc.CreateElement("camera");
+                    root.AppendChild(doc.CreateElement("H")).AppendChild(doc.CreateTextNode(ToString(camera.H)));
+                    root.AppendChild(doc.CreateElement("Mv")).AppendChild(doc.CreateTextNode(ToString(camera.Mv)));
+                    root.AppendChild(doc.CreateElement("Ki")).AppendChild(doc.CreateTextNode(ToString(camera.Ki)));
+                    root.AppendChild(doc.CreateElement("K")).AppendChild(doc.CreateTextNode(ToString(camera.K)));
+                    root.AppendChild(doc.CreateElement("D")).AppendChild(doc.CreateTextNode(ToString(camera.D)));
+                    root.AppendChild(doc.CreateElement("L")).AppendChild(doc.CreateTextNode(ToString(camera.L)));
+                    root.AppendChild(doc.CreateElement("Si")).AppendChild(doc.CreateTextNode(ToString(camera.Si)));
+                    root.Attributes.Append(doc.CreateAttribute("status")).AppendChild(doc.CreateTextNode(mine == plast.Main ? "main" : "other"));
+                }
+                minefields.AppendChild(root);
+            }
+            return plastNode;
         }
         /// <summary> Запись данных о коллекции пластов в выбранный файл </summary>
         /// <param name="plasts"> Записываемая коллекция разрабатываемых пластов </param>
@@ -89,27 +102,19 @@ namespace Celic
         {
             foreach (Plast plast in plasts)
             {
-                // Создание главного узла пласта ( <plast></plast> )
-                XmlElement plastElem = doc.CreateElement("plast");
-                // Создание дополнительный тегов-полей для пласта
-                XmlElement SElem = doc.CreateElement("S");
-                XmlElement SDzettaElem = doc.CreateElement("S_z");
-                XmlElement KTElem = doc.CreateElement("k_t");
-                // Создание данных для дополнительных тегов полей пласта
-                XmlText SText = doc.CreateTextNode(plast.S.ToString());
-                XmlText SDzettaText = doc.CreateTextNode(plast.Sz.ToString());
-                XmlText KTText = doc.CreateTextNode(plast.Kt.ToString());
-                // Запись данных в дополнительные теги-поля пласта 
-                SElem.AppendChild(SText);
-                SDzettaElem.AppendChild(SDzettaText);
-                KTElem.AppendChild(KTText);
-                // Добавление тегов-полей в пласт
-                plastElem.AppendChild(WriteMineFieldData(doc, plast));
-                plastElem.AppendChild(SElem);
-                plastElem.AppendChild(SDzettaElem);
-                plastElem.AppendChild(KTElem);
-                //Добавление пласта в корневой узел
-                main.AppendChild(plastElem);
+                XmlNode root = WriteMineFieldData(doc, plast);
+                root.AppendChild(doc.CreateElement("S")).AppendChild(doc.CreateTextNode(ToString(plast.S)));
+                root.AppendChild(doc.CreateElement("Sz")).AppendChild(doc.CreateTextNode(ToString(plast.Sz)));
+                root.AppendChild(doc.CreateElement("Kt")).AppendChild(doc.CreateTextNode(ToString(plast.Kt)));
+                root.AppendChild(doc.CreateElement("T")).AppendChild(doc.CreateTextNode(ToString(plast.T)));
+                root.AppendChild(doc.CreateElement("Hf")).AppendChild(doc.CreateTextNode(ToString(plast.Hf)));
+                root.AppendChild(doc.CreateElement("Lp")).AppendChild(doc.CreateTextNode(ToString(plast.Lp)));
+                root.AppendChild(doc.CreateElement("Gorizont")).AppendChild(doc.CreateTextNode(GorizontManager.ToString(plast.Gorizont)));
+                root.AppendChild(doc.CreateElement("Id")).AppendChild(doc.CreateTextNode(ToString(plast.Id)));
+                root.AppendChild(doc.CreateElement("Top")).AppendChild(doc.CreateTextNode(plast.Top));
+                root.AppendChild(doc.CreateElement("Buttom")).AppendChild(doc.CreateTextNode(plast.Buttom));
+                root.AppendChild(doc.CreateElement("Name")).AppendChild(doc.CreateTextNode(plast.Name));
+                main.AppendChild(root);
             }
         }
         /// <summary> Запись в файл данных о моделе SCalcBViewModel </summary>
@@ -118,7 +123,7 @@ namespace Celic
             XmlDocument doc = new XmlDocument();
             if (!File.Exists(_path))
             {
-                string text = "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<sysDev type=\"simpleB\">\n</sysDev>";
+                string text = "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<sysDev type=\"B\">\n</sysDev>";
                 byte[] arr = Encoding.ASCII.GetBytes(text);
                 FileStream file = File.Create(_path);
                 file.Write(arr, 0, arr.Length);

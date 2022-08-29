@@ -31,7 +31,7 @@ namespace Celic
             {
                 float ht = new PlastManager(_plasts[0]).Ht() * _plasts[0].S;
                 for (int i = 1; i < _plasts.Count; i++)
-                    ht += h * new PlastManager(_plasts[i]).Ht() * _plasts[i].S * _plasts[i].Sz * _plasts[i].Kt / (h + _plasts[i].MainMineField.H - _plasts[0].MainMineField.H);
+                    ht += h * new PlastManager(_plasts[i]).Ht() * _plasts[i].S * _plasts[i].Sz * _plasts[i].Kt / (h + _plasts[i].Main.H - _plasts[0].Main.H);
                 return ht;
             }
 

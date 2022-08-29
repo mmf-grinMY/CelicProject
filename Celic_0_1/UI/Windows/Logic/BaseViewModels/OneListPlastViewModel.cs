@@ -24,21 +24,11 @@ namespace Celic
             CalcWithDocxCommand = new RelayCommand(obj =>
             {
                 if (Plasts.Count > 0)
-                    _ = new RepProWindow(this);
+                    _ = new ReportProgressWindow(this);
                 else
                     MessageBox.Show("Мы не можем произвести расчеты для несуществующих пластов");
             }, obj => Plasts.Count > 0);
-            RemoveCommand = new RelayCommand(obj =>
-            {
-                Plasts.Remove(SelectedPlast);
-                if (Plasts.Count > 0)
-                    SelectedPlast = Plasts[0];
-            }, obj => Plasts.Count > 0);
-            RemoveSelectionCommand = new RelayCommand(obj =>
-            {
-                if (_selectedPlast != null)
-                    SelectedPlast = null;
-            }, obj => _selectedPlast != null);
+            RemoveCommand = new RelayCommand(obj => Plasts.Remove(SelectedPlast), obj => Plasts.Count > 0);
         }
 
         #endregion

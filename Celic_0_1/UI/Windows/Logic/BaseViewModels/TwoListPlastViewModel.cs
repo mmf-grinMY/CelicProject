@@ -14,65 +14,6 @@ namespace Celic
 
         #endregion
 
-        #region Private Methods
-
-        /// <summary> Логика работы команды удаления пласта </summary>
-        /// <param name="obj"> Удаляемый пласт </param>
-        private void RemoveCommandMethod(object obj)
-        {
-            if (obj != null && obj is Plast plast)
-            {
-                if (plast.Equals(LeftPlastSelected))
-                {
-                    LeftPlasts.Remove(LeftPlastSelected);
-                    if (LeftPlasts.Count > 0)
-                        LeftPlastSelected = LeftPlasts[0];
-                }
-                else if (plast == RightPlastSelected)
-                {
-                    RightPlasts.Remove(RightPlastSelected);
-                    if (RightPlasts.Count > 0)
-                        RightPlastSelected = RightPlasts[0];
-                }
-            }
-            else
-            {
-                MessageBox.Show(RightPlasts.Count > 0 || LeftPlasts.Count > 0 ?
-                    "Нельзя удалить элемент из этого столбца, так как нет выделенного пласта!" :
-                    "Нельзя удалить элемент из пустого списка!");
-            }
-        }
-        /// <summary> Логика работы команды удаления выделения пласта </summary>
-        /// <param name="obj"> Выделенный в столбце пласт </param>
-        private void RemoveSelectionCommandMethod(object obj)
-        {
-            if (SelectedPlast != null)
-                if ((obj as Plast == LeftPlastSelected && SelectedPlast == LeftPlastSelected) ||
-                (obj as Plast == RightPlastSelected && SelectedPlast == RightPlastSelected))
-                    SelectedPlast = null;
-                else
-                    MessageBox.Show("Выбранный пласт находится в другом списке! " +
-                        "Если вы хотите убрать выделение, то выберите удалить выделенный пласт в соседнем списке");
-            else
-                MessageBox.Show("Вы не можете удалить выделение пласта, так как оно отсутствует!");
-        }
-        /// <summary> Логика работы команды изменения столбцов </summary>
-        private void SwapCommandMethod()
-        {
-            ObservableCollection<Plast> tmp = new ObservableCollection<Plast>();
-            foreach (Plast plast in RightPlasts)
-                tmp.Add(plast);
-            RightPlasts.Clear();
-            foreach (Plast plast in LeftPlasts)
-                RightPlasts.Add(plast);
-            LeftPlasts.Clear();
-            foreach (Plast plast in tmp)
-                LeftPlasts.Add(plast);
-            tmp.Clear();
-        }
-
-        #endregion
-
         #region Public Properties
 
         /// <summary> Коллекция пластов, расположенных слева от целика </summary>
@@ -127,15 +68,29 @@ namespace Celic
         {
             LeftPlasts = new ObservableCollection<Plast>();
             RightPlasts = new ObservableCollection<Plast>();
-            RemoveCommand = new RelayCommand(obj => RemoveCommandMethod(obj));
-            RemoveSelectionCommand = new RelayCommand(obj => RemoveSelectionCommandMethod(obj), obj => _selectedPlast != null);
-            SwapCommand = new RelayCommand(obj => SwapCommandMethod(),
-                obj => RightPlasts != null && LeftPlasts != null);
+            RemoveCommand = new RelayCommand(obj => 
+            {
+                LeftPlasts.Remove(SelectedPlast);
+                RightPlasts.Remove(SelectedPlast);
+            }, obj => SelectedPlast != null);
+            SwapCommand = new RelayCommand(obj => 
+            {
+                ObservableCollection<Plast> tmp = new ObservableCollection<Plast>();
+                foreach (Plast plast in RightPlasts)
+                    tmp.Add(plast);
+                RightPlasts.Clear();
+                foreach (Plast plast in LeftPlasts)
+                    RightPlasts.Add(plast);
+                LeftPlasts.Clear();
+                foreach (Plast plast in tmp)
+                    LeftPlasts.Add(plast);
+                tmp.Clear();
+            }, obj => RightPlasts.Count > 0 || LeftPlasts.Count > 0);
             CalcWithDocxCommand = new RelayCommand(obj =>
             {
                 if (LeftPlasts.Count == RightPlasts.Count)
                     if (LeftPlasts.Count > 0)
-                        _ = new RepProWindow(this);
+                        _ = new ReportProgressWindow(this);
                     else
                         MessageBox.Show("Мы не можем произвести расчеты для несуществующих пластов");
                 else

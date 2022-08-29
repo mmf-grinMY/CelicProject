@@ -7,34 +7,26 @@
         d:DataContext="{d:DesignInstance Type=local:CalculationCViewModel}"
         mc:Ignorable="d"
         Title="Расчет приразломных целиков"
-        Width="580"
-        Height="380">
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition/>
-        </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="Auto"/>
-            <ColumnDefinition />
-        </Grid.ColumnDefinitions>
-        <local:PlastMenu Grid.ColumnSpan="2"/>
-        <local:PlastListBox Margin="4,0"
-                            Grid.Row="1"
-                            Itemsource="{Binding Plasts}"
-                            SelectedItem="{Binding SelectedPlast}"/>
-        <StackPanel VerticalAlignment="Top"
-                    HorizontalAlignment="Left"
-                    Grid.Row="1"
-                    Grid.Column="1">
-            <local:PlastDataBox x:Name="selected"
-                                DataContext="{Binding SelectedPlast}"/>
-            <Border BorderThickness="0.3"
-                    BorderBrush="Black"
-                    Margin="0,4,0,0">
-                <local:Scanner Description="Угол поворота разлома"
-                               Value="{Binding Alfa}"/>
-            </Border>
-        </StackPanel>
-    </Grid>
+        UseLayoutRounding="True"
+        SizeToContent="WidthAndHeight">
+    <StackPanel>
+        <local:PlastMenu/>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <local:PlastListBox Style="{StaticResource oneListBoxStyle}"/>
+            <StackPanel Style="{StaticResource stackPanelDefaultStyle}"
+                        Grid.Column="1">
+                <local:PlastDataBox x:Name="selected"/>
+                <local:OneListPlastControlPanel Style="{StaticResource centerPositionStyle}"/>
+                <Border Style="{StaticResource borderDefaultStyle}">
+                    <local:Scanner Description="Угол поворота разлома"
+                                   Value="{Binding Alfa}"/>
+                </Border>
+            </StackPanel>
+        </Grid>
+        
+    </StackPanel>
 </Window>

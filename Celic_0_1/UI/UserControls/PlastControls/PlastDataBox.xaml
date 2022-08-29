@@ -6,7 +6,8 @@
              xmlns:local="clr-namespace:Celic"
              mc:Ignorable="d" 
              d:DataContext="{d:DesignInstance local:Plast}"
-             d:DesignHeight="450" d:DesignWidth="800">
+             d:DesignHeight="450"
+             d:DesignWidth="800">
     <UserControl.Resources>
 
         <Style x:Key="comboBoxBaseStyle" TargetType="{x:Type ComboBox}">
@@ -79,139 +80,139 @@
         </DataTemplate>
 
         <local:MineDevConverter x:Key="MineDevConverter"/>
+
+        <local:GorizontConverter x:Key="GorizontConverter"/>
     </UserControl.Resources>
     <StackPanel Margin="0,0,4,0"
                 HorizontalAlignment="Left">
         <TextBlock HorizontalAlignment="Center"
                    FontSize="14"
+                   Margin="0,-4,0,4"
                    Text="Выбранный пласт"/>
         <Border Padding="0"
-            Margin="-4,-4,-4,0">
-            <ScrollViewer MaxHeight="500">
-                <StackPanel Orientation="Vertical">
-                    <local:Expander DataContext="{Binding SelectedPlast}"
+                Margin="-4,-4,-4,0">
+            <StackPanel Orientation="Vertical">
+                <local:Expander DataContext="{Binding SelectedPlast}"
             					     Header="Основные параметры пласта">
-                        <local:Expander.Content>
-                            <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="2*"/>
-                                    <ColumnDefinition/>
-                                </Grid.ColumnDefinitions>
-                                <Grid.RowDefinitions>
-                                    <RowDefinition/>
-                                    <RowDefinition/>
-                                    <RowDefinition/>
-                                </Grid.RowDefinitions>
-                                <local:Scanner Grid.ColumnSpan="2"
+                    <local:Expander.Content>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="2*"/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                            </Grid.RowDefinitions>
+                            <local:Scanner Grid.ColumnSpan="2"
 	                    				       Description="Наименование пласта"
 	                    				       Info="Уникальное имя пласта"
 	                    				       Value="{Binding Name, Mode=TwoWay}"/>
-                                <local:NameScanner Grid.Row="1"
+                            <local:NameScanner Grid.Row="1"
                                                 Description="Система разработки"
                                                 Info="Система разработки выбранного пласта"/>
-                                <ComboBox Grid.Column="1"
+                            <ComboBox Grid.Column="1"
 	                                      Grid.Row="1"
 	                                      x:Name="comboBox"
 	                                      Text="{Binding Path=TypeDev, Mode=TwoWay, Converter={StaticResource MineDevConverter}}"
-	                                      Style="{StaticResource comboBoxBaseStyle}"
-	                                      SelectionChanged="ComboBoxTypeDev_SelectionChanged">
-                                    <ComboBoxItem Content="столбовая"/>
-                                    <ComboBoxItem Content="камерная"/>
-                                </ComboBox>
-                                <local:NameScanner Grid.Row="2"
+	                                      Style="{StaticResource comboBoxBaseStyle}">
+                                <ComboBoxItem Content="столбовая"/>
+                                <ComboBoxItem Content="камерная"/>
+                            </ComboBox>
+                            <local:NameScanner Grid.Row="2"
                                                 Description="Калийный горизонт"
                                                 Info="Номер калийного горизонта, на котором расположен выбранный пласт"/>
-                                <ComboBox Grid.Column="1"
+                            <ComboBox Grid.Column="1"
 	                                      Grid.Row="2"
 	                                      Style="{StaticResource comboBoxBaseStyle}"
-	                                      Text="{Binding Path=Gorizont, Mode=TwoWay}">
-                                    <ComboBoxItem Content="I"/>
-                                    <ComboBoxItem Content="II"/>
-                                    <ComboBoxItem Content="-305 м"/>
-                                    <ComboBoxItem Content="III"/>
-                                    <ComboBoxItem Content="IV"/>
-                                </ComboBox>
-                            </Grid>
-                        </local:Expander.Content>
-                    </local:Expander>
-                    <local:Expander DataContext="{Binding SelectedPlast}"
+	                                      Text="{Binding Path=Gorizont, Mode=TwoWay, Converter={StaticResource GorizontConverter}}">
+                                <ComboBoxItem Content="I"/>
+                                <ComboBoxItem Content="II"/>
+                                <ComboBoxItem Content="-305 м"/>
+                                <ComboBoxItem Content="III"/>
+                                <ComboBoxItem Content="IV"/>
+                            </ComboBox>
+                        </Grid>
+                    </local:Expander.Content>
+                </local:Expander>
+                <local:Expander DataContext="{Binding SelectedPlast}"
             					     Header="Список шахтных полей, разрабатываемых на данном пласте">
-                        <local:Expander.Content>
-                            <ListBox ItemsSource="{Binding MineFields}"
+                    <local:Expander.Content>
+                        <ListBox ItemsSource="{Binding MineFields}"
 	                                 MinHeight="70"
 	                                 Padding="-3,0"
                 				     x:Name="listBox"
                 				     ItemTemplate="{StaticResource MineFieldDataTemplate}"/>
-                        </local:Expander.Content>
-                    </local:Expander>
-                    <local:Expander Header="Сближенные пласты">
-                        <local:Expander.Content>
-                            <local:FlipPanel MainHeader="Задать сближенные пласты вручную"
+                    </local:Expander.Content>
+                </local:Expander>
+                <local:Expander Header="Сближенные пласты">
+                    <local:Expander.Content>
+                        <local:FlipPanel MainHeader="Задать сближенные пласты вручную"
 										     OtherHeader="Выбрать сближенные пласты автоматически">
-                                <local:FlipPanel.MainContent>
-                                    <TextBlock Text="Сближенные пласты выбираются программно"
+                            <local:FlipPanel.MainContent>
+                                <TextBlock Text="Сближенные пласты выбираются программно"
 	                                           Width="Auto"/>
-                                </local:FlipPanel.MainContent>
-                                <local:FlipPanel.OtherContent>
-                                    <Grid>
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition/>
-                                            <ColumnDefinition/>
-                                        </Grid.ColumnDefinitions>
-                                        <StackPanel>
-                                            <TextBlock Text=" снизу" Width="43" Padding="0,0,0,2"/>
-                                            <ComboBox Text="{Binding SelectedButtom}">
-                                                <ComboBoxItem Content="{Binding Buttom}"/>
-                                                <ComboBoxItem Content="отсутствует"/>
-                                            </ComboBox>
-                                        </StackPanel>
-                                        <StackPanel Grid.Column="1">
-                                            <TextBlock Text="сверху" Width="43" Padding="0,0,0,2"/>
-                                            <ComboBox Text="{Binding SelectedTop}">
-                                                <ComboBoxItem Content="{Binding Top}"/>
-                                                <ComboBoxItem Content="отсутствует"/>
-                                            </ComboBox>
-                                        </StackPanel>
-                                    </Grid>
-                                </local:FlipPanel.OtherContent>
-                            </local:FlipPanel>
-                        </local:Expander.Content>
-                    </local:Expander>
-                    <local:Expander DataContext="{Binding SelectedPlast}"
+                            </local:FlipPanel.MainContent>
+                            <local:FlipPanel.OtherContent>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition/>
+                                        <ColumnDefinition/>
+                                    </Grid.ColumnDefinitions>
+                                    <StackPanel>
+                                        <TextBlock Text=" снизу" Width="43" Padding="0,0,0,2"/>
+                                        <ComboBox Text="{Binding SelectedButtom}">
+                                            <ComboBoxItem Content="{Binding Buttom}"/>
+                                            <ComboBoxItem Content="отсутствует"/>
+                                        </ComboBox>
+                                    </StackPanel>
+                                    <StackPanel Grid.Column="1">
+                                        <TextBlock Text="сверху" Width="43" Padding="0,0,0,2"/>
+                                        <ComboBox Text="{Binding SelectedTop}">
+                                            <ComboBoxItem Content="{Binding Top}"/>
+                                            <ComboBoxItem Content="отсутствует"/>
+                                        </ComboBox>
+                                    </StackPanel>
+                                </Grid>
+                            </local:FlipPanel.OtherContent>
+                        </local:FlipPanel>
+                    </local:Expander.Content>
+                </local:Expander>
+                <local:Expander DataContext="{Binding SelectedPlast}"
             			   		     Header="Дополнительные коэффициенты пласта ( по умолчанию равны 1 )">
-                        <local:Expander.Content>
-                            <StackPanel Orientation="Vertical">
-                                <local:Scanner Description="Коэффициент влияния выемки"
+                    <local:Expander.Content>
+                        <StackPanel Orientation="Vertical">
+                            <local:Scanner Description="Коэффициент влияния выемки"
 										       Info="Коэффициент, учитывающий степень влияния выемки разрабатываемых пластов на развитие техногенных водопроводящих трещин в зависимости от взаимного положения ( смещения в плане ) границ остановки работ"
 										       Value="{Binding S, Mode=TwoWay}"/>
-                                <local:Scanner Description="Коэффициент деформации"
+                            <local:Scanner Description="Коэффициент деформации"
 										       Info="Коэффициент, учитывающий характер деформирования массива пород в краевой части мульды сдвижения над угловыми участками выработанного пространства, определяемые согласно отдельным рекомендациям специализированной организации( 0 ≤ S_z ≤ 1 ); при отсутствии таких рекомендаций значение принимается равным 1"
 										       Value="{Binding Sz, Mode=TwoWay}"/>
-                                <local:FlipPanel MainHeader="Задать коэффициент порядка точнее"
+                            <local:FlipPanel MainHeader="Задать коэффициент порядка точнее"
 	                    				         OtherHeader="Задать коэффициент явно">
-                                    <local:FlipPanel.MainContent>
-                                        <local:Scanner Description="Коэффициент порядка разработки"
+                                <local:FlipPanel.MainContent>
+                                    <local:Scanner Description="Коэффициент порядка разработки"
 												       Info="Коэффициент, учитывающий порядок разработки пластов и интервал времени между их отработкой"
 												       Value="{Binding Kt, Mode=TwoWay}"/>
-                                    </local:FlipPanel.MainContent>
-                                    <local:FlipPanel.OtherContent>
-                                        <local:Scanner Description="Год отработки"
+                                </local:FlipPanel.MainContent>
+                                <local:FlipPanel.OtherContent>
+                                    <local:Scanner Description="Год отработки"
 												       Info="Год отработки рассматриваемого пласта"
 												       Value="{Binding T, Mode=TwoWay}"
 	                    						       GridWidth="2*"/>
-                                    </local:FlipPanel.OtherContent>
-                                </local:FlipPanel>
-                                <local:Scanner Description="Фактическая высота ЗВТ"
+                                </local:FlipPanel.OtherContent>
+                            </local:FlipPanel>
+                            <local:Scanner Description="Фактическая высота ЗВТ"
 										       Info="Фактическая высота зоны вовдопроводящих целиков"
 										       Value="{Binding Hf, Mode=TwoWay}"/>
-                                <local:Scanner Description="Расстояние между границами остановки работ на 1-м и выбранном пласте"
+                            <local:Scanner Description="Расстояние между границами остановки работ на 1-м и выбранном пласте"
 										       Info="Расстояние в плане между границами остановки работ на 1-м и рассматриваемом пластах"
 										       Value="{Binding Lp, Mode=TwoWay}"/>
-                            </StackPanel>
-                        </local:Expander.Content>
-                    </local:Expander>
-                </StackPanel>
-            </ScrollViewer>
+                        </StackPanel>
+                    </local:Expander.Content>
+                </local:Expander>
+            </StackPanel>
         </Border>
     </StackPanel>
 </UserControl>

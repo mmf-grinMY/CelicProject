@@ -6,13 +6,13 @@ namespace Celic
     /// <summary>
     /// Логика взаимодействия для RepProWindow.xaml
     /// </summary>
-    partial class RepProWindow : Window
+    partial class ReportProgressWindow : Window
     {
         /// <summary>
         /// 
         /// </summary>
         /// <param name="model"></param>
-        public RepProWindow(ListPlastViewModel model)
+        public ReportProgressWindow(ListPlastViewModel model)
         {
             InitializeComponent();
             DataContext = new RepProViewModel(this, model);

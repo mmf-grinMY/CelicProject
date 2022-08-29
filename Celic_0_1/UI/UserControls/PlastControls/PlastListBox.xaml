@@ -26,17 +26,12 @@
                     <MenuItem Header="Добавить"
                               Command="{Binding AddCommand}"
                               x:Name="adding"/>
-                    <MenuItem Header="Удалить"
-                              Command="{Binding RemoveCommand}"/>
-                    <MenuItem Header="Отменить выбор пласта"
-                              Command="{Binding RemoveSelectionCommand}"
-                              x:Name="selection"/>
                 </ContextMenu>
             </TextBlock.ContextMenu>
         </TextBlock>
         <ScrollViewer VerticalScrollBarVisibility="Auto"
                       MaxHeight="400">
-            <ListBox ItemsSource="{Binding ElementName=root, Path=Itemsource}"
+            <ListBox ItemsSource="{Binding ElementName=root, Path=ItemSource}"
                      SelectedItem="{Binding SelectedPlast}"
                      ScrollViewer.VerticalScrollBarVisibility="Disabled"
                      Padding="-2,0"
