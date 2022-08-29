@@ -26,9 +26,9 @@ namespace Celic
             InitializeComponent();
         }
         public readonly static DependencyProperty ItemSourceProperty =
-            DependencyProperty.Register("Itemsource", typeof(ObservableCollection<Plast>), typeof(PlastListBox),
+            DependencyProperty.Register("ItemSource", typeof(ObservableCollection<Plast>), typeof(PlastListBox),
                 new FrameworkPropertyMetadata(new PropertyChangedCallback(OnItemSourceChanged)));
-        public ObservableCollection<Plast> Itemsource
+        public ObservableCollection<Plast> ItemSource
         {
             get { return (ObservableCollection<Plast>)GetValue(ItemSourceProperty); }
             set { SetValue(ItemSourceProperty, value); }
@@ -36,20 +36,14 @@ namespace Celic
         private static void OnItemSourceChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             if (d is PlastListBox box)
-                box.adding.CommandParameter = box.Itemsource;
+                box.adding.CommandParameter = box.ItemSource;
         }
         public readonly static DependencyProperty SelectedItemProperty =
-            DependencyProperty.Register("SelectedItem", typeof(Plast), typeof(PlastListBox),
-                new FrameworkPropertyMetadata(new PropertyChangedCallback(OnSelectedItemChanged)));
+            DependencyProperty.Register("SelectedItem", typeof(Plast), typeof(PlastListBox));
         public Plast SelectedItem
         {
             get { return (Plast)GetValue(SelectedItemProperty); }
             set { SetValue(SelectedItemProperty, value); }
-        }
-        private static void OnSelectedItemChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
-        {
-            if (d is PlastListBox box)
-                box.selection.CommandParameter = box.SelectedItem;
         }
     }
 }

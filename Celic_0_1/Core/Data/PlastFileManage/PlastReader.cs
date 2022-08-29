@@ -35,7 +35,7 @@ namespace Celic
         public void Read()
         {
             if(_model.GetType() == typeof(CalculationBViewModel))
-                ReadSimpleB();
+                ReadDataB();
             else if (_model.GetType() == typeof(CalculationCViewModel))
                 ReadSimpleC();
             else if (_model.GetType() == typeof(CalculationDViewModel))
@@ -46,33 +46,78 @@ namespace Celic
 
         #region Private Methods
 
+        private float Parse(string data) => data.Equals("undefine") ? -1 : float.Parse(data);
+
+        private void ReadData(XmlNode minefields, Plast plast)
+        {
+            foreach (XmlNode minefield in minefields.ChildNodes)
+            {
+                if (minefield.Name == "lava")
+                {
+                    Lava lava = new Lava();
+                    foreach (XmlNode coef in minefield.ChildNodes)
+                        switch (coef.Name)
+                        {
+                            case "H": lava.H = Parse(coef.InnerText); break;
+                            case "Mv": lava.Mv = Parse(coef.InnerText); break;
+                            case "Ki": lava.Ki = Parse(coef.InnerText); break;
+                            case "K": lava.K = Parse(coef.InnerText); break;
+                            case "D": lava.D = Parse(coef.InnerText); break;
+                            case "L": lava.L = Parse(coef.InnerText); break;
+                            case "B": lava.B = Parse(coef.InnerText); break;
+                            case "Sl": lava.Sl = Parse(coef.InnerText); break;
+                        }
+                    if (minefield.Attributes.GetNamedItem("status")?.Value == "main")
+                        plast.Main = lava;
+                    plast.MineFields.Add(lava);
+                }
+                else
+                {
+                    Camera camera = new Camera();
+                    foreach (XmlNode coef in minefield.ChildNodes)
+                        switch (coef.Name)
+                        {
+                            case "H": camera.H = Parse(coef.InnerText); break;
+                            case "Mv": camera.Mv = Parse(coef.InnerText); break;
+                            case "Ki": camera.Ki = Parse(coef.InnerText); break;
+                            case "K": camera.K = Parse(coef.InnerText); break;
+                            case "D": camera.D = Parse(coef.InnerText); break;
+                            case "L": camera.L = Parse(coef.InnerText); break;
+                            case "Si": camera.Si = Parse(coef.InnerText); break;
+                        }
+                    if (minefield.Attributes.GetNamedItem("status")?.Value == "main")
+                        plast.Main = camera;
+                    plast.MineFields.Add(camera);
+                }
+            }
+        }
+
         /// <summary> Чтение данных об одиночном пласте </summary>
         /// <param name="plastNode"> Корневой узел рассматриваемого пласта </param>
         /// <returns> Пласт с данными из рассматриваемого узла </returns>
-        private Plast ReadSimplePlast(XmlElement plastNode)
+        private Plast ReadPlastInfo(XmlElement plastNode)
         {
             Plast plast = new Plast();
-            foreach (XmlNode childnode in plastNode.ChildNodes)
-                if (childnode.Name == "minefield")
-                    foreach (XmlNode minefield in childnode.ChildNodes)
-                        if (minefield.Name == "h")
-                            plast.MainMineField.H = float.Parse(minefield.InnerText);
-                        else if (minefield.Name == "mv")
-                            plast.MainMineField.Mv = float.Parse(minefield.InnerText);
-                        else if (minefield.Name == "ki")
-                            (plast.MainMineField as Camera).Ki = float.Parse(minefield.InnerText);
-                        else if (minefield.Name == "typeDev")
-                            plast.TypeDev = MineDevManager.ToMineDev(minefield.InnerText);
-                else if (childnode.Name == "S")
-                     plast.S = float.Parse(childnode.InnerText);
-                else if (childnode.Name == "S_z")
-                    plast.Sz = float.Parse(childnode.InnerText);
-                else if (childnode.Name == "k_t")
-                    plast.Kt = float.Parse(childnode.InnerText);
+            foreach (XmlNode plastCoef in plastNode.ChildNodes)
+                switch (plastCoef.Name)
+                {
+                    case "minefields": ReadData(plastCoef, plast); break;
+                    case "S": plast.S = Parse(plastCoef.InnerText); break;
+                    case "Sz": plast.Sz = Parse(plastCoef.InnerText); break;
+                    case "Kt": plast.Kt = Parse(plastCoef.InnerText); break;
+                    case "T": plast.T = (int)Parse(plastCoef.InnerText); break;
+                    case "Hf": plast.Hf = Parse(plastCoef.InnerText); break;
+                    case "Lp": plast.Lp = Parse(plastCoef.InnerText); break;
+                    case "Gorizont": plast.Gorizont = GorizontManager.ToGorizont(plastCoef.InnerText); break;
+                    case "Id": plast.Id = (int)Parse(plastCoef.InnerText); break;
+                    case "Top": plast.Top = plastCoef.InnerText; break;
+                    case "Buttom": plast.Buttom = plastCoef.InnerText; break;
+                    case "Name": plast.Name = plastCoef.InnerText; break;
+                }
             return plast;
         }
         /// <summary> Чтение данных о модели расчета SCalcBViewModel </summary>
-        private void ReadSimpleB()
+        private void ReadDataB()
         {
             XmlDocument doc = new XmlDocument();
             if (File.Exists(_path))
@@ -82,7 +127,7 @@ namespace Celic
                 if (sysDev != null && (sysDev.Attributes.GetNamedItem("type")?.Value == "simpleB")
                     || (sysDev.Attributes.GetNamedItem("type") == null))
                     foreach (XmlElement plastNode in sysDev)
-                        (_model as CalculationBViewModel).Plasts.Add(ReadSimplePlast(plastNode));
+                        (_model as CalculationBViewModel).Plasts.Add(ReadPlastInfo(plastNode));
                 else
                     MessageBox.Show("Данные в файле некорректны для данного типа расчета");
             }
@@ -100,7 +145,7 @@ namespace Celic
                         if (plastNode.Name == "angle")
                             (_model as CalculationCViewModel).Alfa = float.Parse(plastNode.InnerText);
                         else
-                            (_model as CalculationCViewModel).Plasts.Add(ReadSimplePlast(plastNode));
+                            (_model as CalculationCViewModel).Plasts.Add(ReadPlastInfo(plastNode));
                 else
                     MessageBox.Show("Данные в файле некорректны для данного типа расчета");
             }
@@ -117,10 +162,10 @@ namespace Celic
                     foreach(XmlElement type in sysDev.ChildNodes)
                         if(type.Name == "left")
                             foreach (XmlElement plastNode in type)
-                                (_model as CalculationDViewModel).LeftPlasts.Add(ReadSimplePlast(plastNode));
+                                (_model as CalculationDViewModel).LeftPlasts.Add(ReadPlastInfo(plastNode));
                         else if (type.Name == "right")
                             foreach (XmlElement plastNode in type)
-                                (_model as CalculationDViewModel).RightPlasts.Add(ReadSimplePlast(plastNode));
+                                (_model as CalculationDViewModel).RightPlasts.Add(ReadPlastInfo(plastNode));
                         else
                             ReadFailed();
                 else

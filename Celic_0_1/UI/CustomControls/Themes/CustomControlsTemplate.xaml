@@ -44,7 +44,7 @@
     <Style TargetType="{x:Type local:Scanner}" BasedOn="{StaticResource ScannerStyle}"/>
 
     <ControlTemplate x:Key="ExpanderTemplate" TargetType="{x:Type local:Expander}">
-        <Grid>
+        <Grid Margin="0,1,0,0">
             <Grid.RowDefinitions>
                 <RowDefinition/>
                 <RowDefinition/>
@@ -54,13 +54,15 @@
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
             <Button x:Name="collapsedBtn"
-						Style="{StaticResource ButtonStyle}">
+                    Template="{StaticResource CircleButtonStyle}"
+					Style="{StaticResource ButtonStyle}">
                 <Path Data="M 0 0 L 4 4 L 0 8 Z"
 						  Style="{StaticResource PathStyle}"/>
             </Button>
             <Button x:Name="expandedBtn"
-						Style="{StaticResource ButtonStyle}"
-						Visibility="Collapsed">
+                    Template="{StaticResource CircleButtonStyle}"
+					Style="{StaticResource ButtonStyle}"
+					Visibility="Collapsed">
                 <Path Data="M 0 0 L 4 4 L 8 0 Z"
 						  Style="{StaticResource PathStyle}"/>
             </Button>
@@ -89,9 +91,9 @@
                 <StackPanel Orientation="Horizontal">
                     <TextBlock Text="{TemplateBinding MainHeader}"
             				   Style="{StaticResource HeaderStyle}"/>
-                    <Button Background="Transparent"
-            		        x:Name="mainButton"
+                    <Button x:Name="mainButton"
             		        Style="{StaticResource ButtonStyle}"
+                            Template="{StaticResource CircleButtonStyle}"
             		        HorizontalAlignment="Right"
             				Margin="10,0,0,0">
                         <Path x:Name="rightToLeftArrow"
@@ -105,9 +107,9 @@
 						Visibility="Collapsed"
 						Orientation="Vertical">
                 <StackPanel Orientation="Horizontal">
-                    <Button Background="Transparent"
-                	        x:Name="otherButton"
+                    <Button x:Name="otherButton"
    							Margin="0,0,10,0"
+                            Template="{StaticResource CircleButtonStyle}"
             				Style="{StaticResource ButtonStyle}">
                         <Path x:Name="rightArrow"
 				              Data="M 4 0 L 0 4 L 4 8 Z"

@@ -69,7 +69,7 @@
         <local:MineDevConverter x:Key="MineDevConverter"/>
 
     </UserControl.Resources>
-    <Border>
+    <Border Margin="2">
         <StackPanel MinWidth="302">
             <local:Expander Header="Основные данные пласта">
                 <local:Expander.Content>
@@ -91,7 +91,8 @@
                     <ListBox ItemsSource="{Binding MineFields}"
                              MaxHeight="240"
                              Background="Transparent"
-                             Padding="-3" ItemTemplate="{StaticResource MineFieldDataTemplate}"/>
+                             Padding="-3"
+                             ItemTemplate="{StaticResource MineFieldDataTemplate}"/>
                 </local:Expander.Content>
             </local:Expander>
             <local:Expander Header="Сближенные пласты">

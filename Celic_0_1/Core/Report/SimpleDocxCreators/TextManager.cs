@@ -66,14 +66,14 @@ namespace Celic
         private void FormatListLine1()
         {
             FormatVariable2("mв ");
-            Select(_p.MainMineField.Mv.ToString(), _p.MainMineField.Mv.ToString().Length).BoldRun();
+            Select(_p.Main.Mv.ToString(), _p.Main.Mv.ToString().Length).BoldRun();
         }
         /// <summary> Форматирование текста listLine2 </summary>
-        private void FormatListLine2() => Select(_p.MainMineField.H.ToString(), _p.MainMineField.H.ToString().Length).BoldRun();
+        private void FormatListLine2() => Select(_p.Main.H.ToString(), _p.Main.H.ToString().Length).BoldRun();
         /// <summary> Форматирование текста listLine32 </summary>
         private void FormatListLine32()
         {
-            Select((_p.MainMineField as Camera).Ki.ToString(), (_p.MainMineField as Camera).Ki.ToString().Length).BoldRun();
+            Select((_p.Main as Camera).Ki.ToString(), (_p.Main as Camera).Ki.ToString().Length).BoldRun();
             FormatVariable2("kи ");
         }
         /// <summary> Форматирование текста line2 </summary>
@@ -94,9 +94,9 @@ namespace Celic
         private void FormatLine3()
         {
             Select(_p.Gorizont + "-му", 4).BoldRun();
-            Select(_p.MainMineField.Mv.ToString(), _p.MainMineField.Mv.ToString().Length).BoldRun();
+            Select(_p.Main.Mv.ToString(), _p.Main.Mv.ToString().Length).BoldRun();
             FormatVariable2("kи ");
-            Select((_p.MainMineField as Camera).Ki.ToString(), (_p.MainMineField as Camera).Ki.ToString().Length).BoldRun();
+            Select((_p.Main as Camera).Ki.ToString(), (_p.Main as Camera).Ki.ToString().Length).BoldRun();
         }
         /// <summary> Форматирование текста formula1 </summary>
         private void FormatFormula1()
@@ -123,7 +123,7 @@ namespace Celic
             FormatVariable2("mв");
             FormatVariable2("kи");
             Select("k,", 1, 0).ItalicRun();
-            Select($"{_p.MainMineField.Mv} ∙ {(_p.MainMineField as Camera).Ki} ∙ {_p.MainMineField.K} = {new PlastManager(_p).MPr()}", $"{_p.MainMineField.Mv} ∙ {(_p.MainMineField as Camera).Ki} ∙ {_p.MainMineField.K} = {new PlastManager(_p).MPr()}".Length).BoldRun();
+            Select($"{_p.Main.Mv} ∙ {(_p.Main as Camera).Ki} ∙ {_p.Main.K} = {new PlastManager(_p).MPr()}", $"{_p.Main.Mv} ∙ {(_p.Main as Camera).Ki} ∙ {_p.Main.K} = {new PlastManager(_p).MPr()}".Length).BoldRun();
         }
         /// <summary> Форматирование текста formula4 </summary>
         private void FormatFormula4()
@@ -133,7 +133,7 @@ namespace Celic
             Select("d").ItalicRun();
             Select("Н").ItalicRun();
             Select($"{D} – 0.01 ∙ Н", 9).BoldRun();
-            Select($"{D} – 0.01 ∙ {_p.MainMineField.H}", $"{D} – 0.01 ∙ {_p.MainMineField.H}".Length).BoldRun();
+            Select($"{D} – 0.01 ∙ {_p.Main.H}", $"{D} – 0.01 ∙ {_p.Main.H}".Length).BoldRun();
             Select($"{new PlastManager(_p).CalcD()}", $"{new PlastManager(_p).CalcD()}".Length).BoldRun();
         }
         /// <summary> Форматирование текста formula5 </summary>
@@ -166,13 +166,13 @@ namespace Celic
                 (_p.TypeDev == MineDev.lava ? "столбовой" : "камерной") +
                 " системе отработки будут проводиться со следующими параметрами:", FormatLine1);
             reporter.StatusReport = (status += offset).ToString();
-            AddParagraph($"Выемочная мощность{ Tab(5)}-{ Tab(1)}mв = {_p.MainMineField.Mv} м;", FormatListLine1, spaceAfter: NULL_SPACE_PARAGRAPH);
+            AddParagraph($"Выемочная мощность{ Tab(5)}-{ Tab(1)}mв = {_p.Main.Mv} м;", FormatListLine1, spaceAfter: NULL_SPACE_PARAGRAPH);
             reporter.StatusReport = (status += offset).ToString();
-            AddParagraph($"Глубина ведения горных работ{Tab(3)}-{Tab(1)}{_p.MainMineField.H} м;", FormatListLine2);
+            AddParagraph($"Глубина ведения горных работ{Tab(3)}-{Tab(1)}{_p.Main.H} м;", FormatListLine2);
             reporter.StatusReport = (status += offset).ToString();
             AddParagraph("Коэффициент извлечения рудной массы");
             reporter.StatusReport = (status += offset).ToString();
-            AddParagraph($"в пределах вынимаемой мощности{Tab(3)} -{Tab(1)} kи = { (_p.MainMineField as Camera).Ki}.",
+            AddParagraph($"в пределах вынимаемой мощности{Tab(3)} -{Tab(1)} kи = { (_p.Main as Camera).Ki}.",
                 FormatListLine32, spaceAfter: SPACE_PARAGRAPH * 2);
             reporter.StatusReport = (status += offset).ToString();
             AddParagraph($"Высота зоны распространения трещин над {_p.Gorizont}-м калийным горизонтом составит:",
@@ -191,14 +191,14 @@ namespace Celic
             AddParagraph("k – коэффициент, учитывающий размер выработанного пространства, принимаем k = 1.", FormatExplanation4);
             reporter.StatusReport = (status += offset).ToString();
             AddParagraph($"Принимая выемочную мощность по {_p.Gorizont}-му калийному горизонту равную " +
-                $"{ _p.MainMineField.Mv} метра, а коэффициент извлечения kи = {(_p.MainMineField as Camera).Ki} получаем:", FormatLine3);
+                $"{ _p.Main.Mv} метра, а коэффициент извлечения kи = {(_p.Main as Camera).Ki} получаем:", FormatLine3);
             reporter.StatusReport = (status += offset).ToString();
             PlastManager manager = new PlastManager(_p);
-            AddParagraph($"mпр = mв ∙ kи ∙ k = {_p.MainMineField.Mv} ∙ {(_p.MainMineField as Camera).Ki} ∙ {_p.MainMineField.K} = {manager.MPr()}", FormatFormula3, Align.wdAlignParagraphCenter);
+            AddParagraph($"mпр = mв ∙ kи ∙ k = {_p.Main.Mv} ∙ {(_p.Main as Camera).Ki} ∙ {_p.Main.K} = {manager.MPr()}", FormatFormula3, Align.wdAlignParagraphCenter);
             reporter.StatusReport = (status += offset).ToString();
             AddParagraph("Определяем параметр d согласно приложению Б [1] в зависимости от глубины и системы разработки:");
             reporter.StatusReport = (status += offset).ToString();
-            AddParagraph($"d = {GetD(_p)} – 0.01 ∙ Н = {GetD(_p)} – 0.01 ∙ {_p.MainMineField.H} = {manager.CalcD()}",
+            AddParagraph($"d = {GetD(_p)} – 0.01 ∙ Н = {GetD(_p)} – 0.01 ∙ {_p.Main.H} = {manager.CalcD()}",
                 FormatFormula4, Align.wdAlignParagraphCenter);
             reporter.StatusReport = (status += offset).ToString();
             AddParagraph("Тогда:", align: Align.wdAlignParagraphJustify);

@@ -37,7 +37,7 @@ namespace Celic
         {
             float ht = new PlastManager(_plasts[0]).Ht();
             for (int i = 1; i < _plasts.Count; i++)
-                ht += h * new PlastManager(_plasts[i]).Ht() / (h + _plasts[i].MainMineField.H - _plasts[0].MainMineField.H);
+                ht += h * new PlastManager(_plasts[i]).Ht() / (h + _plasts[i].Main.H - _plasts[0].Main.H);
             return ht;
         }
         /// <summary> Расчет высоты ЗВТ с логированием произведенных операций </summary>
@@ -51,11 +51,11 @@ namespace Celic
             for (int i = 1; i < _plasts.Count; i++)
             {
                 Plast p = _plasts[i];
-                ht += h * new PlastManager(_plasts[i]).Ht() / (h + _plasts[i].MainMineField.H - _plasts[0].MainMineField.H);
+                ht += h * new PlastManager(_plasts[i]).Ht() / (h + _plasts[i].Main.H - _plasts[0].Main.H);
                 h = (float)Math.Round(h * 100) / 100;
                 PlastManager manager = new PlastManager(p);
                 txt += " + (" + h + "∙" + Math.Round(manager.CalcD() * 100) / 100 + "∙" + manager.MPr() + "∙" +
-                    p.S + "∙" + p.Sz + "∙" + p.Kt + ")/(" + h + " + " + (p.MainMineField.H - _plasts[0].MainMineField.H) + ")";
+                    p.S + "∙" + p.Sz + "∙" + p.Kt + ")/(" + h + " + " + (p.Main.H - _plasts[0].Main.H) + ")";
             }
             txt += " = " + Math.Round(ht * 100) / 100;
             _txt.Add(txt);

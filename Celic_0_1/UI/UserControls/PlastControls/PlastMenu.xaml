@@ -9,14 +9,14 @@
         <Style TargetType="MenuItem">
             <Setter Property="FontSize" Value="14"/>
             <Setter Property="BorderBrush" Value="LightGray"/>
+            <Setter Property="Background" Value="LightGray"/>
         </Style>
     </UserControl.Resources>
     <StackPanel VerticalAlignment="Top"
                 Background="LightGray">
         <Menu VerticalAlignment="Top"
               HorizontalAlignment="Left">
-            <MenuItem Header="Файл"
-                      Background="LightGray">
+            <MenuItem Header="Файл">
                 <MenuItem Header="Открыть" Command="{Binding OpenReadCommand}">
                     <MenuItem.ToolTip>
                         <ToolTip Content="Открыть файл с данными для расчета"/>
@@ -33,8 +33,7 @@
                     </MenuItem.ToolTip>
                 </MenuItem>
             </MenuItem>
-            <MenuItem Header="Расчет"
-                      Background="LightGray">
+            <MenuItem Header="Расчет">
                 <MenuItem Header="Произвести расчет">
                     <MenuItem.ToolTip>
                         <ToolTip Content="Запустить процедуру расчета"/>
@@ -55,6 +54,14 @@
                         <ToolTip Content="Вернуться на главное окно"/>
                     </MenuItem.ToolTip>
                 </MenuItem>
+            </MenuItem>
+            <MenuItem Header="Вид">
+                <MenuItem Header="Настройки">
+                    
+                </MenuItem>
+            </MenuItem>
+            <MenuItem Header="Помощь">
+                
             </MenuItem>
         </Menu>
     </StackPanel>

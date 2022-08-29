@@ -24,7 +24,7 @@ namespace Celic
         /// <summary>
         /// Окно, вызвавшее ViewModel
         /// </summary>
-        private readonly RepProWindow _window;
+        private readonly ReportProgressWindow _window;
 
         #endregion
 
@@ -33,7 +33,7 @@ namespace Celic
         /// <summary>
         /// Основной конструктор дял данного класса
         /// </summary>
-        public RepProViewModel(RepProWindow window, ListPlastViewModel model)
+        public RepProViewModel(ReportProgressWindow window, ListPlastViewModel model)
         {
             _model = model;
             (_window = window).Show();

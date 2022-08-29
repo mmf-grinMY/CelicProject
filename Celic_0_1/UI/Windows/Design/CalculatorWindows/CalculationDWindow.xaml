@@ -6,25 +6,28 @@
         xmlns:local="clr-namespace:Celic"
         d:DataContext="{d:DesignInstance Type=local:CalculationDViewModel}"
         mc:Ignorable="d"
+        SnapsToDevicePixels="True"
+        UseLayoutRounding="True"
         Title="Расчет междубурьерных целиков"
-        MaxHeight="384"
-        MinHeight="344">
-    <DockPanel>
-        <local:PlastMenu DockPanel.Dock="Top"/>
-        <local:PlastListBox DockPanel.Dock="Left" 
-                            Itemsource="{Binding LeftPlasts}"
-                            SelectedItem="{Binding LeftPlastSelected}"/>
-        <StackPanel VerticalAlignment="Top"
-                    Margin="4,0,0,0">
-            <local:PlastDataBox x:Name="selected"
-                                DataContext="{Binding SelectedPlast}"/>
-            <Button HorizontalAlignment="Center"
-                    Margin="4"
-                    Content="Поменять местами"
-                    Command="{Binding SwapCommand}"/>
-        </StackPanel>
-        <local:PlastListBox DockPanel.Dock="Right"
-                            Itemsource="{Binding RightPlasts}"
-                            SelectedItem="{Binding RightPlastSelected}"/>
-    </DockPanel>
+        SizeToContent="WidthAndHeight"
+        MinWidth="894"
+        MinHeight="226">
+    <StackPanel>
+        <local:PlastMenu/>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <local:PlastListBox Style="{StaticResource leftListBoxStyle}"/>
+            <StackPanel Style="{StaticResource stackPanelDefaultStyle}"
+                        Grid.Column="1">
+                <local:PlastDataBox x:Name="selected"/>
+                <local:TwoListPlastControlPanel Style="{StaticResource centerPositionStyle}"/>
+            </StackPanel>
+            <local:PlastListBox Grid.Column="2"
+                                Style="{StaticResource rightListBoxStyle}"/>
+        </Grid>
+    </StackPanel>
 </Window>

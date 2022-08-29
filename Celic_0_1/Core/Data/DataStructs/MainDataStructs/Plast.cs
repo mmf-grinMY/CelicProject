@@ -13,11 +13,11 @@ namespace Celic
         /// <summary> Имя пласта ( поле) </summary>
         private string _name;
         /// <summary> Калийный горизонт ( поле ) </summary>
-        private string _gorizont;
+        private GorizontDev _gorizont;
         /// <summary> Система разработки пласта </summary>
         private MineDev _typeDev;
         /// <summary> Уникальный идентификатор пласта ( поле ) </summary>
-        private readonly int myID;
+        private int _myID;
         /// <summary> Количество созданных пластов </summary>
         private static int id;
         /// <summary> Сближенный к данному пласт, находящийся сверху ( поле ) </summary>
@@ -37,7 +37,7 @@ namespace Celic
         /// <summary> Расстояние в плане между границами остановки работ на 1-м и рассматриваемом пластах, м ( поле ) </summary>
         private float _lp;
         /// <summary> Главное шахтное поле среди списка рассматриваемых ( поле ) </summary>
-        private MineField _mainMineField;
+        private MineField _main;
 
         #endregion
 
@@ -77,7 +77,7 @@ namespace Celic
             }
         }
         /// <summary> Калийный горизонт </summary>
-        public string Gorizont
+        public GorizontDev Gorizont
         {
             get => _gorizont;
             set
@@ -173,14 +173,19 @@ namespace Celic
         /// <summary> Список шахтных полей, разрабатываемых на данном пласте </summary>
         public ObservableCollection<MineField> MineFields { get; set; }
         /// <summary> Главное шахтное поле среди списка рассматриваемых </summary>
-        public MineField MainMineField
+        public MineField Main
         {
-            get => _mainMineField;
+            get => _main;
             set
             {
-                _mainMineField = value;
-                OnPropertyChanged("MainMineField");
+                _main = value;
+                OnPropertyChanged("Main");
             }
+        }
+        public int Id
+        {
+            get => _myID;
+            set => _myID = value;
         }
 
         #endregion
@@ -194,8 +199,8 @@ namespace Celic
         {
             MineFields = new ObservableCollection<MineField>();
             TypeDev = MineDev.camera;
-            myID = ++id;
-            Name = $"Пласт_{myID}";
+            _myID = ++id;
+            Name = $"Пласт_{_myID}";
             S = Sz = Kt = 1;
             Top = Buttom = UNDEFINE_DEV;
         }
@@ -230,7 +235,7 @@ namespace Celic
             float maxK = 0;
             if (_plast.TypeDev.Equals(CAMERA_DEV))
             {
-                maxK = new CameraManager(_plast.MainMineField as Camera).RecalcK();
+                maxK = new CameraManager(_plast.Main as Camera).RecalcK();
             }
             else
             {
@@ -242,7 +247,7 @@ namespace Celic
                     }
                         
             }
-            return _plast.MainMineField.K = maxK;
+            return _plast.Main.K = maxK;
         }
 
         #endregion
@@ -269,9 +274,9 @@ namespace Celic
         private IMineFieldManage SelectTypeManager()
         {
             if (_plast.TypeDev.Equals(CAMERA_DEV))
-                return new CameraManager((Camera)_plast.MainMineField);
+                return new CameraManager((Camera)_plast.Main);
             else
-                return new LavaManager((Lava)_plast.MainMineField);
+                return new LavaManager((Lava)_plast.Main);
         }
 
         #endregion

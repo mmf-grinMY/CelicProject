@@ -4,11 +4,11 @@
              xmlns:local="clr-namespace:Celic"
              StartupUri="UI/Windows/Main/MainWindow.xaml">
     <Application.Resources>
-        
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="UI/CustomControls/Themes/Generic.xaml"/>
-                <ResourceDictionary Source="UI/CustomControls/Themes/ScannerStyle.xaml"/>
+                <ResourceDictionary Source="UI/CustomControls/Themes/CustomControlsTemplate.xaml"/>
+                <ResourceDictionary Source="UI/Windows/Themes/WindowsDesign.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
         

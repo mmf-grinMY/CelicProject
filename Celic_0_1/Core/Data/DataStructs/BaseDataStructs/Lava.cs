@@ -11,8 +11,6 @@ namespace Celic
         private float _b;
         /// <summary> Площадь поперечного сечения лавы ( поле ) </summary>
         private float _sl;
-        /// <summary> Длина лавы ( поле ) </summary>
-        private float _l;
 
         #endregion
 
@@ -36,16 +34,6 @@ namespace Celic
             {
                 _sl = value;
                 OnPropertyChanged("Sl");
-            }
-        }
-        /// <summary> Длина лавы </summary>
-        public float L
-        {
-            get => _l;
-            set
-            {
-                _l = value;
-                OnPropertyChanged("L");
             }
         }
 

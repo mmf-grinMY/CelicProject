@@ -32,12 +32,36 @@
         <Setter Property="TextAlignment" Value="Right"/>
         <Setter Property="TextWrapping" Value="WrapWithOverflow"/>
     </Style>
-
+    <ControlTemplate x:Key="CircleButtonStyle" TargetType="{x:Type ButtonBase}">
+        <Border x:Name="border" CornerRadius="10" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" SnapsToDevicePixels="True">
+            <ContentPresenter x:Name="contentPresenter" ContentTemplate="{TemplateBinding ContentTemplate}" Content="{TemplateBinding Content}" ContentStringFormat="{TemplateBinding ContentStringFormat}" Focusable="False" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+        </Border>
+        <ControlTemplate.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Background" TargetName="border" Value="#FFBEE6FD"/>
+                <Setter Property="BorderBrush" TargetName="border" Value="#FF3C7FB1"/>
+            </Trigger>
+            <Trigger Property="IsPressed" Value="True">
+                <Setter Property="Background" TargetName="border" Value="#FFC4E5F6"/>
+                <Setter Property="BorderBrush" TargetName="border" Value="#FF2C628B"/>
+            </Trigger>
+            <Trigger Property="ToggleButton.IsChecked" Value="True">
+                <Setter Property="Background" TargetName="border" Value="#FFBCDDEE"/>
+                <Setter Property="BorderBrush" TargetName="border" Value="#FF245A83"/>
+            </Trigger>
+            <Trigger Property="IsEnabled" Value="False">
+                <Setter Property="Background" TargetName="border" Value="#FFF4F4F4"/>
+                <Setter Property="BorderBrush" TargetName="border" Value="#FFADB2B5"/>
+                <Setter Property="Foreground" Value="#FF838383"/>
+            </Trigger>
+        </ControlTemplate.Triggers>
+    </ControlTemplate>
     <Style x:Key="ButtonStyle" TargetType="{x:Type Button}">
         <Setter Property="VerticalAlignment" Value="Top"/>
         <Setter Property="HorizontalAlignment" Value="Left"/>
         <Setter Property="Height" Value="20"/>
         <Setter Property="Width" Value="20"/>
+        <Setter Property="Background" Value="Transparent"/>
     </Style>
 
     <Style x:Key="PathStyle" TargetType="{x:Type Path}">
@@ -69,102 +93,19 @@
     <Style x:Key="txtBlockNameStyle" TargetType="{x:Type TextBlock}" BasedOn="{StaticResource txtBlockToolTipStyle}">
         <Setter Property="TextAlignment" Value="Right"/>
     </Style>
-    <!--ClearableTextBox Style-->
-    <SolidColorBrush x:Key="TextBox.Static.Border" Color="#FFABAdB3"/>
-    <SolidColorBrush x:Key="TextBox.MouseOver.Border" Color="#FF7EB4EA"/>
-    <SolidColorBrush x:Key="TextBox.Focus.Border" Color="#FF569DE5"/>
-    <Style TargetType="{x:Type local:ClearableTextBox}">
-        <Setter Property="Background" Value="{DynamicResource {x:Static SystemColors.WindowBrushKey}}"/>
-        <Setter Property="BorderBrush" Value="{StaticResource TextBox.Static.Border}"/>
-        <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
-        <Setter Property="BorderThickness" Value="1"/>
-        <Setter Property="KeyboardNavigation.TabNavigation" Value="None"/>
-        <Setter Property="HorizontalContentAlignment" Value="Left"/>
-        <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
-        <Setter Property="AllowDrop" Value="true"/>
-        <Setter Property="ScrollViewer.PanningMode" Value="VerticalFirst"/>
-        <Setter Property="Stylus.IsFlicksEnabled" Value="False"/>
-        <Setter Property="Template">
-            <Setter.Value>
-                <ControlTemplate TargetType="{x:Type local:ClearableTextBox}">
-                    <Border x:Name="border" 
-                            BorderBrush="{TemplateBinding BorderBrush}"
-                            BorderThickness="{TemplateBinding BorderThickness}"
-                            Background="{TemplateBinding Background}"
-                            SnapsToDevicePixels="True">
-                        <Grid>
-                            <ScrollViewer x:Name="PART_ContentHost"
-                                          Focusable="false"
-                                          HorizontalScrollBarVisibility="Hidden"
-                                          VerticalScrollBarVisibility="Hidden"/>
-                            <Button x:Name="PART_Button"
-                                    Content="X"
-                                    Width="18" 
-                                    Height="18"
-                                    HorizontalAlignment="Right"
-                                    Margin="0,-1,-1,0"
-                                    Visibility="Collapsed"/>
-                        </Grid>
-                    </Border>
-                    <ControlTemplate.Triggers>
-                        <Trigger SourceName="border" Property="IsMouseOver" Value="True">
-                            <Setter TargetName="PART_Button" Property="Visibility" Value="Visible"/>
-                        </Trigger>
-                    </ControlTemplate.Triggers>
-                </ControlTemplate>
-            </Setter.Value>
-        </Setter>
+    <Style x:Key="buttonDefaultStyle" TargetType="{x:Type Button}">
+        <Setter Property="FontSize" Value="14"/>
+        <Setter Property="Margin" Value="2,4"/>
     </Style>
-
-    <!--InputDataField Style-->
-    <!--Стандартная разметка Control-->
-    <!--<Style TargetType="{x:Type local:InputDataField}">
-        <Setter Property="Template">
-            <Setter.Value>
-                <ControlTemplate TargetType="{x:Type local:InputDataField}">
-                    <Border Background="{TemplateBinding Background}"
-                            BorderBrush="{TemplateBinding BorderBrush}"
-                            BorderThickness="{TemplateBinding BorderThickness}">
-                    </Border>
-                </ControlTemplate>
-            </Setter.Value>
-        </Setter>
-    </Style>-->
-    <!--Предыдущая разметка Control-->
-    <!--<Style TargetType="{x:Type local:InputDataField}">
-        <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
-        <Setter Property="Background" Value="Transparent"/>
-        <Setter Property="Padding" Value="5"/>
-        <Setter Property="HorizontalContentAlignment" Value="Left"/>
-        <Setter Property="VerticalContentAlignment" Value="Top"/>
-        <Setter Property="Template">
-            <Setter.Value>
-                <ControlTemplate TargetType="{x:Type Label}">
-                    <Border BorderBrush="{TemplateBinding BorderBrush}"
-                            BorderThickness="{TemplateBinding BorderThickness}"
-                            Background="{TemplateBinding Background}"
-                            Padding="{TemplateBinding Padding}"
-                            SnapsToDevicePixels="true"
-                            Width="316.8">
-                        <Grid>
-                            <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
-                                          RecognizesAccessKey="True"
-                                          SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
-                                          VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
-                            <local:ClearableTextBox Width="100" Margin="10,2,4,2"
-                                                    Background="Red"
-                                                    x:Name="PART_ClearableTextBox"
-                                                    HorizontalAlignment="Right"/>
-                        </Grid>
-                    </Border>
-                    <ControlTemplate.Triggers>
-                        <Trigger Property="IsEnabled" Value="false">
-                            <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}"/>
-                        </Trigger>
-                    </ControlTemplate.Triggers>
-                </ControlTemplate>
-            </Setter.Value>
-        </Setter>
-    </Style>-->
-    
+    <Style x:Key="removeButtonStyle" TargetType="{x:Type Button}" BasedOn="{StaticResource buttonDefaultStyle}">
+        <Setter Property="Command" Value="{Binding RemoveCommand}"/>
+    </Style>
+    <Style x:Key="removeSelectionButtonStyle" TargetType="{x:Type Button}" BasedOn="{StaticResource buttonDefaultStyle}">
+        <Setter Property="Content" Value="Отменить выделение"/>
+        <Setter Property="Command" Value="{Binding RemoveSelectionCommand}"/>
+    </Style>
+    <Style  x:Key="swapButtonStyle" TargetType="{x:Type Button}" BasedOn="{StaticResource buttonDefaultStyle}">
+        <Setter Property="Content" Value="Поменять столбцы местами"/>
+        <Setter Property="Command" Value="{Binding SwapCommand}"/>
+    </Style>
 </ResourceDictionary>

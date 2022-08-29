@@ -47,14 +47,14 @@
         {
             set
             {
-                _selectedPlast = value;
+                base.SelectedPlast = value;
                 Next = Prev = null;
-                if (_selectedPlast != null)
+                if (base.SelectedPlast != null)
                 {
-                    SelectedTop = _selectedPlast.Top;
-                    SelectedButtom = _selectedPlast.Buttom;
+                    SelectedTop = base.SelectedPlast.Top;
+                    SelectedButtom = base.SelectedPlast.Buttom;
                     (_calcWindow as CalculationBWindow).selected.IsEnabled = true;
-                    int index = Plasts.IndexOf(_selectedPlast);
+                    int index = Plasts.IndexOf(base.SelectedPlast);
                     if (index != -1)
                     {
                         if (index != Plasts.Count - 1)
@@ -65,7 +65,7 @@
                 }
                 OnPropertyChanged(nameof(SelectedPlast));
             }
-            get => _selectedPlast;
+            get => base.SelectedPlast;
         }
         /// <summary> Имя пласта, расположенного ниже выбранного </summary>
         public string Buttom
@@ -100,18 +100,18 @@
                     {
                         if (_next != null)
                             _next.Top = not;
-                        _selectedPlast.Buttom = not;
+                        base.SelectedPlast.Buttom = not;
                     }
                     else if (_selectedButtom.Equals(_buttom))
                     {
                         if (_selectedButtom.Equals(undefine))
                         {
-                            _selectedPlast.Buttom = undefine;
+                            base.SelectedPlast.Buttom = undefine;
                         }
                         else
                         {
-                            _next.Top = _selectedPlast.Name;
-                            _selectedPlast.Buttom = _next.Name;
+                            _next.Top = base.SelectedPlast.Name;
+                            base.SelectedPlast.Buttom = _next.Name;
                         }
                     } 
                 }
@@ -131,18 +131,18 @@
                     {
                         if (_prev != null)
                             _prev.Buttom = not;
-                        _selectedPlast.Top = not;
+                        base.SelectedPlast.Top = not;
                     }
                     else if (_selectedTop.Equals(_top))
                     {
                         if (_selectedTop.Equals(undefine))
                         {
-                            _selectedPlast.Top = undefine;
+                            base.SelectedPlast.Top = undefine;
                         }
                         else
                         {
-                            _prev.Buttom = _selectedPlast.Name;
-                            _selectedPlast.Top = _prev.Name;
+                            _prev.Buttom = base.SelectedPlast.Name;
+                            base.SelectedPlast.Top = _prev.Name;
                         }
                     }
                 }

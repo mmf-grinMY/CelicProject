@@ -59,11 +59,11 @@ namespace Celic
             if (plasts.Count == 3)
             {
                 ht = new float[plasts.Count];
-                float dh = plasts[2].MainMineField.H - plasts[1].MainMineField.H;
+                float dh = plasts[2].Main.H - plasts[1].Main.H;
                 bool simpleCalcHt1 = ht[2] <= dh;
                 ht[2] = new PlastManager(plasts[2]).Ht();
                 ht[1] = ht[2] <= dh ? new PlastManager(plasts[1]).Ht() : SimpleCalcHt(1, 2, plasts);
-                ht[0] = ht[1] <= plasts[1].MainMineField.H - plasts[0].MainMineField.H ? new PlastManager(plasts[0]).Ht() : SimpleCalcHt(0, simpleCalcHt1 == true ? 1 : 2, plasts);
+                ht[0] = ht[1] <= plasts[1].Main.H - plasts[0].Main.H ? new PlastManager(plasts[0]).Ht() : SimpleCalcHt(0, simpleCalcHt1 == true ? 1 : 2, plasts);
             }
             else
             {
@@ -129,8 +129,8 @@ namespace Celic
             if (plasts.Count == 3)
             {
                 ht = new float[plasts.Count];
-                double dh12 = plasts[1].MainMineField.H - plasts[0].MainMineField.H;
-                double dh23 = plasts[2].MainMineField.H - plasts[1].MainMineField.H;
+                double dh12 = plasts[1].Main.H - plasts[0].Main.H;
+                double dh23 = plasts[2].Main.H - plasts[1].Main.H;
                 string begin = "Список состоит из трех разрабатываемых пластов." +
                                     " Для удобства назовем их пласт 1, пласт 2 и пласт 3 ( перечисление идет вниз по списку)";
                 string plast21 = $"Так как величина HT3 = {ht[2]} меньше величины междупластья ∆H2-3 = {dh23}, " +

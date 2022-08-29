@@ -7,10 +7,9 @@
         d:DataContext="{d:DesignInstance Type=local:MainViewModel}"
         mc:Ignorable="d"
         Title="Выбор типа расчета"
-        MinHeight="300"
-        MaxHeight="800"
-        MinWidth="450"
-        MaxWidth="1200">
+        Height="450"
+        Width="600"
+        WindowStartupLocation="CenterScreen">
     <Window.Resources>
         <Style TargetType="Button">
             <Setter Property="Background" Value="White"/>
