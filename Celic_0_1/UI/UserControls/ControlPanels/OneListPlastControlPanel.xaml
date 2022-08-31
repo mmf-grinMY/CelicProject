@@ -9,7 +9,18 @@
     <StackPanel Orientation="Horizontal">
         <Button Style="{StaticResource removeButtonStyle}">
             <Image Source="../../Resources/wastebasket.jpg"/>
+            <Button.ToolTip>
+                <TextBlock Style="{StaticResource txtBlockToolTipStyle}"
+                           Text="Удалить выделенный пласт"/>
+            </Button.ToolTip>
         </Button>
-        <Button Style="{StaticResource removeSelectionButtonStyle}"/>
+        <Button Style="{StaticResource removeSelectionButtonStyle}"
+                Background="White">
+            <Button.ToolTip>
+                <TextBlock Style="{StaticResource txtBlockToolTipStyle}"
+                           Text="Отменить выделение пласта"/>
+            </Button.ToolTip>
+            <Image Source="../../Resources/undo.png"/>
+        </Button>
     </StackPanel>
 </UserControl>

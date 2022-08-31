@@ -7,53 +7,25 @@
         d:DataContext="{d:DesignInstance local:AddPlastViewModel}"
         mc:Ignorable="d"
         Title="Добавление пласта"
-        Height="441.6"
-        MinHeight="441.6"
-        Width="341.6"
-        MinWidth="341.6">
-    <Window.Resources>
-        <Style TargetType="Button">
-            <Setter Property="FontSize" Value="14"/>
-            <Setter Property="Padding" Value="0,-2,0,0"/>
-            <Setter Property="Height" Value="26"/>
-            <Setter Property="VerticalAlignment" Value="Top"/>
-            <Setter Property="Grid.Row" Value="3"/>
-        </Style>
-        <Style TargetType="StackPanel">
-            <Setter Property="Grid.ColumnSpan" Value="2"/>
-            <Setter Property="HorizontalAlignment" Value="Left"/>
-            <Setter Property="VerticalAlignment" Value="Top"/>
-        </Style>
-        <Style TargetType="CheckBox">
-            <Setter Property="Margin" Value="2,0,0,4"/>
-            <Setter Property="FontSize" Value="14"/>
-            <Setter Property="Padding" Value="2,-3,0,0"/>
-            <Setter Property="Margin" Value="-1,0,0,2"/>
-        </Style>
-    </Window.Resources>
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition />
-        </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="164"/>
-            <ColumnDefinition Width="164"/>
-            <ColumnDefinition/>
-        </Grid.ColumnDefinitions>
-        <StackPanel>
+        Height="300.6"
+        MinHeight="300.6"
+        SizeToContent="WidthAndHeight">
+    <StackPanel>
             <local:PlastDataBox DataContext="{Binding MainPlast}"
-                                Margin="4,4,4,0"
-                                MinHeight="370"/>
+                                Margin="4,4,4,0"/>
+        <Grid VerticalAlignment="Bottom">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Button Margin="4,4,2,0"
+                    Content="Сохранить"
+                    Command="{Binding ExitWithSaveCommand}"/>
+            <Button Grid.Column="1"
+                    Margin="2,4,5,0"
+                    Content="Отменить"
+                    Command="{Binding ExitWithoutSaveCommand}"/>
+        </Grid>
         </StackPanel>
-        <Button Margin="4,4,2,0"
-                Content="Сохранить"
-                Command="{Binding ExitWithSaveCommand}"/>
-        <Button Grid.Column="1"
-                Margin="2,4,5,0"
-                Content="Отменить"
-                Command="{Binding ExitWithoutSaveCommand}"/>
-    </Grid>
+        
 </Window>

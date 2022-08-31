@@ -8,9 +8,25 @@
             d:DataContext="{d:DesignInstance local:TwoListPlastViewModel}">
     <StackPanel Orientation="Horizontal">
         <Button Style="{StaticResource removeButtonStyle}">
+            <Button.ToolTip>
+                <TextBlock Style="{StaticResource txtBlockToolTipStyle}"
+                           Text="Удалить выделенный пласт"/>
+            </Button.ToolTip>
             <Image Source="../../Resources/wastebasket.jpg"/>
         </Button>
-        <Button Style="{StaticResource removeSelectionButtonStyle}"/>
-        <Button Style="{StaticResource swapButtonStyle}"/>
+        <Button Style="{StaticResource removeSelectionButtonStyle}">
+            <Button.ToolTip>
+                <TextBlock Style="{StaticResource txtBlockToolTipStyle}"
+                           Text="Отменить выделение пласта"/>
+            </Button.ToolTip>
+            <Image Source="../../Resources/undo.png"/>
+        </Button>
+        <Button Style="{StaticResource swapButtonStyle}">
+            <Button.ToolTip>
+                <TextBlock Style="{StaticResource txtBlockToolTipStyle}"
+                           Text="Поменять столбцы пластов местами"/>
+            </Button.ToolTip>
+            <Image Source="../../Resources/swap.png"/>
+        </Button>
     </StackPanel>
 </UserControl>

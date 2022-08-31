@@ -291,5 +291,11 @@
   <ItemGroup>
     <Resource Include="UI\Resources\wastebasket.jpg" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="UI\Resources\swap.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="UI\Resources\undo.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

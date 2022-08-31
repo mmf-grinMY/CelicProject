@@ -7,7 +7,7 @@
         d:DataContext="{d:DesignInstance Type=local:MainViewModel}"
         mc:Ignorable="d"
         Title="Выбор типа расчета"
-        Height="450"
+        Height="350"
         Width="600"
         WindowStartupLocation="CenterScreen">
     <Window.Resources>
@@ -46,7 +46,5 @@
                        TextWrapping="WrapWithOverflow"
                        Text="Расчет ширины междубарьерного целика"/>
         </Button>
-        <StackPanel Grid.Row="1">
-        </StackPanel>
     </Grid>
 </Window>
